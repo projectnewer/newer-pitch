@@ -187,7 +187,16 @@
             mockResponses: {
                 battlecard: (comp) => `<div class="space-y-4"><div><h4 class="font-bold text-red-600 text-xs uppercase mb-1">Their Weakness</h4><p class="text-xs">Dependent on existing inventory (frozen). Listings priced with 7% rates.</p></div><div><h4 class="font-bold text-emerald-600 text-xs uppercase mb-1">Our Advantage</h4><p class="text-xs">Exclusive 4.99% rate inventory. We sell "Payment", they sell "List Price".</p></div><div class="p-2 bg-stone-100 italic text-xs">"Why buy Used at $3.5k/mo when New is $2.7k/mo?"</div></div>`,
                 ine: `{"incentive_type": "Rate Buydown", "value_description": "Fixed rate below market", "urgency_level": "High"}`,
-                stress: `<ul class="list-disc list-inside text-xs space-y-2 mb-3"><li><strong>Builder Margins:</strong> If rates drop, builders pivot incentives to "Upgrades" or price cuts.</li><li><strong>Volume:</strong> Lower rates increase total market velocity.</li><li><strong>Pivot:</strong> Newer shifts value prop from "Affordability" to "Inventory Discovery".</li></ul><div class="font-bold text-sm">Resilience: <span class="text-emerald-600">High</span></div>`
+                stress: `<ul class="list-disc list-inside text-xs space-y-2 mb-3"><li><strong>Builder Margins:</strong> If rates drop, builders pivot incentives to "Upgrades" or price cuts.</li><li><strong>Volume:</strong> Lower rates increase total market velocity.</li><li><strong>Pivot:</strong> Newer shifts value prop from "Affordability" to "Inventory Discovery".</li></ul><div class="font-bold text-sm">Resilience: <span class="text-emerald-600">High</span></div>`,
+                
+                // FIXED: Smart Chat Handler for Mock Mode
+                chat: (text) => {
+                    const t = text.toLowerCase();
+                    if(t.includes('rate') || t.includes('lock') || t.includes('interest')) return "Great question. The **Lock-In Effect** is our primary tailwind. 80% of homeowners have rates under 5%. They won't sell. This forces buyers to new construction, where builders (our customers) control the mortgage rates.";
+                    if(t.includes('zillow') || t.includes('competitor') || t.includes('redfin')) return "**Zillow's weakness** is their data source. They rely on MLS feeds, which don't show builder rate buydowns. Our moat is the *Incentive Normalization Engine* which extracts this hidden value.";
+                    if(t.includes('revenue') || t.includes('money') || t.includes('business')) return "We have 3 revenue streams: 1) **SaaS Fees** ($2k/community), 2) **Performance CPL** ($50-$150/lead), and 3) **Fintech Referrals** (Mortgage/Trade-In).";
+                    return "I am in **Mock Mode** (no API Key). I can answer questions about *rates*, *revenue*, or *competitors*. To get real AI answers, enter a Gemini API Key in settings!";
+                }
             },
 
             init: function() {
@@ -217,7 +226,14 @@
             },
 
             async callAI(prompt, type) {
-                if (!this.state.apiKey) { await new Promise(r => setTimeout(r, 800)); return this.mockResponses[type] || "Mock response."; }
+                // FIXED: Check for function type in mock response (for Chat)
+                if (!this.state.apiKey) { 
+                    await new Promise(r => setTimeout(r, 600)); 
+                    const mock = this.mockResponses[type];
+                    if (typeof mock === 'function') return mock(prompt);
+                    return mock || "Mock response not configured."; 
+                }
+                
                 try {
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.state.apiKey}`;
                     const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
@@ -225,7 +241,7 @@
                     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Error.";
                     if (type === 'ine') text = text.replace(/```json/g, '').replace(/```/g, '');
                     return text;
-                } catch (e) { return "API Error."; }
+                } catch (e) { return "API Error. Check console."; }
             },
 
             // --- FEATURE IMPLEMENTATIONS ---
@@ -277,7 +293,7 @@
                 }
 
                 payB += (hoa + specialTax);
-                payM += 50; // Baseline Used HOA
+                payM += 50; 
 
                 const savings = payM - payB;
 
@@ -312,12 +328,10 @@
             toggleSettings: function() { document.getElementById('settings-modal').classList.remove('hidden'); document.getElementById('api-key-input').value = this.state.apiKey; },
             saveSettings: function() { this.state.apiKey = document.getElementById('api-key-input').value; localStorage.setItem('gemini_key', this.state.apiKey); document.getElementById('settings-modal').classList.add('hidden'); },
             
-            // RESTORED: Contact Toggle Logic
             toggleContact: function() {
                 const modal = document.getElementById('contact-modal');
                 const content = document.getElementById('contact-content');
                 this.state.contactOpen = !this.state.contactOpen;
-                
                 if (this.state.contactOpen) {
                     modal.classList.remove('hidden');
                     setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
