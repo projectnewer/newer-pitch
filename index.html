@@ -46,6 +46,12 @@
         .message { max-width: 85%; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; margin-bottom: 0.75rem; }
         .message.user { align-self: flex-end; background-color: #059669; color: white; border-bottom-right-radius: 0.25rem; }
         .message.ai { align-self: flex-start; background-color: #F5F5F4; color: #1E293B; border-bottom-left-radius: 0.25rem; }
+
+        /* Typing Indicator */
+        .typing-indicator span { display: inline-block; width: 5px; height: 5px; background-color: #9CA3AF; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; margin: 0 1px; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
     </style>
 </head>
 <body class="flex flex-col md:flex-row min-h-screen text-slate-800">
@@ -79,6 +85,7 @@
         <button onclick="app.navigate('market')" class="mobile-link text-white text-2xl font-serif">Market Dynamics</button>
         <button onclick="app.navigate('solution')" class="mobile-link text-white text-2xl font-serif">The Platform</button>
         <button onclick="app.navigate('economics')" class="mobile-link text-white text-2xl font-serif">Unit Economics</button>
+        <button onclick="app.navigate('roadmap')" class="mobile-link text-white text-2xl font-serif">Roadmap</button>
     </div>
 
     <main id="main-content" class="flex-1 overflow-y-auto h-screen bg-stone-50 p-6 md:p-10 lg:p-14 scroll-smooth"></main>
@@ -124,24 +131,24 @@
                     price: 500000,
                     rateMarket: 7.0,
                     rateBuilder: 4.99,
-                    hoa: 150,           // RECOMMENDATION 2: Added HOA
-                    specialTax: 0,      // RECOMMENDATION 2: Added Mello-Roos/Special Tax
+                    hoa: 150,           // Updated for realism
+                    specialTax: 0,      // Updated for Mello-Roos/PIDs
                     includeIns: true
                 },
                 chatOpen: false
             },
 
-            // --- SYSTEM PROMPTS & MOCK DATA ---
+            // --- MOCK DATA ---
             prompts: {
-                battlecard: (comp) => `Generate a competitive battlecard for Newer.com vs ${comp}. Newer.com is a marketplace for new homes using rate buydowns. Output HTML with sections: "Their Weakness" (High rates), "Our Advantage" (Affordability), and "The Kill Shot".`,
+                battlecard: (comp) => `Generate a competitive battlecard for Newer.com vs ${comp}. Newer.com is a marketplace for new homes using rate buydowns. Output HTML with sections: "Their Weakness", "Our Advantage", and "The Kill Shot".`,
                 ine: (text) => `Extract JSON from this real estate ad: "${text}". Fields: incentive_type, value_description, urgency_level.`,
                 stress: (scenario) => `Analyze impact of scenario: "${scenario}" on Newer.com's business model (CPL revenue). Return 3 HTML bullet points and a resilience score.`
             },
 
             mockResponses: {
-                battlecard: (comp) => `<div class="space-y-4"><div><h4 class="font-bold text-red-600 text-xs uppercase mb-1">Their Weakness</h4><p class="text-xs">Dependent on existing inventory (frozen). Listings priced with 7% rates.</p></div><div><h4 class="font-bold text-emerald-600 text-xs uppercase mb-1">Our Advantage</h4><p class="text-xs">Exclusive 4.99% rate inventory. We sell "Payment", they sell "List Price".</p></div></div>`,
+                battlecard: (comp) => `<div class="space-y-4"><div><h4 class="font-bold text-red-600 text-xs uppercase mb-1">Their Weakness</h4><p class="text-xs">Dependent on existing inventory (frozen). Listings priced with 7% rates.</p></div><div><h4 class="font-bold text-emerald-600 text-xs uppercase mb-1">Our Advantage</h4><p class="text-xs">Exclusive 4.99% rate inventory. We sell "Payment", they sell "List Price".</p></div><div class="p-2 bg-stone-100 italic text-xs">"Why buy Used at $3.5k/mo when New is $2.7k/mo?"</div></div>`,
                 ine: `{"incentive_type": "Rate Buydown", "value_description": "Fixed rate below market", "urgency_level": "High"}`,
-                stress: `<ul class="list-disc list-inside text-xs space-y-2 mb-3"><li><strong>Builder Margins:</strong> If rates drop, builders pivot incentives to "Upgrades" or price cuts.</li><li><strong>Volume:</strong> Lower rates increase total market velocity.</li></ul><div class="font-bold text-sm">Resilience: <span class="text-emerald-600">High</span></div>`
+                stress: `<ul class="list-disc list-inside text-xs space-y-2 mb-3"><li><strong>Builder Margins:</strong> If rates drop, builders pivot incentives to "Upgrades" or price cuts.</li><li><strong>Volume:</strong> Lower rates increase total market velocity.</li><li><strong>Pivot:</strong> Newer shifts value prop from "Affordability" to "Inventory Discovery".</li></ul><div class="font-bold text-sm">Resilience: <span class="text-emerald-600">High</span></div>`
             },
 
             init: function() {
@@ -170,8 +177,8 @@
                 else if (target === 'roadmap') this.renderRoadmap(main);
             },
 
-            async callAI(prompt, type, containerId) {
-                if (!this.state.apiKey) { await new Promise(r => setTimeout(r, 1000)); return this.mockResponses[type] || "Mock response."; }
+            async callAI(prompt, type) {
+                if (!this.state.apiKey) { await new Promise(r => setTimeout(r, 800)); return this.mockResponses[type] || "Mock response."; }
                 try {
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.state.apiKey}`;
                     const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
@@ -182,12 +189,12 @@
                 } catch (e) { return "API Error."; }
             },
 
-            // --- FEATURE ACTIONS ---
+            // --- FEATURE IMPLEMENTATIONS ---
             async generateBattlecard() {
                 const comp = document.getElementById('comp-input').value || "Zillow";
                 const output = document.getElementById('battlecard-content');
                 document.getElementById('battlecard-output').classList.remove('hidden');
-                output.innerHTML = 'Analyzing...';
+                output.innerHTML = '<span class="animate-pulse">Analyzing...</span>';
                 const res = await this.callAI(this.prompts.battlecard(comp), 'battlecard');
                 output.innerHTML = marked.parse(res);
             },
@@ -196,25 +203,25 @@
                 const output = document.getElementById('ine-output');
                 output.innerHTML = 'Processing...';
                 const res = await this.callAI(this.prompts.ine(text), 'ine');
-                try { output.innerHTML = `<pre class="text-emerald-400 text-xs overflow-x-auto bg-black p-2 rounded mt-2">${JSON.stringify(JSON.parse(res), null, 2)}</pre>`; } 
+                try { output.innerHTML = `<pre class="text-emerald-400 text-[10px] overflow-x-auto bg-black p-2 rounded mt-2 font-mono">${JSON.stringify(JSON.parse(res), null, 2)}</pre>`; } 
                 catch(e) { output.innerText = res; }
             },
 
-            // --- RECOMMENDATION 1 & 2 LOGIC UPDATES ---
+            // --- CALCULATOR LOGIC (Updated with HOA/Mello-Roos) ---
             updateCalc: function(val, type) {
                 if(type !== 'includeIns') this.state.calc[type] = parseFloat(val);
                 else this.state.calc.includeIns = val;
 
                 const { price, rateMarket, rateBuilder, includeIns, hoa, specialTax } = this.state.calc;
 
-                // Update UI Labels
+                // UI Updates
                 if(type === 'price') document.getElementById('disp-price').innerText = '$' + price.toLocaleString();
                 if(type === 'rateMarket') document.getElementById('disp-rateM').innerText = rateMarket.toFixed(1) + '%';
                 if(type === 'rateBuilder') document.getElementById('disp-rateB').innerText = rateBuilder.toFixed(2) + '%';
                 if(type === 'hoa') document.getElementById('disp-hoa').innerText = '$' + hoa;
                 if(type === 'specialTax') document.getElementById('disp-tax').innerText = '$' + specialTax;
 
-                // Calculation
+                // Math
                 const loan = price * 0.95; // 5% down
                 const n = 360;
                 const rM = rateMarket / 100 / 12;
@@ -226,22 +233,18 @@
                 const propTax = (price * 0.018) / 12; 
                 const insOld = 350; 
                 const insNew = 120;
-
-                // Add Base Tax/Ins
+                
+                // Add Taxes/Ins
                 if (includeIns) {
                     payM += propTax + insOld;
                     payB += propTax + insNew;
                 }
 
-                // RECOMMENDATION 2: Add HOA & Special Tax
-                // Used homes often have lower HOA, New homes often have higher HOA + Mello Roos
-                // Note: We are adding the specific user inputs to the calculation
-                // For simplicity in this demo, we assume the inputs apply to the NEW home primarily (or trade-off)
-                // To be robust: We add HOA to both (assuming comparable), but add Special Tax only to New.
-                
-                // Let's assume the Input sliders control the NEW HOME costs specifically to test "True Cost"
-                payB += hoa + (specialTax); 
-                payM += 50; // Assume generic low HOA for used home for comparison baseline
+                // Add HOA/Special Tax (New Home Specifics vs Used Home Baseline)
+                // We add the user-selected HOA/Tax to the New Home side.
+                // We assume a baseline $50 HOA for the Used home (average) to be fair.
+                payB += (hoa + specialTax);
+                payM += 50; 
 
                 const savings = payM - payB;
 
@@ -253,26 +256,22 @@
                 savingsEl.className = savings > 0 ? "text-3xl font-bold text-emerald-600" : "text-3xl font-bold text-red-600";
             },
 
-            // RECOMMENDATION 1: Spread Simulator Logic
+            // --- STRESS TEST LOGIC ---
             updateSpreadSim: function(marketRate) {
                 marketRate = parseFloat(marketRate);
-                const spread = 1.5; // Builder buys down ~1.5% usually
+                const spread = 1.5; 
                 const builderRate = (marketRate - spread).toFixed(2);
                 
                 document.getElementById('sim-market-rate').innerText = marketRate.toFixed(2) + '%';
-                document.getElementById('sim-builder-rate').innerText = builderRate + '%';
                 document.getElementById('sim-spread').innerText = '-' + spread.toFixed(1) + '%';
                 
-                // Visual Bar
-                const max = 9;
-                document.getElementById('bar-market').style.width = (marketRate/max * 100) + '%';
-                document.getElementById('bar-builder').style.width = (builderRate/max * 100) + '%';
+                document.getElementById('bar-market').style.width = (marketRate/9 * 100) + '%';
+                document.getElementById('bar-builder').style.width = (builderRate/9 * 100) + '%';
 
-                // Narrative
                 const narr = document.getElementById('sim-narrative');
-                if(marketRate > 6.5) narr.innerText = "High Rate Environment: Deep buydowns are the ONLY way to move volume. Newer.com is essential.";
-                else if(marketRate > 5.0) narr.innerText = "Moderate Rate Environment: Builders maintain spread to undercut resale. Newer.com offers best value.";
-                else narr.innerText = "Low Rate Environment: Builders shift incentives to 'Upgrades' or 'Closing Costs' but keep rate advantage. Newer.com pivots to Inventory Discovery.";
+                if(marketRate > 6.5) narr.innerText = "High Rate Environment: Deep buydowns are the ONLY way to move volume. Newer.com is mission critical.";
+                else if(marketRate > 5.0) narr.innerText = "Moderate Environment: Builders maintain spread to undercut resale. Newer.com offers best value.";
+                else narr.innerText = "Low Rate Environment: Builders shift incentives to 'Design Credits' or 'Closing Costs' but keep rate advantage.";
             },
 
             // --- RENDERERS ---
@@ -284,7 +283,7 @@
                             <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">The Thesis</span>
                             <h2 class="text-4xl md:text-5xl font-bold mt-3 mb-4 leading-tight">The "Used" Home Market is Broken.<br>The Future is <span class="text-emerald-600">Newer</span>.</h2>
                             <p class="text-lg text-stone-600 max-w-2xl leading-relaxed">
-                                Existing home sales are frozen by the "Lock-In Effect." New construction is the only liquidity because builders can mathematically manufacture affordability.
+                                We are witnessing the bifurcation of real estate. Existing home sales are frozen by the "Lock-In Effect." New construction is the only liquidity because builders can mathematically manufacture affordability.
                             </p>
                         </div>
 
@@ -318,14 +317,14 @@
                                     </div>
 
                                     <div class="pt-4 border-t border-stone-100">
-                                        <label class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3 block">Hidden Costs (New Home)</label>
+                                        <label class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3 block">New Home "Hidden" Costs</label>
                                         <div class="grid grid-cols-2 gap-4">
                                             <div>
                                                 <div class="flex justify-between mb-1 text-xs font-medium text-stone-600"><span>HOA Fee</span><span id="disp-hoa">$150</span></div>
                                                 <input type="range" min="0" max="500" step="10" value="150" oninput="app.updateCalc(this.value, 'hoa')">
                                             </div>
                                             <div>
-                                                <div class="flex justify-between mb-1 text-xs font-medium text-stone-600"><span>Special Tax (Monthly)</span><span id="disp-tax">$0</span></div>
+                                                <div class="flex justify-between mb-1 text-xs font-medium text-stone-600"><span>Special Tax (Mo)</span><span id="disp-tax">$0</span></div>
                                                 <input type="range" min="0" max="500" step="10" value="0" oninput="app.updateCalc(this.value, 'specialTax')">
                                             </div>
                                         </div>
@@ -336,14 +335,14 @@
                                     <div class="flex justify-between items-center p-4 border-b border-stone-100">
                                         <div class="flex flex-col">
                                             <span class="text-stone-500 font-medium">Used Home Payment</span>
-                                            <span class="text-[10px] text-stone-400">High Ins / Low HOA</span>
+                                            <span class="text-[10px] text-stone-400">High Ins / Avg HOA</span>
                                         </div>
                                         <span id="res-used" class="text-2xl font-mono text-stone-400 line-through decoration-red-400">$3,900</span>
                                     </div>
                                     <div class="flex justify-between items-center p-4 bg-emerald-50 rounded-xl border border-emerald-100 shadow-sm">
                                         <div class="flex flex-col">
                                             <span class="text-emerald-800 font-bold">Newer Payment</span>
-                                            <span class="text-[10px] text-emerald-600">Low Ins / High HOA / Buydown</span>
+                                            <span class="text-[10px] text-emerald-600">Low Ins / Your HOA Inputs</span>
                                         </div>
                                         <span id="res-new" class="text-4xl font-mono text-emerald-600 font-bold">$3,150</span>
                                     </div>
@@ -354,76 +353,137 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <div class="text-2xl mb-2">🏗️</div>
+                                <h3 class="font-bold text-stone-800">Inventory Focus</h3>
+                                <p class="text-xs text-stone-500 mt-1">Aggregating QMI (Quick Move-In) and "Certified Renovated" resale.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <div class="text-2xl mb-2">💰</div>
+                                <h3 class="font-bold text-stone-800">Affordability</h3>
+                                <p class="text-xs text-stone-500 mt-1">Search by "Effective Monthly Payment", not list price.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <div class="text-2xl mb-2">🤖</div>
+                                <h3 class="font-bold text-stone-800">AI Data Engine</h3>
+                                <p class="text-xs text-stone-500 mt-1">Proprietary scraping of unstructured builder flyers.</p>
+                            </div>
+                        </div>
                     </div>
                 `;
                 this.updateCalc(500000, 'price');
+            },
+
+            renderMarket: function(el) {
+                el.innerHTML = `
+                    <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
+                        <div>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Market Dynamics</span>
+                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The Great Bifurcation</h2>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                            <h3 class="font-bold text-stone-800 flex items-center gap-2">⚔️ Battlecard Generator <span class="bg-stone-100 text-stone-500 text-[10px] px-2 py-0.5 rounded uppercase font-bold">AI Tool</span></h3>
+                            <div class="flex gap-3 mt-4 mb-4">
+                                <input id="comp-input" type="text" class="flex-1 border border-stone-300 rounded px-3 py-2 text-sm" placeholder="Competitor (e.g. Opendoor)...">
+                                <button onclick="app.generateBattlecard()" class="bg-stone-800 text-white px-5 py-2 rounded text-sm font-bold hover:bg-stone-700">Analyze</button>
+                            </div>
+                            <div id="battlecard-output" class="hidden bg-stone-50 p-4 rounded border border-stone-200"><div id="battlecard-content"></div></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                                <h4 class="font-bold text-lg mb-2">Price Convergence</h4>
+                                <div class="h-64"><canvas id="priceChart"></canvas></div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                                    <h4 class="font-bold text-lg text-red-600 mb-2">1. The Lock-In Effect</h4>
+                                    <p class="text-sm text-stone-600">80% of mortgage holders are below 5%. They cannot sell without doubling their payments. Result: Resale inventory is frozen.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                                    <h4 class="font-bold text-lg text-emerald-600 mb-2">2. The Builder Necessity</h4>
+                                    <p class="text-sm text-stone-600">Builders have carrying costs. They <em>must</em> sell. They use rate buydowns (costing 5-6% of price) to manufacture liquidity.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 flex items-start gap-4">
+                            <div class="text-3xl">🛡️</div>
+                            <div>
+                                <h4 class="font-bold text-stone-900 mb-2">The Insurance Arbitrage</h4>
+                                <p class="text-stone-700 text-sm mb-2">In Sunbelt markets (FL, TX), insurance for older homes has tripled due to climate risk.</p>
+                                <div class="flex gap-4 text-xs">
+                                    <div class="bg-white px-3 py-2 rounded border border-blue-100 font-bold text-red-500">Avg Used: $4,200/yr</div>
+                                    <div class="bg-white px-3 py-2 rounded border border-blue-100 font-bold text-emerald-500">Avg New: $1,800/yr</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.state.charts.push(new Chart(document.getElementById('priceChart'), {
+                    type: 'line',
+                    data: { labels: ['2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'New', data: [450, 460, 430, 420, 417], borderColor: '#059669', tension: 0.3 }, { label: 'Used', data: [360, 390, 395, 400, 402], borderColor: '#78716C', borderDash: [5,5], tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                }));
             },
 
             renderSolution: function(el) {
                 el.innerHTML = `
                     <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
                         <div>
-                            <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">The Platform</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The "Unstructured Data" Moat</h2>
-                            <p class="text-stone-600 mt-2">Why Zillow can't easily copy this featureset.</p>
+                            <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">The Solution</span>
+                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The "Data Moat"</h2>
+                            <p class="text-stone-600 mt-2">Zillow relies on MLS feeds. We normalize the "invisible" market.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="bg-white p-6 rounded-xl border border-stone-200 opacity-70 grayscale">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="text-2xl">🦖</div>
-                                    <h3 class="font-bold text-stone-800">Legacy Portals (Zillow/Redfin)</h3>
-                                </div>
-                                <div class="space-y-3 text-sm">
-                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
-                                        <span class="font-mono text-stone-500">Source</span>
-                                        <span class="font-bold">MLS Feeds (XML)</span>
-                                    </div>
-                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
-                                        <span class="font-mono text-stone-500">Data</span>
-                                        <span class="font-bold">Standardized Fields</span>
-                                    </div>
-                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
-                                        <span class="font-mono text-stone-500">Blindspot</span>
-                                        <span class="font-bold text-red-500">Incentives Missing</span>
-                                    </div>
-                                </div>
-                                <p class="mt-4 text-xs text-stone-500 italic">"MLS rules prohibit listing temporary financial incentives in standard price fields."</p>
+                            <div class="bg-white p-6 rounded-xl border border-stone-200 opacity-60 grayscale">
+                                <h3 class="font-bold text-stone-800 mb-2">Legacy Portals</h3>
+                                <ul class="text-sm space-y-2">
+                                    <li class="flex justify-between border-b pb-1"><span>Source</span><span class="font-bold">MLS XML Feeds</span></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Data</span><span class="font-bold">Standardized</span></li>
+                                    <li class="flex justify-between border-b pb-1"><span>Status</span><span class="text-red-500 font-bold">Incentives Missing</span></li>
+                                </ul>
                             </div>
-
                             <div class="bg-white p-6 rounded-xl border-2 border-emerald-500 shadow-lg relative">
-                                <div class="absolute -top-3 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Proprietary Tech</div>
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="text-2xl">⚡</div>
-                                    <h3 class="font-bold text-stone-800">Newer.com</h3>
-                                </div>
-                                <div class="space-y-3 text-sm">
-                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
-                                        <span class="font-mono text-stone-500">Source</span>
-                                        <span class="font-bold">Unstructured PDFs/Emails</span>
-                                    </div>
-                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
-                                        <span class="font-mono text-stone-500">Engine</span>
-                                        <span class="font-bold">Gemini OCR + NLP</span>
-                                    </div>
-                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
-                                        <span class="font-mono text-stone-500">Result</span>
-                                        <span class="font-bold text-emerald-600">Effective Payment Data</span>
-                                    </div>
-                                </div>
+                                <div class="absolute -top-3 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded">Our IP</div>
+                                <h3 class="font-bold text-stone-800 mb-2">Newer.com</h3>
+                                <ul class="text-sm space-y-2">
+                                    <li class="flex justify-between border-b border-emerald-100 pb-1"><span>Source</span><span class="font-bold">PDFs & Emails</span></li>
+                                    <li class="flex justify-between border-b border-emerald-100 pb-1"><span>Engine</span><span class="font-bold">Gemini NLP</span></li>
+                                    <li class="flex justify-between border-b border-emerald-100 pb-1"><span>Status</span><span class="text-emerald-600 font-bold">True Payment Data</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <h4 class="font-bold text-indigo-600 uppercase text-xs mb-2">Anchor Supply</h4>
+                                <h3 class="font-bold text-stone-800 mb-2">National Builders</h3>
+                                <p class="text-xs text-stone-500">Direct XML feeds from Lennar, Pulte, DR Horton via BDX.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <h4 class="font-bold text-indigo-600 uppercase text-xs mb-2">Strategic Supply</h4>
+                                <h3 class="font-bold text-stone-800 mb-2">Renovation Concierge</h3>
+                                <p class="text-xs text-stone-500">Partnership with Revive/Curbio for "Certified Renovated" resale.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-stone-200">
+                                <h4 class="font-bold text-indigo-600 uppercase text-xs mb-2">Fintech Layer</h4>
+                                <h3 class="font-bold text-stone-800 mb-2">Power Buyers</h3>
+                                <p class="text-xs text-stone-500">Integration with Homeward/Knock for Trade-In programs.</p>
                             </div>
                         </div>
 
                         <div class="bg-stone-900 rounded-xl overflow-hidden shadow-xl text-white p-6">
-                            <h3 class="font-bold text-emerald-400 mb-2">Test the Moat (INE Demo)</h3>
-                            <p class="text-xs text-stone-400 mb-4">Paste messy builder text. Our AI extracts the structured data that MLS feeds lack.</p>
-                            <div class="flex gap-4">
-                                <textarea id="flyer-input" class="flex-1 h-24 bg-black border border-stone-700 rounded p-3 text-xs font-mono text-stone-300" placeholder="Paste ad text here..."></textarea>
-                                <div class="flex flex-col gap-2 w-32">
-                                    <button onclick="app.runIneDemo()" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded font-bold text-xs">Extract Data</button>
-                                    <div id="ine-output" class="text-[10px] text-stone-400 overflow-hidden"></div>
-                                </div>
+                            <h3 class="font-bold text-emerald-400 mb-2">Incentive Normalization Engine (INE)</h3>
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <textarea id="flyer-input" class="flex-1 h-20 bg-black border border-stone-700 rounded p-3 text-xs font-mono text-stone-300" placeholder="Paste ad text here..."></textarea>
+                                <button onclick="app.runIneDemo()" class="bg-emerald-600 px-6 rounded font-bold text-xs hover:bg-emerald-700">Extract</button>
                             </div>
+                            <div id="ine-output" class="mt-4 text-[10px] text-stone-400 font-mono"></div>
                         </div>
                     </div>
                 `;
@@ -433,9 +493,8 @@
                 el.innerHTML = `
                     <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
                         <div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Resilience</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">Defending the Spread</h2>
-                            <p class="text-stone-600 mt-2">What happens if rates drop? The "Spread Defense" ensures we maintain value.</p>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Economics</span>
+                            <h2 class="text-4xl font-bold mt-3 text-stone-900">Resilience & Revenue</h2>
                         </div>
 
                         <div class="bg-stone-900 rounded-xl p-8 text-white border border-stone-700 shadow-xl">
@@ -445,74 +504,82 @@
                                         <label class="text-xs font-bold text-stone-400 uppercase tracking-widest">Market Rate Scenario</label>
                                         <div class="flex justify-between items-baseline mb-2">
                                             <span class="text-3xl font-bold text-white" id="sim-market-rate">7.00%</span>
-                                            <span class="text-xs text-stone-500">If market moves to...</span>
+                                            <span class="text-xs text-stone-500">If rates move to...</span>
                                         </div>
                                         <input type="range" min="4.0" max="8.0" step="0.25" value="7.0" oninput="app.updateSpreadSim(this.value)" class="w-full">
                                     </div>
                                     <div class="p-4 bg-stone-800 rounded-lg border border-stone-700">
-                                        <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1">Builder Response</div>
+                                        <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1">Impact Analysis</div>
                                         <p id="sim-narrative" class="text-sm text-stone-300 leading-snug">High Rate Environment: Deep buydowns are the ONLY way to move volume. Newer.com is essential.</p>
                                     </div>
                                 </div>
-
                                 <div class="w-full md:w-1/2 bg-black rounded-lg p-6 border border-stone-800 relative">
                                     <h4 class="text-xs font-bold text-stone-500 mb-4 uppercase text-center">The "Spread" Advantage</h4>
-                                    
                                     <div class="space-y-4">
-                                        <div>
-                                            <div class="flex justify-between text-xs mb-1 text-stone-400"><span>Market Rate</span></div>
-                                            <div class="h-8 bg-stone-600 rounded relative overflow-hidden" style="width: 100%">
-                                                <div id="bar-market" class="h-full bg-stone-500 transition-all duration-300" style="width: 77%"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between text-xs mb-1 text-emerald-400"><span>Newer.com Rate</span></div>
-                                            <div class="h-8 bg-stone-900 rounded border border-stone-800 relative overflow-hidden w-full">
-                                                <div id="bar-builder" class="h-full bg-emerald-600 transition-all duration-300" style="width: 55%"></div>
-                                            </div>
-                                        </div>
+                                        <div><div class="flex justify-between text-xs mb-1 text-stone-400"><span>Market Rate</span></div><div class="h-8 bg-stone-600 rounded overflow-hidden"><div id="bar-market" class="h-full bg-stone-500 transition-all duration-300" style="width: 77%"></div></div></div>
+                                        <div><div class="flex justify-between text-xs mb-1 text-emerald-400"><span>Newer Rate</span></div><div class="h-8 bg-stone-900 rounded border border-stone-800 overflow-hidden"><div id="bar-builder" class="h-full bg-emerald-600 transition-all duration-300" style="width: 55%"></div></div></div>
                                     </div>
-
-                                    <div class="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
-                                        <div class="text-xs text-stone-500">Advantage</div>
-                                        <div class="text-2xl font-bold text-emerald-400" id="sim-spread">-1.5%</div>
-                                    </div>
+                                    <div class="absolute top-1/2 right-8 transform -translate-y-1/2 text-right"><div class="text-xs text-stone-500">Spread</div><div class="text-2xl font-bold text-emerald-400" id="sim-spread">-1.5%</div></div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                            <h3 class="font-bold text-stone-800 mb-4">Cost Per Lead (Arbitrage)</h3>
-                            <div class="h-56"><canvas id="cplChart"></canvas></div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="col-span-1 md:col-span-2 bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                                <h3 class="font-bold text-stone-800 mb-4">Cost Per Lead (Arbitrage)</h3>
+                                <div class="h-56"><canvas id="cplChart"></canvas></div>
+                            </div>
+                            <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 flex flex-col justify-center space-y-6">
+                                <h3 class="font-bold text-stone-800 border-b pb-2">Revenue Streams</h3>
+                                <div><div class="text-sm font-bold text-stone-800">1. SaaS Fees</div><div class="text-xs text-stone-500">Recurring listing fees</div></div>
+                                <div><div class="text-sm font-bold text-stone-800">2. CPL Performance</div><div class="text-xs text-stone-500">Pay-per-lead ($50-$150)</div></div>
+                                <div><div class="text-sm font-bold text-stone-800">3. Fintech Referrals</div><div class="text-xs text-stone-500">Mortgage/Trade-In bps</div></div>
+                            </div>
                         </div>
                     </div>
                 `;
-                this.updateSpreadSim(7.0); // Init Sim
-                
+                this.updateSpreadSim(7.0); 
                 this.state.charts.push(new Chart(document.getElementById('cplChart'), {
                     type: 'bar',
-                    data: {
-                        labels: ['Zillow', 'Realtor.com', 'Newer (Target)'],
-                        datasets: [{ label: 'CPL', data: [220, 180, 50], backgroundColor: ['#94A3B8', '#CBD5E1', '#059669'], borderRadius: 4 }]
-                    },
+                    data: { labels: ['Zillow', 'Realtor.com', 'Newer (Target)'], datasets: [{ label: 'CPL', data: [220, 180, 50], backgroundColor: ['#94A3B8', '#CBD5E1', '#059669'], borderRadius: 4 }] },
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 }));
             },
 
             renderRoadmap: function(el) {
-                el.innerHTML = `<div class="animate-fade-in max-w-5xl mx-auto"><h2 class="text-4xl font-bold mb-8">Roadmap</h2><div class="space-y-4"><div class="p-4 bg-white border border-stone-200 rounded">Phase 1: Sunbelt MVP</div><div class="p-4 bg-white border border-stone-200 rounded">Phase 2: Fintech Integration</div></div></div>`;
+                el.innerHTML = `
+                    <div class="animate-fade-in max-w-5xl mx-auto space-y-8 pb-10">
+                        <div><span class="bg-stone-200 text-stone-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Execution</span><h2 class="text-4xl font-bold mt-3 text-stone-900">Roadmap to Series A</h2></div>
+                        <div class="relative border-l-2 border-stone-200 ml-4 space-y-10">
+                            <div class="pl-8 relative">
+                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-emerald-500 border-4 border-white"></div>
+                                <h3 class="font-bold text-xl text-stone-800">Phase 1: Sunbelt MVP</h3><p class="text-xs font-mono text-emerald-600 mb-2">Months 1-9</p>
+                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">Focus on TX, FL, AZ. Aggregate top 10 builders. Secure "Newer.com". Validate CPL < $50.</div>
+                            </div>
+                            <div class="pl-8 relative">
+                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-stone-300 border-4 border-white"></div>
+                                <h3 class="font-bold text-xl text-stone-800">Phase 2: Fintech Integration</h3><p class="text-xs font-mono text-stone-500 mb-2">Months 10-18</p>
+                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">Integrate "Trade-In" partners (Knock/Homeward). Monetize via referral fees (approx 50bps). Launch "Unlock Your Equity" calculator.</div>
+                            </div>
+                            <div class="pl-8 relative">
+                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-stone-300 border-4 border-white"></div>
+                                <h3 class="font-bold text-xl text-stone-800">Phase 3: National Scale</h3><p class="text-xs font-mono text-stone-500 mb-2">Months 18+</p>
+                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">Expansion to Carolinas and Mountain West. Launch "Certified Newer" resale marketplace. Vertical integration of white-label mortgage.</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             },
 
-            // --- CHAT & SETTINGS UI ---
             toggleChat: function() { this.state.chatOpen = !this.state.chatOpen; document.getElementById('ai-chat').classList.toggle('open', this.state.chatOpen); },
             toggleSettings: function() { document.getElementById('settings-modal').classList.remove('hidden'); document.getElementById('api-key-input').value = this.state.apiKey; },
             saveSettings: function() { this.state.apiKey = document.getElementById('api-key-input').value; localStorage.setItem('gemini_key', this.state.apiKey); document.getElementById('settings-modal').classList.add('hidden'); },
             handleChatSubmit: async function(e) {
                 e.preventDefault(); const inp = document.getElementById('chat-input'); const txt = inp.value.trim(); if(!txt) return;
-                const msgs = document.getElementById('chat-messages');
-                msgs.innerHTML += `<div class="message user">${txt}</div>`; inp.value = '';
+                const msgs = document.getElementById('chat-messages'); msgs.innerHTML += `<div class="message user">${txt}</div>`; inp.value = '';
+                const id = 'typing-'+Date.now(); msgs.innerHTML += `<div id="${id}" class="message ai typing-indicator"><span></span><span></span><span></span></div>`; msgs.scrollTop = msgs.scrollHeight;
                 const res = await this.callAI(txt, 'chat');
-                msgs.innerHTML += `<div class="message ai">${marked.parse(res)}</div>`; msgs.scrollTop = msgs.scrollHeight;
+                document.getElementById(id).remove(); msgs.innerHTML += `<div class="message ai">${marked.parse(res)}</div>`; msgs.scrollTop = msgs.scrollHeight;
             },
             destroyCharts: function() { this.state.charts.forEach(c => c.destroy()); this.state.charts = []; }
         };
