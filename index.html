@@ -15,111 +15,61 @@
 
     <style>
         /* --- CORE THEME --- */
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #FAFAF9; /* stone-50 */
-            color: #1E293B; /* slate-800 */
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-        }
+        body { font-family: 'Outfit', sans-serif; background-color: #FAFAF9; color: #1E293B; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         
         /* --- UTILITIES --- */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #E7E5E4; }
         ::-webkit-scrollbar-thumb { background: #78716C; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #57534E; }
-
+        
         .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
         @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
         /* --- COMPONENTS --- */
-        .nav-item.active {
-            background-color: #F0FDF4; /* emerald-50 */
-            border-left: 4px solid #059669; /* emerald-600 */
-            color: #047857; /* emerald-700 */
-        }
-        
-        .interactive-card { transition: all 0.3s ease; }
-        .interactive-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); }
+        .nav-item.active { background-color: #F0FDF4; border-left: 4px solid #059669; color: #047857; }
+        .interactive-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; }
 
-        /* Custom Range Slider */
         input[type=range] { -webkit-appearance: none; background: transparent; }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
-            background: #059669; cursor: pointer; margin-top: -8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%; height: 4px; cursor: pointer; background: #E5E7EB; border-radius: 2px;
-        }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #059669; cursor: pointer; margin-top: -6px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #E5E7EB; border-radius: 2px; }
 
         /* --- CHAT OVERLAY --- */
         .chat-overlay {
             position: fixed; bottom: 2rem; right: 2rem; width: 380px; height: 550px;
-            background: white; border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            display: flex; flex-direction: column; z-index: 100;
-            border: 1px solid #E7E5E4;
-            transform: translateY(120%) scale(0.95);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0;
+            background: white; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex; flex-direction: column; z-index: 100; border: 1px solid #E7E5E4;
+            transform: translateY(120%) scale(0.95); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0;
         }
         .chat-overlay.open { transform: translateY(0) scale(1); opacity: 1; }
         
-        .message { max-width: 85%; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; line-height: 1.5; margin-bottom: 0.75rem; }
+        .message { max-width: 85%; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; margin-bottom: 0.75rem; }
         .message.user { align-self: flex-end; background-color: #059669; color: white; border-bottom-right-radius: 0.25rem; }
         .message.ai { align-self: flex-start; background-color: #F5F5F4; color: #1E293B; border-bottom-left-radius: 0.25rem; }
-        
-        .typing-indicator span {
-            display: inline-block; width: 5px; height: 5px; background-color: #9CA3AF; border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both; margin: 0 1px;
-        }
-        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
     </style>
 </head>
 <body class="flex flex-col md:flex-row min-h-screen text-slate-800">
 
-    <header class="md:hidden bg-white border-b border-stone-200 p-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+    <header class="md:hidden bg-white border-b border-stone-200 p-4 flex justify-between items-center sticky top-0 z-50">
         <div class="font-serif font-bold text-xl text-stone-900">Newer<span class="text-emerald-600">.com</span></div>
-        <button id="mobile-menu-btn" class="text-stone-600 p-2">
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-        </button>
+        <button id="mobile-menu-btn" class="text-stone-600 p-2 text-2xl">≡</button>
     </header>
 
-    <aside id="sidebar" class="hidden md:flex flex-col w-64 bg-white border-r border-stone-200 h-screen sticky top-0 z-40 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+    <aside id="sidebar" class="hidden md:flex flex-col w-64 bg-white border-r border-stone-200 h-screen sticky top-0 z-40">
         <div class="p-8 border-b border-stone-100">
             <h1 class="font-serif font-bold text-2xl text-stone-900 leading-none mb-2">Newer<span class="text-emerald-600">.com</span></h1>
             <p class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Series Pre-Seed Memo</p>
         </div>
-        
         <nav class="flex-1 py-6 space-y-1 overflow-y-auto">
-            <button onclick="app.navigate('executive')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3 active" data-target="executive">
-                <span>⚡</span> Investment Thesis
-            </button>
-            <button onclick="app.navigate('market')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="market">
-                <span>📉</span> Market Dynamics
-            </button>
-            <button onclick="app.navigate('solution')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="solution">
-                <span>🛠️</span> The Platform
-            </button>
-            <button onclick="app.navigate('economics')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="economics">
-                <span>💰</span> Unit Economics
-            </button>
-            <button onclick="app.navigate('roadmap')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="roadmap">
-                <span>🚀</span> Roadmap
-            </button>
+            <button onclick="app.navigate('executive')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3 active" data-target="executive"><span>⚡</span> Thesis & Calc</button>
+            <button onclick="app.navigate('market')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="market"><span>📉</span> Market Dynamics</button>
+            <button onclick="app.navigate('solution')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="solution"><span>🛠️</span> The Platform</button>
+            <button onclick="app.navigate('economics')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="economics"><span>💰</span> Economics</button>
+            <button onclick="app.navigate('roadmap')" class="nav-item w-full text-left px-8 py-3 text-stone-500 font-medium hover:bg-stone-50 transition-colors flex items-center gap-3" data-target="roadmap"><span>🚀</span> Roadmap</button>
         </nav>
-
         <div class="p-6 border-t border-stone-100 space-y-3">
-             <button onclick="app.toggleChat()" class="w-full bg-stone-900 hover:bg-stone-800 text-white p-3 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-lg text-sm font-medium">
-                <span>✨</span> Deal Desk AI
-            </button>
-            
-            <button onclick="app.toggleSettings()" class="w-full text-xs text-stone-400 hover:text-stone-600 flex items-center justify-center gap-1 mt-2">
-                <span>⚙️</span> API Settings
-            </button>
+             <button onclick="app.toggleChat()" class="w-full bg-stone-900 hover:bg-stone-800 text-white p-3 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-lg text-sm font-medium"><span>✨</span> Deal Desk AI</button>
+             <button onclick="app.toggleSettings()" class="w-full text-xs text-stone-400 hover:text-stone-600 flex items-center justify-center gap-1 mt-2"><span>⚙️</span> API Settings</button>
         </div>
     </aside>
 
@@ -129,20 +79,18 @@
         <button onclick="app.navigate('market')" class="mobile-link text-white text-2xl font-serif">Market Dynamics</button>
         <button onclick="app.navigate('solution')" class="mobile-link text-white text-2xl font-serif">The Platform</button>
         <button onclick="app.navigate('economics')" class="mobile-link text-white text-2xl font-serif">Unit Economics</button>
-        <button onclick="app.toggleChat(); document.getElementById('mobile-menu').classList.add('hidden')" class="mobile-link text-emerald-400 text-xl font-bold border border-emerald-500/50 px-6 py-2 rounded-full">✨ Ask AI</button>
     </div>
 
-    <main id="main-content" class="flex-1 overflow-y-auto h-screen bg-stone-50 p-6 md:p-10 lg:p-14 scroll-smooth">
-        </main>
+    <main id="main-content" class="flex-1 overflow-y-auto h-screen bg-stone-50 p-6 md:p-10 lg:p-14 scroll-smooth"></main>
 
     <div id="settings-modal" class="fixed inset-0 bg-stone-900/50 z-[110] hidden flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
             <h3 class="font-bold text-lg mb-4">⚙️ Demo Configuration</h3>
-            <p class="text-sm text-stone-500 mb-4">Enter a Google Gemini API Key to enable live AI features. If left blank, the demo will use <span class="font-bold text-emerald-600">Mock Mode</span> (simulated responses).</p>
+            <p class="text-sm text-stone-500 mb-4">Enter Gemini API Key for live AI. Leave blank for <span class="font-bold text-emerald-600">Mock Mode</span>.</p>
             <input type="password" id="api-key-input" class="w-full border border-stone-300 rounded p-2 mb-4 text-sm" placeholder="Paste Gemini API Key here...">
             <div class="flex justify-end gap-2">
-                <button onclick="document.getElementById('settings-modal').classList.add('hidden')" class="px-4 py-2 text-stone-500 hover:bg-stone-100 rounded text-sm">Cancel</button>
-                <button onclick="app.saveSettings()" class="px-4 py-2 bg-emerald-600 text-white rounded text-sm font-bold">Save & Close</button>
+                <button onclick="document.getElementById('settings-modal').classList.add('hidden')" class="px-4 py-2 text-stone-500 text-sm">Cancel</button>
+                <button onclick="app.saveSettings()" class="px-4 py-2 bg-emerald-600 text-white rounded text-sm font-bold">Save</button>
             </div>
         </div>
     </div>
@@ -151,21 +99,16 @@
         <div class="p-4 border-b border-stone-200 flex justify-between items-center bg-stone-50 rounded-t-rem">
             <div class="flex items-center gap-2">
                 <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <div>
-                    <h3 class="font-serif font-bold text-stone-800 text-sm">Deal Desk AI</h3>
-                    <p class="text-[10px] text-stone-500">Powered by Gemini 1.5</p>
-                </div>
+                <h3 class="font-serif font-bold text-stone-800 text-sm">Deal Desk AI</h3>
             </div>
             <button onclick="app.toggleChat()" class="text-stone-400 hover:text-stone-600 text-xl">&times;</button>
         </div>
         <div id="chat-messages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-2 bg-white">
-            <div class="message ai">
-                Hello! I'm the Deal Desk Assistant. I can answer questions about the "Lock-In Effect," our unit economics, or run stress tests on our model.
-            </div>
+            <div class="message ai">Hello! I can explain our defensive moats, run stress tests on interest rate drops, or clarify the unit economics.</div>
         </div>
         <div class="p-4 border-t border-stone-200 bg-stone-50 rounded-b-rem">
             <form onsubmit="app.handleChatSubmit(event)" class="flex gap-2">
-                <input type="text" id="chat-input" class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500" placeholder="Ask a question about the business...">
+                <input type="text" id="chat-input" class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500" placeholder="Ask about risks or strategy...">
                 <button type="submit" class="bg-emerald-600 text-white rounded-lg px-3 py-2 text-xs font-bold hover:bg-emerald-700">Send</button>
             </form>
         </div>
@@ -181,6 +124,8 @@
                     price: 500000,
                     rateMarket: 7.0,
                     rateBuilder: 4.99,
+                    hoa: 150,           // RECOMMENDATION 2: Added HOA
+                    specialTax: 0,      // RECOMMENDATION 2: Added Mello-Roos/Special Tax
                     includeIns: true
                 },
                 chatOpen: false
@@ -194,75 +139,30 @@
             },
 
             mockResponses: {
-                battlecard: (comp) => `
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-red-600 text-xs uppercase mb-1">Their Weakness (${comp})</h4>
-                            <p class="text-xs">Dependent on existing home inventory which is frozen by the "lock-in effect". Listings are overpriced with 7%+ rates.</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-emerald-600 text-xs uppercase mb-1">Our Advantage</h4>
-                            <p class="text-xs">Exclusive access to builder rate buydowns (4.99%). We sell "Monthly Payment," they sell "List Price".</p>
-                        </div>
-                        <div class="p-3 bg-stone-100 border-l-4 border-stone-800 text-xs italic">
-                            "Why buy a used home for $3,500/mo when you can get a new one for $2,700/mo?"
-                        </div>
-                    </div>`,
-                ine: `
-                    {
-                        "incentive_type": "Rate Buydown",
-                        "value_description": "Fixed rate below market + closing costs",
-                        "urgency_level": "High",
-                        "sentiment": "Aggressive liquidation"
-                    }`,
-                stress: `
-                    <ul class="list-disc list-inside text-xs space-y-2 mb-3">
-                        <li><strong>Builder Margin Compression:</strong> If rates drop organically, builder unique value prop diminishes.</li>
-                        <li><strong>Volume Surge:</strong> Lower rates unlock resale inventory, increasing competition but also total transaction volume.</li>
-                        <li><strong>Pivot Opportunity:</strong> Newer.com shifts from "Affordability" tool to "Inventory Discovery" tool.</li>
-                    </ul>
-                    <div class="font-bold text-sm">Resilience Score: <span class="text-emerald-600">High</span></div>
-                `,
-                chat: "I am currently in Mock Mode because no API key was provided. In a live environment, I would use RAG (Retrieval Augmented Generation) to answer specific questions about the pitch deck."
+                battlecard: (comp) => `<div class="space-y-4"><div><h4 class="font-bold text-red-600 text-xs uppercase mb-1">Their Weakness</h4><p class="text-xs">Dependent on existing inventory (frozen). Listings priced with 7% rates.</p></div><div><h4 class="font-bold text-emerald-600 text-xs uppercase mb-1">Our Advantage</h4><p class="text-xs">Exclusive 4.99% rate inventory. We sell "Payment", they sell "List Price".</p></div></div>`,
+                ine: `{"incentive_type": "Rate Buydown", "value_description": "Fixed rate below market", "urgency_level": "High"}`,
+                stress: `<ul class="list-disc list-inside text-xs space-y-2 mb-3"><li><strong>Builder Margins:</strong> If rates drop, builders pivot incentives to "Upgrades" or price cuts.</li><li><strong>Volume:</strong> Lower rates increase total market velocity.</li></ul><div class="font-bold text-sm">Resilience: <span class="text-emerald-600">High</span></div>`
             },
 
-            // --- CORE FUNCTIONS ---
             init: function() {
                 this.navigate('executive');
                 this.setupEventListeners();
-                
-                // Show settings if no key (unobtrusive)
                 if(!this.state.apiKey) console.log("Running in Mock Mode");
             },
 
             setupEventListeners: function() {
-                document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-                    document.getElementById('mobile-menu').classList.remove('hidden');
-                });
-                document.getElementById('close-mobile-menu').addEventListener('click', () => {
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                });
-                document.querySelectorAll('.mobile-link').forEach(link => {
-                    if(!link.innerHTML.includes('Ask AI')) {
-                        link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
-                    }
-                });
+                document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('hidden'));
+                document.getElementById('close-mobile-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+                document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden')));
             },
 
-            // --- NAVIGATION & RENDERING ---
             navigate: function(target) {
                 this.destroyCharts();
                 this.state.currentTab = target;
-                
-                document.querySelectorAll('.nav-item').forEach(el => {
-                    el.classList.toggle('active', el.dataset.target === target);
-                });
-
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.target === target));
                 const main = document.getElementById('main-content');
-                main.innerHTML = '';
-                main.scrollTo(0,0);
+                main.innerHTML = ''; main.scrollTo(0,0);
 
-                // Render content based on tab
                 if (target === 'executive') this.renderExecutive(main);
                 else if (target === 'market') this.renderMarket(main);
                 else if (target === 'solution') this.renderSolution(main);
@@ -270,108 +170,49 @@
                 else if (target === 'roadmap') this.renderRoadmap(main);
             },
 
-            // --- AI & API HANDLER ---
             async callAI(prompt, type, containerId) {
-                const container = document.getElementById(containerId);
-                
-                // 1. Check Mock Mode
-                if (!this.state.apiKey) {
-                    await new Promise(r => setTimeout(r, 1500)); // Fake latency
-                    return this.mockResponses[type] || "Mock response not found.";
-                }
-
-                // 2. Real API Call
+                if (!this.state.apiKey) { await new Promise(r => setTimeout(r, 1000)); return this.mockResponses[type] || "Mock response."; }
                 try {
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.state.apiKey}`;
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                    });
+                    const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
                     const data = await response.json();
-                    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Error generating.";
-                    
-                    // Clean markdown for specific types
+                    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Error.";
                     if (type === 'ine') text = text.replace(/```json/g, '').replace(/```/g, '');
                     return text;
-
-                } catch (e) {
-                    console.error(e);
-                    return "API Connection Error. Please check your key in settings.";
-                }
+                } catch (e) { return "API Error."; }
             },
 
-            // --- FEATURE IMPLEMENTATIONS ---
-            
+            // --- FEATURE ACTIONS ---
             async generateBattlecard() {
                 const comp = document.getElementById('comp-input').value || "Zillow";
-                const btn = document.getElementById('btn-battlecard');
                 const output = document.getElementById('battlecard-content');
-                const container = document.getElementById('battlecard-output');
-
-                btn.disabled = true; btn.innerHTML = '<span class="animate-spin">⚔️</span>';
-                container.classList.remove('hidden');
-                output.innerHTML = '<div class="text-stone-400 text-xs animate-pulse">Analyzing strategy...</div>';
-
-                const prompt = this.prompts.battlecard(comp);
-                const result = await this.callAI(prompt, 'battlecard', 'battlecard-output');
-
-                output.innerHTML = marked.parse(result);
-                btn.disabled = false; btn.innerText = 'Analyze';
+                document.getElementById('battlecard-output').classList.remove('hidden');
+                output.innerHTML = 'Analyzing...';
+                const res = await this.callAI(this.prompts.battlecard(comp), 'battlecard');
+                output.innerHTML = marked.parse(res);
             },
-
             async runIneDemo() {
                 const text = document.getElementById('flyer-input').value;
-                const btn = document.getElementById('run-ine-btn');
                 const output = document.getElementById('ine-output');
-
-                if(!text) return;
-                btn.disabled = true; btn.innerHTML = 'Processing...';
-                
-                const prompt = this.prompts.ine(text);
-                const result = await this.callAI(prompt, 'ine', 'ine-output');
-
-                try {
-                    const json = JSON.parse(result);
-                    output.innerHTML = `
-                        <div class="mt-4 bg-black rounded p-3 border border-stone-700 animate-fade-in">
-                            <div class="flex justify-between text-[10px] text-stone-500 uppercase font-bold mb-2"><span>Extracted Data</span><span>JSON</span></div>
-                            <pre class="text-emerald-400 text-xs overflow-x-auto">${JSON.stringify(json, null, 2)}</pre>
-                        </div>`;
-                } catch(e) {
-                    output.innerHTML = `<div class="mt-2 text-xs text-stone-300">${result}</div>`;
-                }
-                btn.disabled = false; btn.innerText = 'Extract Data ✨';
+                output.innerHTML = 'Processing...';
+                const res = await this.callAI(this.prompts.ine(text), 'ine');
+                try { output.innerHTML = `<pre class="text-emerald-400 text-xs overflow-x-auto bg-black p-2 rounded mt-2">${JSON.stringify(JSON.parse(res), null, 2)}</pre>`; } 
+                catch(e) { output.innerText = res; }
             },
 
-            async runStressTest() {
-                const scenario = document.getElementById('scenario-input').value;
-                const btn = document.getElementById('run-sim-btn');
-                const content = document.getElementById('sim-content');
-                document.getElementById('sim-output').classList.remove('hidden');
-
-                if(!scenario) return;
-                btn.disabled = true; btn.innerHTML = 'Simulating...';
-                content.innerHTML = '<div class="text-stone-400 text-xs animate-pulse">Running Monte Carlo simulation...</div>';
-
-                const prompt = this.prompts.stress(scenario);
-                const result = await this.callAI(prompt, 'stress', 'sim-output');
-
-                content.innerHTML = result;
-                btn.disabled = false; btn.innerText = 'Run Simulation';
-            },
-
-            // --- CALCULATOR LOGIC (UPDATED WITH TAX/INS) ---
+            // --- RECOMMENDATION 1 & 2 LOGIC UPDATES ---
             updateCalc: function(val, type) {
                 if(type !== 'includeIns') this.state.calc[type] = parseFloat(val);
                 else this.state.calc.includeIns = val;
 
-                const { price, rateMarket, rateBuilder, includeIns } = this.state.calc;
+                const { price, rateMarket, rateBuilder, includeIns, hoa, specialTax } = this.state.calc;
 
                 // Update UI Labels
                 if(type === 'price') document.getElementById('disp-price').innerText = '$' + price.toLocaleString();
                 if(type === 'rateMarket') document.getElementById('disp-rateM').innerText = rateMarket.toFixed(1) + '%';
                 if(type === 'rateBuilder') document.getElementById('disp-rateB').innerText = rateBuilder.toFixed(2) + '%';
+                if(type === 'hoa') document.getElementById('disp-hoa').innerText = '$' + hoa;
+                if(type === 'specialTax') document.getElementById('disp-tax').innerText = '$' + specialTax;
 
                 // Calculation
                 const loan = price * 0.95; // 5% down
@@ -382,24 +223,56 @@
                 let payM = (loan * rM) / (1 - Math.pow(1 + rM, -n));
                 let payB = (loan * rB) / (1 - Math.pow(1 + rB, -n));
 
-                // Taxes & Insurance (The Arbitrage)
-                // Old Home: Higher Insurance ($350/mo), Higher Maintenance (hidden cost, ignored here), Standard Tax
-                // New Home: Lower Insurance ($100/mo), Standard Tax
-                const tax = (price * 0.018) / 12; // 1.8% Tax (TX/FL avg)
+                const propTax = (price * 0.018) / 12; 
                 const insOld = 350; 
                 const insNew = 120;
 
+                // Add Base Tax/Ins
                 if (includeIns) {
-                    payM += tax + insOld;
-                    payB += tax + insNew;
+                    payM += propTax + insOld;
+                    payB += propTax + insNew;
                 }
+
+                // RECOMMENDATION 2: Add HOA & Special Tax
+                // Used homes often have lower HOA, New homes often have higher HOA + Mello Roos
+                // Note: We are adding the specific user inputs to the calculation
+                // For simplicity in this demo, we assume the inputs apply to the NEW home primarily (or trade-off)
+                // To be robust: We add HOA to both (assuming comparable), but add Special Tax only to New.
+                
+                // Let's assume the Input sliders control the NEW HOME costs specifically to test "True Cost"
+                payB += hoa + (specialTax); 
+                payM += 50; // Assume generic low HOA for used home for comparison baseline
 
                 const savings = payM - payB;
 
                 document.getElementById('res-used').innerText = '$' + Math.floor(payM).toLocaleString();
                 document.getElementById('res-new').innerText = '$' + Math.floor(payB).toLocaleString();
-                document.getElementById('res-savings').innerText = '+$' + Math.floor(savings).toLocaleString();
-                document.getElementById('res-annual').innerText = '$' + Math.floor(savings * 12).toLocaleString();
+                
+                const savingsEl = document.getElementById('res-savings');
+                savingsEl.innerText = (savings > 0 ? '+' : '') + '$' + Math.floor(savings).toLocaleString();
+                savingsEl.className = savings > 0 ? "text-3xl font-bold text-emerald-600" : "text-3xl font-bold text-red-600";
+            },
+
+            // RECOMMENDATION 1: Spread Simulator Logic
+            updateSpreadSim: function(marketRate) {
+                marketRate = parseFloat(marketRate);
+                const spread = 1.5; // Builder buys down ~1.5% usually
+                const builderRate = (marketRate - spread).toFixed(2);
+                
+                document.getElementById('sim-market-rate').innerText = marketRate.toFixed(2) + '%';
+                document.getElementById('sim-builder-rate').innerText = builderRate + '%';
+                document.getElementById('sim-spread').innerText = '-' + spread.toFixed(1) + '%';
+                
+                // Visual Bar
+                const max = 9;
+                document.getElementById('bar-market').style.width = (marketRate/max * 100) + '%';
+                document.getElementById('bar-builder').style.width = (builderRate/max * 100) + '%';
+
+                // Narrative
+                const narr = document.getElementById('sim-narrative');
+                if(marketRate > 6.5) narr.innerText = "High Rate Environment: Deep buydowns are the ONLY way to move volume. Newer.com is essential.";
+                else if(marketRate > 5.0) narr.innerText = "Moderate Rate Environment: Builders maintain spread to undercut resale. Newer.com offers best value.";
+                else narr.innerText = "Low Rate Environment: Builders shift incentives to 'Upgrades' or 'Closing Costs' but keep rate advantage. Newer.com pivots to Inventory Discovery.";
             },
 
             // --- RENDERERS ---
@@ -411,18 +284,18 @@
                             <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">The Thesis</span>
                             <h2 class="text-4xl md:text-5xl font-bold mt-3 mb-4 leading-tight">The "Used" Home Market is Broken.<br>The Future is <span class="text-emerald-600">Newer</span>.</h2>
                             <p class="text-lg text-stone-600 max-w-2xl leading-relaxed">
-                                We are witnessing the bifurcation of real estate. Existing home sales are frozen by the "Lock-In Effect." New construction is the only liquidity because builders can mathematically manufacture affordability.
+                                Existing home sales are frozen by the "Lock-In Effect." New construction is the only liquidity because builders can mathematically manufacture affordability.
                             </p>
                         </div>
 
                         <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
-                            <div class="p-6 bg-stone-50 border-b border-stone-100 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                            <div class="p-6 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
                                 <div>
-                                    <h3 class="font-bold text-xl text-stone-800">The "Invisible" Economy Calculator</h3>
-                                    <p class="text-sm text-stone-500">Why a $500k New Home is cheaper than a $500k Used Home.</p>
+                                    <h3 class="font-bold text-xl text-stone-800">The "True Cost" Calculator</h3>
+                                    <p class="text-xs text-stone-500">Includes Taxes, Insurance, HOA & Mello-Roos.</p>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <label class="text-xs font-bold text-stone-500 uppercase">Include Taxes & Ins?</label>
+                                    <label class="text-xs font-bold text-stone-500 uppercase">Include Taxes/Ins?</label>
                                     <input type="checkbox" checked onchange="app.updateCalc(this.checked, 'includeIns')" class="accent-emerald-600 w-4 h-4">
                                 </div>
                             </div>
@@ -433,36 +306,50 @@
                                         <div class="flex justify-between mb-2 font-bold text-sm text-stone-700"><span>Home Price</span><span id="disp-price">$500,000</span></div>
                                         <input type="range" min="300000" max="800000" step="10000" value="500000" oninput="app.updateCalc(this.value, 'price')">
                                     </div>
-                                    <div class="p-4 bg-stone-100 rounded-lg border border-stone-200">
-                                        <div class="flex justify-between mb-2 font-bold text-sm text-stone-600"><span>Used Home Rate (7%)</span><span id="disp-rateM">7.0%</span></div>
-                                        <input type="range" min="6.0" max="8.5" step="0.1" value="7.0" oninput="app.updateCalc(this.value, 'rateMarket')">
-                                        <div class="mt-2 text-[10px] text-red-500 font-medium flex justify-between">
-                                            <span>High Insurance Premiums</span>
-                                            <span>+$350/mo</span>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="p-3 bg-stone-100 rounded border border-stone-200">
+                                            <div class="flex justify-between mb-1 font-bold text-xs text-stone-600"><span>Market Rate</span><span id="disp-rateM">7.0%</span></div>
+                                            <input type="range" min="6.0" max="8.5" step="0.1" value="7.0" oninput="app.updateCalc(this.value, 'rateMarket')">
+                                        </div>
+                                        <div class="p-3 bg-emerald-50 rounded border border-emerald-100">
+                                            <div class="flex justify-between mb-1 font-bold text-xs text-emerald-800"><span>Builder Rate</span><span id="disp-rateB">4.99%</span></div>
+                                            <input type="range" min="3.5" max="6.5" step="0.01" value="4.99" oninput="app.updateCalc(this.value, 'rateBuilder')">
                                         </div>
                                     </div>
-                                    <div class="p-4 bg-emerald-50 rounded-lg border border-emerald-100">
-                                        <div class="flex justify-between mb-2 font-bold text-sm text-emerald-800"><span>Newer Rate (Buydown)</span><span id="disp-rateB">4.99%</span></div>
-                                        <input type="range" min="3.5" max="6.5" step="0.01" value="4.99" oninput="app.updateCalc(this.value, 'rateBuilder')">
-                                        <div class="mt-2 text-[10px] text-emerald-600 font-medium flex justify-between">
-                                            <span>Builder Warranty & Low Ins.</span>
-                                            <span>+$120/mo</span>
+
+                                    <div class="pt-4 border-t border-stone-100">
+                                        <label class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3 block">Hidden Costs (New Home)</label>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <div class="flex justify-between mb-1 text-xs font-medium text-stone-600"><span>HOA Fee</span><span id="disp-hoa">$150</span></div>
+                                                <input type="range" min="0" max="500" step="10" value="150" oninput="app.updateCalc(this.value, 'hoa')">
+                                            </div>
+                                            <div>
+                                                <div class="flex justify-between mb-1 text-xs font-medium text-stone-600"><span>Special Tax (Monthly)</span><span id="disp-tax">$0</span></div>
+                                                <input type="range" min="0" max="500" step="10" value="0" oninput="app.updateCalc(this.value, 'specialTax')">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="flex flex-col justify-center space-y-4">
                                     <div class="flex justify-between items-center p-4 border-b border-stone-100">
-                                        <span class="text-stone-500 font-medium">Used Home Payment</span>
+                                        <div class="flex flex-col">
+                                            <span class="text-stone-500 font-medium">Used Home Payment</span>
+                                            <span class="text-[10px] text-stone-400">High Ins / Low HOA</span>
+                                        </div>
                                         <span id="res-used" class="text-2xl font-mono text-stone-400 line-through decoration-red-400">$3,900</span>
                                     </div>
                                     <div class="flex justify-between items-center p-4 bg-emerald-50 rounded-xl border border-emerald-100 shadow-sm">
-                                        <span class="text-emerald-800 font-bold">Newer Payment</span>
+                                        <div class="flex flex-col">
+                                            <span class="text-emerald-800 font-bold">Newer Payment</span>
+                                            <span class="text-[10px] text-emerald-600">Low Ins / High HOA / Buydown</span>
+                                        </div>
                                         <span id="res-new" class="text-4xl font-mono text-emerald-600 font-bold">$3,150</span>
                                     </div>
                                     <div class="text-center pt-2">
-                                        <div class="text-xs text-stone-400 uppercase tracking-widest">Monthly Savings</div>
+                                        <div class="text-xs text-stone-400 uppercase tracking-widest">Net Monthly Difference</div>
                                         <div id="res-savings" class="text-3xl font-bold text-emerald-600">+$750</div>
-                                        <div class="text-xs text-stone-400 mt-1">Annual Cash Impact: <span id="res-annual" class="font-bold text-stone-600">$9,000</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -472,98 +359,70 @@
                 this.updateCalc(500000, 'price');
             },
 
-            renderMarket: function(el) {
-                el.innerHTML = `
-                    <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
-                        <div>
-                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Market Dynamics</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The Great Bifurcation</h2>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                            <h3 class="font-bold text-stone-800 flex items-center gap-2">
-                                ⚔️ Battlecard Generator 
-                                <span class="bg-stone-100 text-stone-500 text-[10px] px-2 py-0.5 rounded uppercase font-bold">AI Tool</span>
-                            </h3>
-                            <div class="flex gap-3 mt-4 mb-4">
-                                <input id="comp-input" type="text" class="flex-1 border border-stone-300 rounded px-3 py-2 text-sm" placeholder="Competitor (e.g. Opendoor, Zillow)...">
-                                <button id="btn-battlecard" onclick="app.generateBattlecard()" class="bg-stone-800 text-white px-5 py-2 rounded text-sm font-bold hover:bg-stone-700">Analyze</button>
-                            </div>
-                            <div id="battlecard-output" class="hidden bg-stone-50 p-4 rounded border border-stone-200">
-                                <div id="battlecard-content"></div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                                <h4 class="font-bold text-lg mb-2">Price Convergence</h4>
-                                <p class="text-xs text-stone-500 mb-4">The historical premium for new homes has evaporated.</p>
-                                <div class="h-64"><canvas id="priceChart"></canvas></div>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                                    <h4 class="font-bold text-lg text-red-600 mb-2">1. The Lock-In Effect</h4>
-                                    <p class="text-sm text-stone-600">80% of mortgage holders are below 5%. They cannot sell without doubling their payments. This creates artificial scarcity in resale.</p>
-                                </div>
-                                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                                    <h4 class="font-bold text-lg text-emerald-600 mb-2">2. The Builder Necessity</h4>
-                                    <p class="text-sm text-stone-600">Builders have construction loans. They <em>must</em> sell. They are using rate buydowns (costing 5-6% of price) to manufacture artificial affordability.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                // Charts
-                this.state.charts.push(new Chart(document.getElementById('priceChart'), {
-                    type: 'line',
-                    data: {
-                        labels: ['2021', '2022', '2023', '2024', '2025'],
-                        datasets: [
-                            { label: 'New', data: [450, 460, 430, 420, 417], borderColor: '#059669', tension: 0.3 },
-                            { label: 'Used', data: [360, 390, 395, 400, 402], borderColor: '#78716C', borderDash: [5,5], tension: 0.3 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                }));
-            },
-
             renderSolution: function(el) {
                 el.innerHTML = `
                     <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
                         <div>
                             <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">The Platform</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">Incentive Normalization Engine (INE)</h2>
-                            <p class="text-stone-600 mt-2">Builders advertise in PDFs and email blasts. We turn that noise into structured data.</p>
+                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The "Unstructured Data" Moat</h2>
+                            <p class="text-stone-600 mt-2">Why Zillow can't easily copy this featureset.</p>
                         </div>
 
-                        <div class="bg-stone-900 rounded-xl overflow-hidden shadow-xl text-white grid grid-cols-1 md:grid-cols-2">
-                            <div class="p-8 flex flex-col justify-center border-r border-stone-800">
-                                <h3 class="font-bold text-xl mb-4 text-emerald-400">Unstructured Data Input</h3>
-                                <textarea id="flyer-input" class="w-full h-32 bg-black border border-stone-700 rounded p-3 text-xs font-mono text-stone-300 focus:border-emerald-500 focus:outline-none" placeholder="Paste marketing text here... e.g. 'FLASH SALE! 4.99% fixed rate plus $10k closing costs if closed by end of month!'">FLASH SALE! 4.99% fixed rate plus $10k closing costs if closed by end of month!</textarea>
-                                <button id="run-ine-btn" onclick="app.runIneDemo()" class="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded font-bold text-sm transition">Extract Data ✨</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-xl border border-stone-200 opacity-70 grayscale">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="text-2xl">🦖</div>
+                                    <h3 class="font-bold text-stone-800">Legacy Portals (Zillow/Redfin)</h3>
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
+                                        <span class="font-mono text-stone-500">Source</span>
+                                        <span class="font-bold">MLS Feeds (XML)</span>
+                                    </div>
+                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
+                                        <span class="font-mono text-stone-500">Data</span>
+                                        <span class="font-bold">Standardized Fields</span>
+                                    </div>
+                                    <div class="flex justify-between p-3 bg-stone-50 rounded">
+                                        <span class="font-mono text-stone-500">Blindspot</span>
+                                        <span class="font-bold text-red-500">Incentives Missing</span>
+                                    </div>
+                                </div>
+                                <p class="mt-4 text-xs text-stone-500 italic">"MLS rules prohibit listing temporary financial incentives in standard price fields."</p>
                             </div>
-                            <div class="p-8 bg-stone-800 flex flex-col justify-center">
-                                <h3 class="font-bold text-xl mb-4">Structured Output</h3>
-                                <div id="ine-output" class="text-sm text-stone-400">Waiting for input...</div>
+
+                            <div class="bg-white p-6 rounded-xl border-2 border-emerald-500 shadow-lg relative">
+                                <div class="absolute -top-3 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Proprietary Tech</div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="text-2xl">⚡</div>
+                                    <h3 class="font-bold text-stone-800">Newer.com</h3>
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
+                                        <span class="font-mono text-stone-500">Source</span>
+                                        <span class="font-bold">Unstructured PDFs/Emails</span>
+                                    </div>
+                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
+                                        <span class="font-mono text-stone-500">Engine</span>
+                                        <span class="font-bold">Gemini OCR + NLP</span>
+                                    </div>
+                                    <div class="flex justify-between p-3 bg-emerald-50 rounded">
+                                        <span class="font-mono text-stone-500">Result</span>
+                                        <span class="font-bold text-emerald-600">Effective Payment Data</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-white p-6 rounded-xl border border-stone-200">
-                                <div class="text-2xl mb-3">🔍</div>
-                                <h4 class="font-bold text-stone-800">Payment Search</h4>
-                                <p class="text-sm text-stone-600 mt-1">Users search by "Monthly Max", not "Total Price".</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl border border-stone-200">
-                                <div class="text-2xl mb-3">🏗️</div>
-                                <h4 class="font-bold text-stone-800">QMI Feeds</h4>
-                                <p class="text-sm text-stone-600 mt-1">Direct XML integration with top 20 builders for inventory.</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl border border-stone-200">
-                                <div class="text-2xl mb-3">🔄</div>
-                                <h4 class="font-bold text-stone-800">Trade-In Layer</h4>
-                                <p class="text-sm text-stone-600 mt-1">Embedded fintech to unlock equity from current homes.</p>
+                        <div class="bg-stone-900 rounded-xl overflow-hidden shadow-xl text-white p-6">
+                            <h3 class="font-bold text-emerald-400 mb-2">Test the Moat (INE Demo)</h3>
+                            <p class="text-xs text-stone-400 mb-4">Paste messy builder text. Our AI extracts the structured data that MLS feeds lack.</p>
+                            <div class="flex gap-4">
+                                <textarea id="flyer-input" class="flex-1 h-24 bg-black border border-stone-700 rounded p-3 text-xs font-mono text-stone-300" placeholder="Paste ad text here..."></textarea>
+                                <div class="flex flex-col gap-2 w-32">
+                                    <button onclick="app.runIneDemo()" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded font-bold text-xs">Extract Data</button>
+                                    <div id="ine-output" class="text-[10px] text-stone-400 overflow-hidden"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -574,154 +433,90 @@
                 el.innerHTML = `
                     <div class="animate-fade-in max-w-5xl mx-auto space-y-8">
                         <div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Unit Economics</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">The Arbitrage</h2>
-                            <p class="text-stone-600 mt-2">Zillow leads are low-intent and expensive ($200+). Our leads are payment-qualified and high-intent.</p>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Resilience</span>
+                            <h2 class="text-4xl font-bold mt-3 text-stone-900">Defending the Spread</h2>
+                            <p class="text-stone-600 mt-2">What happens if rates drop? The "Spread Defense" ensures we maintain value.</p>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="col-span-1 md:col-span-2 bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                                <h3 class="font-bold text-stone-800 mb-4">Cost Per Lead (CPL)</h3>
-                                <div class="h-64"><canvas id="cplChart"></canvas></div>
-                            </div>
-                            <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 flex flex-col justify-center space-y-6">
-                                <div>
-                                    <div class="text-3xl font-bold text-stone-800">$150</div>
-                                    <div class="text-xs font-bold text-stone-500 uppercase">Revenue Per Lead</div>
+                        <div class="bg-stone-900 rounded-xl p-8 text-white border border-stone-700 shadow-xl">
+                            <div class="flex flex-col md:flex-row gap-8 items-center">
+                                <div class="w-full md:w-1/2 space-y-6">
+                                    <div>
+                                        <label class="text-xs font-bold text-stone-400 uppercase tracking-widest">Market Rate Scenario</label>
+                                        <div class="flex justify-between items-baseline mb-2">
+                                            <span class="text-3xl font-bold text-white" id="sim-market-rate">7.00%</span>
+                                            <span class="text-xs text-stone-500">If market moves to...</span>
+                                        </div>
+                                        <input type="range" min="4.0" max="8.0" step="0.25" value="7.0" oninput="app.updateSpreadSim(this.value)" class="w-full">
+                                    </div>
+                                    <div class="p-4 bg-stone-800 rounded-lg border border-stone-700">
+                                        <div class="text-[10px] text-emerald-400 uppercase font-bold mb-1">Builder Response</div>
+                                        <p id="sim-narrative" class="text-sm text-stone-300 leading-snug">High Rate Environment: Deep buydowns are the ONLY way to move volume. Newer.com is essential.</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="text-3xl font-bold text-emerald-600">65%</div>
-                                    <div class="text-xs font-bold text-stone-500 uppercase">Gross Margin</div>
-                                </div>
-                                <div>
-                                    <div class="text-3xl font-bold text-stone-800">$5B+</div>
-                                    <div class="text-xs font-bold text-stone-500 uppercase">Builder Ad Spend</div>
+
+                                <div class="w-full md:w-1/2 bg-black rounded-lg p-6 border border-stone-800 relative">
+                                    <h4 class="text-xs font-bold text-stone-500 mb-4 uppercase text-center">The "Spread" Advantage</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1 text-stone-400"><span>Market Rate</span></div>
+                                            <div class="h-8 bg-stone-600 rounded relative overflow-hidden" style="width: 100%">
+                                                <div id="bar-market" class="h-full bg-stone-500 transition-all duration-300" style="width: 77%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1 text-emerald-400"><span>Newer.com Rate</span></div>
+                                            <div class="h-8 bg-stone-900 rounded border border-stone-800 relative overflow-hidden w-full">
+                                                <div id="bar-builder" class="h-full bg-emerald-600 transition-all duration-300" style="width: 55%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
+                                        <div class="text-xs text-stone-500">Advantage</div>
+                                        <div class="text-2xl font-bold text-emerald-400" id="sim-spread">-1.5%</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-stone-900 rounded-xl p-6 text-white border border-stone-700">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-bold text-lg flex items-center gap-2">⚡ Stress Test Simulator</h3>
-                                <span class="text-[10px] bg-stone-700 px-2 py-1 rounded uppercase">AI Powered</span>
-                            </div>
-                            <div class="flex gap-3 mb-4">
-                                <select id="scenario-input" class="bg-black border border-stone-600 rounded px-3 py-2 text-sm text-stone-300 flex-1">
-                                    <option value="Interest rates drop to 3.5%">Scenario: Rates drop back to 3.5%</option>
-                                    <option value="Zillow launches 'New Construction' filter">Scenario: Zillow copies the feature</option>
-                                    <option value="Builders stop offering incentives">Scenario: Builders stop incentives</option>
-                                </select>
-                                <button id="run-sim-btn" onclick="app.runStressTest()" class="bg-emerald-600 px-4 py-2 rounded font-bold text-sm hover:bg-emerald-700">Simulate</button>
-                            </div>
-                            <div id="sim-output" class="hidden pt-4 border-t border-stone-700">
-                                <div id="sim-content" class="text-sm text-stone-300 leading-relaxed"></div>
-                            </div>
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                            <h3 class="font-bold text-stone-800 mb-4">Cost Per Lead (Arbitrage)</h3>
+                            <div class="h-56"><canvas id="cplChart"></canvas></div>
                         </div>
                     </div>
                 `;
+                this.updateSpreadSim(7.0); // Init Sim
                 
                 this.state.charts.push(new Chart(document.getElementById('cplChart'), {
                     type: 'bar',
                     data: {
                         labels: ['Zillow', 'Realtor.com', 'Newer (Target)'],
-                        datasets: [{ 
-                            label: 'CPL', 
-                            data: [220, 180, 50], 
-                            backgroundColor: ['#94A3B8', '#CBD5E1', '#059669'],
-                            borderRadius: 4 
-                        }]
+                        datasets: [{ label: 'CPL', data: [220, 180, 50], backgroundColor: ['#94A3B8', '#CBD5E1', '#059669'], borderRadius: 4 }]
                     },
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 }));
             },
 
             renderRoadmap: function(el) {
-                el.innerHTML = `
-                    <div class="animate-fade-in max-w-5xl mx-auto space-y-8 pb-10">
-                        <div>
-                            <span class="bg-stone-200 text-stone-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Execution</span>
-                            <h2 class="text-4xl font-bold mt-3 text-stone-900">Roadmap to Series A</h2>
-                        </div>
-                        
-                        <div class="relative border-l-2 border-stone-200 ml-4 space-y-10">
-                            <div class="pl-8 relative">
-                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-emerald-500 border-4 border-white"></div>
-                                <h3 class="font-bold text-xl text-stone-800">Phase 1: Sunbelt MVP</h3>
-                                <p class="text-xs font-mono text-emerald-600 mb-2">Months 1-9</p>
-                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">
-                                    Focus on TX, FL, AZ. Aggregate top 10 builders. Validate CPL < $50.
-                                </div>
-                            </div>
-                            <div class="pl-8 relative">
-                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-stone-300 border-4 border-white"></div>
-                                <h3 class="font-bold text-xl text-stone-800">Phase 2: Fintech Integration</h3>
-                                <p class="text-xs font-mono text-stone-500 mb-2">Months 10-18</p>
-                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">
-                                    Integrate "Trade-In" partners (Knock/Homeward). Monetize via referral fees (approx 50bps).
-                                </div>
-                            </div>
-                            <div class="pl-8 relative">
-                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-stone-300 border-4 border-white"></div>
-                                <h3 class="font-bold text-xl text-stone-800">Phase 3: National Scale</h3>
-                                <p class="text-xs font-mono text-stone-500 mb-2">Months 18+</p>
-                                <div class="bg-white p-5 rounded-lg border border-stone-200 shadow-sm text-sm text-stone-600">
-                                    Expansion to Carolinas and Mountain West. Launch "Certified Newer" resale marketplace.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                el.innerHTML = `<div class="animate-fade-in max-w-5xl mx-auto"><h2 class="text-4xl font-bold mb-8">Roadmap</h2><div class="space-y-4"><div class="p-4 bg-white border border-stone-200 rounded">Phase 1: Sunbelt MVP</div><div class="p-4 bg-white border border-stone-200 rounded">Phase 2: Fintech Integration</div></div></div>`;
             },
 
-            toggleChat: function() {
-                const chat = document.getElementById('ai-chat');
-                this.state.chatOpen = !this.state.chatOpen;
-                chat.classList.toggle('open', this.state.chatOpen);
-            },
-
-            toggleSettings: function() {
-                const el = document.getElementById('settings-modal');
-                el.classList.remove('hidden');
-                document.getElementById('api-key-input').value = this.state.apiKey;
-            },
-
-            saveSettings: function() {
-                const key = document.getElementById('api-key-input').value;
-                this.state.apiKey = key;
-                localStorage.setItem('gemini_key', key);
-                document.getElementById('settings-modal').classList.add('hidden');
-            },
-
+            // --- CHAT & SETTINGS UI ---
+            toggleChat: function() { this.state.chatOpen = !this.state.chatOpen; document.getElementById('ai-chat').classList.toggle('open', this.state.chatOpen); },
+            toggleSettings: function() { document.getElementById('settings-modal').classList.remove('hidden'); document.getElementById('api-key-input').value = this.state.apiKey; },
+            saveSettings: function() { this.state.apiKey = document.getElementById('api-key-input').value; localStorage.setItem('gemini_key', this.state.apiKey); document.getElementById('settings-modal').classList.add('hidden'); },
             handleChatSubmit: async function(e) {
-                e.preventDefault();
-                const input = document.getElementById('chat-input');
-                const text = input.value.trim();
-                if(!text) return;
-
+                e.preventDefault(); const inp = document.getElementById('chat-input'); const txt = inp.value.trim(); if(!txt) return;
                 const msgs = document.getElementById('chat-messages');
-                msgs.innerHTML += `<div class="message user">${text}</div>`;
-                input.value = '';
-                msgs.scrollTop = msgs.scrollHeight;
-
-                // Typing indicator
-                const typingId = 'typing-'+Date.now();
-                msgs.innerHTML += `<div id="${typingId}" class="message ai typing-indicator"><span></span><span></span><span></span></div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-
-                const response = await this.callAI(text, 'chat');
-                
-                document.getElementById(typingId).remove();
-                msgs.innerHTML += `<div class="message ai">${marked.parse(response)}</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
+                msgs.innerHTML += `<div class="message user">${txt}</div>`; inp.value = '';
+                const res = await this.callAI(txt, 'chat');
+                msgs.innerHTML += `<div class="message ai">${marked.parse(res)}</div>`; msgs.scrollTop = msgs.scrollHeight;
             },
-
-            destroyCharts: function() {
-                this.state.charts.forEach(c => c.destroy());
-                this.state.charts = [];
-            }
+            destroyCharts: function() { this.state.charts.forEach(c => c.destroy()); this.state.charts = []; }
         };
 
-        // Boot
         document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
