@@ -124,29 +124,42 @@
         .faq-icon.rotate {
             transform: rotate(180deg);
         }
+
+        /* Role Toggle Active State */
+        .role-btn.active {
+            background-color: #1f2937; /* stone-900 */
+            color: white;
+            border-color: #1f2937;
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 font-sans antialiased pb-16 lg:pb-0">
 
-    <!-- Chosen Palette: Warm Neutrals (Stone, Sand, White) with Construction Slate/Blue Accents -->
-    
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="setAudience('buyer')">
                     <div class="w-8 h-8 bg-stone-900 rounded-lg flex items-center justify-center text-white font-bold">N</div>
                     <span class="text-xl font-bold tracking-tight text-stone-900">Newer.com</span>
                 </div>
-                <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-600">
-                    <a href="#concept" class="hover:text-stone-900 transition-colors">The Story</a>
-                    <a href="#demo" class="hover:text-stone-900 transition-colors">Reverse Market Demo</a>
-                    <a href="#testimonials" class="hover:text-stone-900 transition-colors">Stories</a>
-                    <a href="#revenue" class="hover:text-stone-900 transition-colors">Unit Economics</a>
+                
+                <!-- Role Switcher (Replaces Menu Links) -->
+                <div class="hidden md:flex bg-stone-100 rounded-full p-1 border border-stone-200">
+                    <button onclick="setAudience('buyer')" class="role-btn active px-4 py-1.5 rounded-full text-sm font-medium text-stone-600 hover:text-stone-900 transition-all">For Buyers</button>
+                    <button onclick="setAudience('builder')" class="role-btn px-4 py-1.5 rounded-full text-sm font-medium text-stone-600 hover:text-stone-900 transition-all">For Builders</button>
+                    <button onclick="setAudience('investor')" class="role-btn px-4 py-1.5 rounded-full text-sm font-medium text-stone-600 hover:text-stone-900 transition-all">Investor</button>
                 </div>
+
                 <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-800 transition-colors active:scale-95 transform duration-100">
                     Join Waitlist
                 </button>
+            </div>
+            <!-- Mobile Role Switcher -->
+            <div class="md:hidden flex justify-center py-2 space-x-2 border-t border-stone-100">
+                <button onclick="setAudience('buyer')" class="role-btn active text-xs px-3 py-1 rounded-full border border-stone-200">Buyers</button>
+                <button onclick="setAudience('builder')" class="role-btn text-xs px-3 py-1 rounded-full border border-stone-200">Builders</button>
+                <button onclick="setAudience('investor')" class="role-btn text-xs px-3 py-1 rounded-full border border-stone-200">Investors</button>
             </div>
         </div>
     </nav>
@@ -154,23 +167,29 @@
     <!-- Hero Section -->
     <section class="relative pt-20 pb-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
+            <!-- Dynamic Badge -->
+            <div id="hero-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
                 <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                The Unicorn Model
+                The Reverse Market
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
+            
+            <!-- Dynamic Headline -->
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
                 Don't Search for a Home.<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-stone-500">
+            
+            <!-- Dynamic Subheadline -->
+            <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-xl text-stone-500">
                 Flipping the real estate script from a <strong>Search Engine</strong> to a <strong>Matching Engine</strong>. Buyers post demand. Builders compete to fulfill it.
             </p>
+            
             <div class="mt-10 flex justify-center gap-4">
                 <a href="#demo" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                    Experience the Reverse Market
+                    Experience The Newer Way
                 </a>
                 <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-semibold shadow-sm hover:bg-stone-50 transition-all duration-200">
-                    Why It Works
+                    How It Works
                 </a>
             </div>
         </div>
@@ -186,9 +205,9 @@
     <section id="concept" class="py-20 bg-white border-y border-stone-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-stone-900">Solving "Builder Blindness"</h2>
+                <h2 id="concept-title" class="text-3xl font-bold text-stone-900">Solving "Builder Blindness"</h2>
                 <p class="mt-4 text-stone-500 max-w-2xl mx-auto">
-                    The traditional market forces builders to guess what to build (Speculation). Newer.com creates a market based on verified requests (Certainty).
+                    The traditional market forces everyone to guess. Newer.com creates a market based on verified requests (Certainty).
                 </p>
             </div>
 
@@ -199,21 +218,8 @@
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
                         <i class="fas fa-search text-stone-400"></i> Active Buyer, Passive Seller
                     </h3>
-                    <ul class="space-y-4 text-stone-600">
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div>
-                            <div>
-                                <span class="font-bold text-stone-800">Builder Blindness:</span>
-                                <p class="text-sm">Developers build "spec homes" hoping buyers will like them, often leading to price cuts and stale inventory.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div>
-                            <div>
-                                <span class="font-bold text-stone-800">Buyer Fatigue:</span>
-                                <p class="text-sm">Buyers spend hours doom-scrolling MLS listings, touring homes out of budget, and chasing agents.</p>
-                            </div>
-                        </li>
+                    <ul id="concept-old-list" class="space-y-4 text-stone-600">
+                        <!-- Populated by JS -->
                     </ul>
                 </div>
 
@@ -223,32 +229,19 @@
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
                         <i class="fas fa-handshake text-blue-500"></i> Passive Buyer, Active Seller
                     </h3>
-                    <ul class="space-y-4 text-stone-700">
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div>
-                            <div>
-                                <span class="font-bold text-stone-900">Just-in-Time Real Estate:</span>
-                                <p class="text-sm">Builders see "Live Demand" and build exactly what is requested, reducing risk.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div>
-                            <div>
-                                <span class="font-bold text-stone-900">The "Reverse" Auction:</span>
-                                <p class="text-sm">Verified buyers create a "Dream Profile." Builders pitch them with off-market lots and custom packages.</p>
-                            </div>
-                        </li>
+                    <ul id="concept-new-list" class="space-y-4 text-stone-700">
+                        <!-- Populated by JS -->
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Demo Section -->
+    <!-- Interactive Demo Section (Shared) -->
     <section id="demo" class="py-24 bg-stone-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
-                <h2 class="text-3xl font-bold text-stone-900">Experience the Marketplace</h2>
+                <h2 class="text-3xl font-bold text-stone-900">The Newer Way</h2>
                 <p class="mt-4 text-stone-600 max-w-3xl">
                     Interact with the <strong>Buyer App</strong> (Phase A) to create demand. Watch the <strong>Builder Dashboard</strong> (Phase B) react.
                 </p>
@@ -517,15 +510,15 @@
         </div>
     </section>
 
-    <!-- Social Proof Section (Improvement #2) -->
-    <section id="testimonials" class="py-20 bg-white border-y border-stone-100">
+    <!-- Social Proof Section (Filtered by Role) -->
+    <section id="testimonials" class="py-20 bg-white border-y border-stone-100" data-audience="buyer,builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-stone-900">Stories from the "Reverse Market"</h2>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Buyer Story -->
-                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative">
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor">
                     <div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">The Buyer</div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user"></i></div>
@@ -537,7 +530,7 @@
                     <p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer.com, we posted our budget and got a pitch for a lot that wasn't even listed yet. We signed the contract 48 hours later."</p>
                 </div>
                 <!-- Builder Story -->
-                <div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative">
+                <div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor">
                     <div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">The Builder</div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div>
@@ -552,8 +545,8 @@
         </div>
     </section>
 
-    <!-- The Moat Section -->
-    <section class="py-20 bg-stone-50">
+    <!-- The Moat Section (Builder/Investor Only) -->
+    <section id="moat" class="py-20 bg-stone-50" data-audience="builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div>
@@ -592,8 +585,8 @@
         </div>
     </section>
 
-    <!-- Revenue Model Section -->
-    <section id="revenue" class="py-24 bg-stone-900 text-white">
+    <!-- Revenue Model Section (Investor/Builder Only) -->
+    <section id="revenue" class="py-24 bg-stone-900 text-white" data-audience="builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold">Unicorn Unit Economics</h2>
@@ -634,8 +627,8 @@
         </div>
     </section>
 
-    <!-- Builder CTA Section (Improvement #3) -->
-    <section class="py-20 bg-blue-600">
+    <!-- Builder CTA Section (Builder Only) -->
+    <section id="cta-builder" class="py-20 bg-blue-600" data-audience="builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold text-white mb-6">For Builders: The Infinite ROI Engine</h2>
             <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-10 text-white">
@@ -656,12 +649,12 @@
         </div>
     </section>
 
-    <!-- FAQ Section (Improvement #1) -->
-    <section class="py-20 bg-stone-50 border-t border-stone-200">
+    <!-- FAQ Section -->
+    <section class="py-20 bg-stone-50 border-t border-stone-200" data-audience="buyer,builder,investor">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-stone-900 text-center mb-12">Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                         <span class="font-bold text-stone-800">Is my data safe with builders?</span>
                         <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
@@ -670,7 +663,7 @@
                         <p class="py-4 text-stone-600 text-sm">Absolutely. Builders only see your <strong>anonymized profile</strong> (Budget, Criteria, Timeline). They only get your name and contact info if YOU accept their pitch.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                         <span class="font-bold text-stone-800">Does this cost me money?</span>
                         <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
@@ -679,13 +672,23 @@
                         <p class="py-4 text-stone-600 text-sm">No. Newer.com is 100% free for buyers. We monetize by charging builders for access to the marketplace and success fees upon closing.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                         <span class="font-bold text-stone-800">What if I don't find a match?</span>
                         <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
                     </button>
                     <div class="faq-answer px-6 bg-stone-50">
                         <p class="py-4 text-stone-600 text-sm">If no builders pitch you within 7 days, we broaden your search radius slightly or offer to connect you with a custom build consultant to refine your criteria.</p>
+                    </div>
+                </div>
+                <!-- Builder Specific FAQs -->
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="builder">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">How do verify buyers?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">We use Plaid for real-time asset verification and integrations with major lenders for pre-approval validation. You never waste time on unqualified leads.</p>
                     </div>
                 </div>
             </div>
@@ -857,7 +860,7 @@
             }
         }
 
-        // --- State Management with Local Storage (Improvement #4) ---
+        // --- State Management with Local Storage ---
         let appState = {
             style: '',
             persona: '',
@@ -879,25 +882,20 @@
                     const parsed = JSON.parse(saved);
                     appState = { ...appState, ...parsed };
                     
-                    // Restore UI from State
-                    // 1. Style Selection
                     if (appState.style) {
                         document.querySelectorAll('.style-btn').forEach(btn => {
                             if(btn.innerText.includes(appState.style)) {
                                 btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
                             }
                         });
-                        // Jump to step 2 if style was selected
                         document.getElementById('step-1').classList.add('hidden');
                         document.getElementById('step-2').classList.remove('hidden');
                     }
 
-                    // 2. Persona
                     if (appState.persona) {
                         setPersonaUI(appState.persona);
                     }
 
-                    // 3. Sliders
                     const bedSlider = document.querySelector('input[oninput*="bed"]');
                     if(bedSlider) {
                         bedSlider.value = appState.bedrooms;
@@ -910,13 +908,89 @@
                         document.getElementById('budget-val').innerText = '$' + appState.budget + 'k';
                     }
 
-                    // Update Dashboard
                     updateDashboardPreview();
 
                 } catch (e) {
                     console.error("Failed to load state", e);
                 }
             }
+        }
+
+        // --- AUDIENCE TOGGLE LOGIC ---
+        function setAudience(role) {
+            // 1. Update Buttons
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                if(btn.innerText.toLowerCase().includes(role) || (role === 'buyer' && btn.innerText.includes('Buyers')) || (role === 'builder' && btn.innerText.includes('Builders'))) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 2. Update Hero Content
+            const heroTitle = document.getElementById('hero-title');
+            const heroDesc = document.getElementById('hero-desc');
+            const heroBadge = document.getElementById('hero-badge');
+            
+            if(role === 'buyer') {
+                heroBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market';
+                heroTitle.innerHTML = 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>';
+                heroDesc.innerHTML = 'Flipping the real estate script from a <strong>Search Engine</strong> to a <strong>Matching Engine</strong>. Buyers post demand. Builders compete to fulfill it.';
+            } else if(role === 'builder') {
+                heroBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> High-Intent Leads';
+                heroTitle.innerHTML = 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Build What\'s Sold.</span>';
+                heroDesc.innerHTML = 'Access a live feed of <strong>Verified Buyers</strong> actively looking for your inventory. No marketing spend. No speculation.';
+            } else {
+                heroBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Unicorn Potential';
+                heroTitle.innerHTML = 'The Efficiency Engine<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">For Real Estate.</span>';
+                heroDesc.innerHTML = 'Solving the liquidity crisis in new construction by inverting the supply chain. Zero CAC for builders. Zero friction for buyers.';
+            }
+
+            // 3. Update Concept Lists
+            const oldList = document.getElementById('concept-old-list');
+            const newList = document.getElementById('concept-new-list');
+            
+            if(role === 'builder') {
+                document.getElementById('concept-title').innerText = 'Solving "Speculation Risk"';
+                oldList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">High CAC:</span><p class="text-sm">Paying $500+ per lead for tire-kickers.</p></div></li>
+                `;
+                newList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Direct Sales:</span><p class="text-sm">Pitch directly to buyers with funding proof.</p></div></li>
+                `;
+            } else if(role === 'investor') {
+                document.getElementById('concept-title').innerText = 'Market Inefficiency';
+                oldList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Opaque Data:</span><p class="text-sm">No real-time signal on consumer preference.</p></div></li>
+                `;
+                newList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Matching supply to demand instantly.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Data Monetization:</span><p class="text-sm">Aggregating demand signals for developers.</p></div></li>
+                `;
+            } else {
+                // Buyer Default
+                document.getElementById('concept-title').innerText = 'Solving "Builder Blindness"';
+                oldList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Buyer Fatigue:</span><p class="text-sm">Buyers spend hours doom-scrolling MLS listings.</p></div></li>
+                `;
+                newList.innerHTML = `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Builders see "Live Demand" and build exactly what is requested.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">The "Reverse" Auction:</span><p class="text-sm">Verified buyers create a "Dream Profile."</p></div></li>
+                `;
+            }
+
+            // 4. Section Visibility
+            document.querySelectorAll('[data-audience]').forEach(el => {
+                if(el.getAttribute('data-audience').includes(role)) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
         }
 
         // --- Buyer App Functions ---
@@ -1234,6 +1308,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadState(); // Restore user session
+            setAudience('buyer'); // Default View
             startMarketSimulation();
             const ctx = document.getElementById('revenueChart').getContext('2d');
             revenueChartInstance = new Chart(ctx, {
