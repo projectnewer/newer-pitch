@@ -515,9 +515,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-stone-900">Stories from the "Reverse Market"</h2>
+                <p class="mt-4 text-stone-500">Real results from the people changing how homes are bought and sold.</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Buyer Story -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Buyer Story 1 -->
                 <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor">
                     <div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">The Buyer</div>
                     <div class="flex items-center gap-4 mb-6">
@@ -529,9 +530,23 @@
                     </div>
                     <p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer.com, we posted our budget and got a pitch for a lot that wasn't even listed yet. We signed the contract 48 hours later."</p>
                 </div>
-                <!-- Builder Story -->
+
+                <!-- Buyer Story 2 (New) -->
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor">
+                    <div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">First-Time Buyer</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user-graduate"></i></div>
+                        <div>
+                            <h4 class="font-bold text-stone-900">Jason L.</h4>
+                            <p class="text-xs text-stone-500">Denver, CO</p>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 italic">"I thought I was priced out. A builder saw my 'Verify' badge and offered me a pre-construction deal on a townhome if I could close quickly. I didn't even know that community existed."</p>
+                </div>
+
+                <!-- Builder Story 1 -->
                 <div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor">
-                    <div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">The Builder</div>
+                    <div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Production Builder</div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div>
                         <div>
@@ -540,6 +555,32 @@
                         </div>
                     </div>
                     <p class="text-stone-300 italic">"I had a spec home sitting for 60 days. I searched Newer for buyers with a $550k budget in that zip code, found 3 matches, and pitched them. Sold it that weekend with zero marketing spend."</p>
+                </div>
+
+                <!-- Builder Story 2 (New) -->
+                <div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor">
+                    <div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Custom Builder</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-drafting-compass"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Elena V.</h4>
+                            <p class="text-xs text-stone-400">Owner, Boutique Homes</p>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 italic">"We don't build specs. Newer.com connects us with clients who already own land or want a custom build in our territory. The 'Lead Unlock' feature alone saved us $20k in ad spend this quarter."</p>
+                </div>
+
+                <!-- Investor Story (New) -->
+                <div class="bg-purple-50 p-8 rounded-2xl border border-purple-100 relative" data-audience="investor">
+                    <div class="absolute -top-4 right-8 bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase">The Investor</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full overflow-hidden flex items-center justify-center text-xl text-purple-600"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h4 class="font-bold text-purple-900">Marcus T.</h4>
+                            <p class="text-xs text-purple-600">Partner, PropTech VC</p>
+                        </div>
+                    </div>
+                    <p class="text-purple-800 italic">"The unit economics here are staggering. By inverting the model, Newer.com solves the liquidity crisis in new construction. It's not just lead gen; it's a market maker."</p>
                 </div>
             </div>
         </div>
@@ -654,6 +695,8 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-stone-900 text-center mb-12">Frequently Asked Questions</h2>
             <div class="space-y-4">
+                
+                <!-- BUYER FAQs -->
                 <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                         <span class="font-bold text-stone-800">Is my data safe with builders?</span>
@@ -674,6 +717,15 @@
                 </div>
                 <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">Can I browse homes without a profile?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">No. Newer.com is not a search engine; it's a matching engine. To see inventory, you must tell the market what you want so builders can match you with relevant, often off-market, homes.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                         <span class="font-bold text-stone-800">What if I don't find a match?</span>
                         <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
                     </button>
@@ -681,16 +733,56 @@
                         <p class="py-4 text-stone-600 text-sm">If no builders pitch you within 7 days, we broaden your search radius slightly or offer to connect you with a custom build consultant to refine your criteria.</p>
                     </div>
                 </div>
-                <!-- Builder Specific FAQs -->
+
+                <!-- BUILDER FAQs -->
                 <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="builder">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                        <span class="font-bold text-stone-800">How do verify buyers?</span>
+                        <span class="font-bold text-stone-800">How do you verify buyers?</span>
                         <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
                     </button>
                     <div class="faq-answer px-6 bg-stone-50">
                         <p class="py-4 text-stone-600 text-sm">We use Plaid for real-time asset verification and integrations with major lenders for pre-approval validation. You never waste time on unqualified leads.</p>
                     </div>
                 </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="builder">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">Do I pay for leads that don't close?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">The "Unlock Fee" is for the introduction to a verified, high-intent buyer. While we don't refund if they don't buy, our verification process ensures a conversion rate ~15x higher than Zillow leads.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="builder">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">Can I integrate with my CRM?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">Yes. We support integrations with Lasso, Buildertrend, Salesforce, and HubSpot. You can sync your inventory automatically and push unlocked leads directly to your sales team.</p>
+                    </div>
+                </div>
+
+                <!-- INVESTOR FAQs -->
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="investor">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">How do you prevent platform leakage?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">Anonymity is the key. Builders cannot identify the buyer without paying the Unlock Fee. Furthermore, our 0.5% success fee is enforced via title company partnerships, ensuring monetization at closing.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="investor">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">What is your CAC compared to traditional models?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">Traditional builder CAC is ~$3,000-$5,000 per home sold. Our model reduces this to ~$500-$1,000 (Subscription + Unlock Fees), providing massive margin expansion for builders and rapid adoption for us.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
