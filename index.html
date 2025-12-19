@@ -106,22 +106,30 @@
         .feed-item-enter {
             animation: slideInRight 0.4s ease-out forwards;
         }
+        
+        /* FAQ Accordion Transition */
+        .faq-answer {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .faq-answer.open {
+            max-height: 200px;
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-icon.rotate {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 font-sans antialiased pb-16 lg:pb-0">
 
     <!-- Chosen Palette: Warm Neutrals (Stone, Sand, White) with Construction Slate/Blue Accents -->
-    <!-- Application Structure Plan: 
-         1. Hero: Value Prop & Introduction to the "Reverse Market".
-         2. The Dual-View Simulation: The core of the app. A split-screen interactive section.
-            - Left: Buyer "Phone" Interface (User Inputs Data).
-            - Right: Builder "Dashboard" Terminal (Real-time Data Visualization).
-            - Rationale: Shows cause-and-effect immediately. Demonstrates how the "Old Way" (Search) is replaced by "Matching".
-         3. The Moat: Visualizing the Verification Process (Data Clarity).
-         4. Revenue Model: Interactive Chart showing how Newer.com monetizes this flow.
-         5. Footer: Call to action.
-    -->
-
+    
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -131,9 +139,10 @@
                     <span class="text-xl font-bold tracking-tight text-stone-900">Newer.com</span>
                 </div>
                 <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-600">
-                    <a href="#concept" class="hover:text-stone-900 transition-colors">The Concept</a>
-                    <a href="#demo" class="hover:text-stone-900 transition-colors">Interactive Demo</a>
-                    <a href="#revenue" class="hover:text-stone-900 transition-colors">Business Model</a>
+                    <a href="#concept" class="hover:text-stone-900 transition-colors">The Story</a>
+                    <a href="#demo" class="hover:text-stone-900 transition-colors">Reverse Market Demo</a>
+                    <a href="#testimonials" class="hover:text-stone-900 transition-colors">Stories</a>
+                    <a href="#revenue" class="hover:text-stone-900 transition-colors">Unit Economics</a>
                 </div>
                 <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-800 transition-colors active:scale-95 transform duration-100">
                     Join Waitlist
@@ -147,22 +156,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
                 <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                Disruptive Innovation
+                The Unicorn Model
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
                 Don't Search for a Home.<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>
             </h1>
             <p class="mt-4 max-w-2xl mx-auto text-xl text-stone-500">
-                Flipping the real estate script. Buyers post demand. Builders compete to fulfill it. 
-                Welcome to the first <strong>Reverse Marketplace</strong> for new construction.
+                Flipping the real estate script from a <strong>Search Engine</strong> to a <strong>Matching Engine</strong>. Buyers post demand. Builders compete to fulfill it.
             </p>
             <div class="mt-10 flex justify-center gap-4">
                 <a href="#demo" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                    Experience the Demo
+                    Experience the Reverse Market
                 </a>
                 <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-semibold shadow-sm hover:bg-stone-50 transition-all duration-200">
-                    How It Works
+                    Why It Works
                 </a>
             </div>
         </div>
@@ -178,9 +186,9 @@
     <section id="concept" class="py-20 bg-white border-y border-stone-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-stone-900">The Paradigm Shift</h2>
+                <h2 class="text-3xl font-bold text-stone-900">Solving "Builder Blindness"</h2>
                 <p class="mt-4 text-stone-500 max-w-2xl mx-auto">
-                    We are moving from a Search Engine model to a Matching Engine model.
+                    The traditional market forces builders to guess what to build (Speculation). Newer.com creates a market based on verified requests (Certainty).
                 </p>
             </div>
 
@@ -191,18 +199,20 @@
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
                         <i class="fas fa-search text-stone-400"></i> Active Buyer, Passive Seller
                     </h3>
-                    <ul class="space-y-3 text-stone-600">
+                    <ul class="space-y-4 text-stone-600">
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-times mt-1 text-red-400"></i>
-                            <span>Buyers scroll endlessly through listings ("Doom Scrolling").</span>
+                            <div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div>
+                            <div>
+                                <span class="font-bold text-stone-800">Builder Blindness:</span>
+                                <p class="text-sm">Developers build "spec homes" hoping buyers will like them, often leading to price cuts and stale inventory.</p>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-times mt-1 text-red-400"></i>
-                            <span>Builders build "Spec Homes" hoping someone likes them.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-times mt-1 text-red-400"></i>
-                            <span>High friction, low transparency, wasted time.</span>
+                            <div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div>
+                            <div>
+                                <span class="font-bold text-stone-800">Buyer Fatigue:</span>
+                                <p class="text-sm">Buyers spend hours doom-scrolling MLS listings, touring homes out of budget, and chasing agents.</p>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -213,18 +223,20 @@
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
                         <i class="fas fa-handshake text-blue-500"></i> Passive Buyer, Active Seller
                     </h3>
-                    <ul class="space-y-3 text-stone-700">
+                    <ul class="space-y-4 text-stone-700">
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check mt-1 text-blue-500"></i>
-                            <span>Buyers post a "Dream Profile" and wait.</span>
+                            <div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div>
+                            <div>
+                                <span class="font-bold text-stone-900">Just-in-Time Real Estate:</span>
+                                <p class="text-sm">Builders see "Live Demand" and build exactly what is requested, reducing risk.</p>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check mt-1 text-blue-500"></i>
-                            <span>Builders see "Live Demand" and pitch tailored inventory.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-check mt-1 text-blue-500"></i>
-                            <span>Inventory is "Just-in-Time", reducing risk for everyone.</span>
+                            <div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div>
+                            <div>
+                                <span class="font-bold text-stone-900">The "Reverse" Auction:</span>
+                                <p class="text-sm">Verified buyers create a "Dream Profile." Builders pitch them with off-market lots and custom packages.</p>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -232,28 +244,29 @@
         </div>
     </section>
 
-    <!-- Interactive Demo Section (The Core) -->
+    <!-- Interactive Demo Section -->
     <section id="demo" class="py-24 bg-stone-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-stone-900">Experience the Marketplace</h2>
                 <p class="mt-4 text-stone-600 max-w-3xl">
-                    Interact with the <strong>Buyer App</strong> on the left. Watch how the <strong>Builder Dashboard</strong> on the right reacts in real-time to your demand signals.
+                    Interact with the <strong>Buyer App</strong> (Phase A) to create demand. Watch the <strong>Builder Dashboard</strong> (Phase B) react.
                 </p>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8 lg:h-[800px]">
-                
                 <!-- LEFT COLUMN: Buyer App Simulation -->
-                <div class="lg:col-span-4 flex justify-center lg:justify-end">
+                <div class="lg:col-span-4 flex flex-col items-center lg:items-end">
+                    <div class="mb-4 text-center lg:text-right w-full">
+                        <span class="text-xs font-bold uppercase text-stone-400 tracking-wider">Phase A: The Buyer</span>
+                        <h3 class="text-xl font-bold text-stone-800">The Asset</h3>
+                        <p class="text-sm text-stone-500">Building the "Dream Profile"</p>
+                    </div>
+                    
                     <div class="phone-frame flex flex-col shadow-2xl relative">
                         <div class="phone-notch"></div>
-                        
-                        <!-- NOTIFICATION CONTAINER (Feedback Loop) -->
-                        <div id="phone-notifications" class="absolute top-10 left-0 right-0 px-4 z-50 pointer-events-none space-y-2">
-                            <!-- Toasts inject here -->
-                        </div>
-
+                        <!-- Notifications -->
+                        <div id="phone-notifications" class="absolute top-10 left-0 right-0 px-4 z-50 pointer-events-none space-y-2"></div>
                         <!-- App Header -->
                         <div class="h-16 bg-white border-b border-stone-100 flex items-center justify-between px-6 pt-6 relative z-10">
                             <span class="font-bold text-lg">Newer</span>
@@ -262,47 +275,35 @@
                                 <div class="w-2 h-2 rounded-full bg-stone-300"></div>
                             </div>
                         </div>
-
-                        <!-- App Content (Dynamic) -->
+                        <!-- App Content -->
                         <div id="buyer-screen-container" class="flex-1 p-6 overflow-y-auto bg-stone-50 relative">
-                            
-                            <!-- Step 1: Vibe Check (Visual Assets Improved) -->
+                            <!-- Step 1: Vibe Check -->
                             <div id="step-1" class="step-content fade-in">
                                 <h3 class="text-2xl font-bold mb-2">Let's set the mood.</h3>
                                 <p class="text-sm text-stone-500 mb-6">Which style feels like home?</p>
                                 <div class="grid grid-cols-2 gap-3">
                                     <button onclick="selectStyle('Modern Farmhouse')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <i class="fas fa-warehouse text-2xl text-stone-400 group-hover:text-blue-500"></i>
-                                        </div>
+                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-warehouse text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
                                         <span class="text-xs font-bold block">Modern Farmhouse</span>
                                     </button>
                                     <button onclick="selectStyle('Contemporary')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <i class="fas fa-cube text-2xl text-stone-400 group-hover:text-blue-500"></i>
-                                        </div>
+                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-cube text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
                                         <span class="text-xs font-bold block">Contemporary</span>
                                     </button>
                                     <button onclick="selectStyle('Traditional')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <i class="fas fa-landmark text-2xl text-stone-400 group-hover:text-blue-500"></i>
-                                        </div>
+                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-landmark text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
                                         <span class="text-xs font-bold block">Traditional</span>
                                     </button>
                                     <button onclick="selectStyle('Mediterranean')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <i class="fas fa-sun text-2xl text-stone-400 group-hover:text-blue-500"></i>
-                                        </div>
+                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-sun text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
                                         <span class="text-xs font-bold block">Mediterranean</span>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Step 2: The Crew & Specs -->
+                            <!-- Step 2: Crew -->
                             <div id="step-2" class="step-content hidden fade-in">
                                 <h3 class="text-2xl font-bold mb-2">Who is this for?</h3>
                                 <p class="text-sm text-stone-500 mb-6">Define your space needs.</p>
-                                
                                 <div class="space-y-6">
                                     <div>
                                         <label class="text-xs font-bold uppercase text-stone-400">Persona</label>
@@ -311,7 +312,6 @@
                                             <button onclick="setPersona('Couple')" class="persona-btn whitespace-nowrap px-4 py-2 bg-white border border-stone-200 rounded-full text-sm font-medium hover:bg-stone-900 hover:text-white transition-colors">Professional Couple</button>
                                         </div>
                                     </div>
-
                                     <div>
                                         <div class="flex justify-between mb-2">
                                             <label class="text-xs font-bold uppercase text-stone-400">Bedrooms</label>
@@ -319,7 +319,6 @@
                                         </div>
                                         <input type="range" min="2" max="6" value="3" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900" oninput="updateRange('bed', this.value)">
                                     </div>
-
                                     <div>
                                         <div class="flex justify-between mb-2">
                                             <label class="text-xs font-bold uppercase text-stone-400">Budget Max</label>
@@ -327,16 +326,37 @@
                                         </div>
                                         <input type="range" min="300" max="1500" step="50" value="500" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900" oninput="updateRange('budget', this.value)">
                                     </div>
-                                    
+                                    <button onclick="nextStep(2.5)" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4">Next Step</button>
+                                </div>
+                            </div>
+                            <!-- Step 2.5: Location -->
+                            <div id="step-2.5" class="step-content hidden fade-in">
+                                <h3 class="text-2xl font-bold mb-2">The Reality.</h3>
+                                <p class="text-sm text-stone-500 mb-6">Location isn't just a zip code. It's a commute.</p>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="text-xs font-bold uppercase text-stone-400">Daily Anchor</label>
+                                        <input type="text" placeholder="e.g. Tesla Gigafactory / Downtown" class="w-full mt-1 px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:border-blue-500 focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold uppercase text-stone-400">Max Commute</label>
+                                        <div class="grid grid-cols-3 gap-2 mt-1">
+                                            <button class="py-2 bg-white border border-stone-200 rounded-lg text-sm hover:bg-stone-50">15 min</button>
+                                            <button class="py-2 bg-stone-900 text-white border border-stone-900 rounded-lg text-sm">30 min</button>
+                                            <button class="py-2 bg-white border border-stone-200 rounded-lg text-sm hover:bg-stone-50">45+ min</button>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
+                                        <i class="fas fa-map-marked-alt text-blue-500"></i>
+                                        <p class="text-xs text-blue-800">We use geofencing to match you with lots and unlisted inventory.</p>
+                                    </div>
                                     <button onclick="nextStep(3)" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4">Next Step</button>
                                 </div>
                             </div>
-
-                            <!-- Step 3: Verification (The Moat) -->
+                            <!-- Step 3: Verification -->
                             <div id="step-3" class="step-content hidden fade-in">
                                 <h3 class="text-2xl font-bold mb-2">Unlock Offers</h3>
-                                <p class="text-sm text-stone-500 mb-6">Builders prioritize verified buyers. Connect to prove funds.</p>
-                                
+                                <p class="text-sm text-stone-500 mb-6">"Hard Verification" is your superpower. Proving funds puts you ahead of 90% of buyers.</p>
                                 <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
                                     <div class="flex items-center gap-2 mb-2">
                                         <i class="fas fa-shield-alt text-blue-600"></i>
@@ -346,18 +366,13 @@
                                         Verified profiles receive <strong>3.5x more offers</strong> from builders.
                                     </p>
                                 </div>
-
                                 <button onclick="verifyUser()" class="w-full py-4 bg-white border-2 border-stone-200 rounded-xl font-bold flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 transition-all group mb-3">
-                                    <i class="fas fa-university text-stone-400 group-hover:text-green-500"></i>
-                                    Connect Bank (Plaid)
+                                    <i class="fas fa-university text-stone-400 group-hover:text-green-500"></i> Connect Bank (Plaid)
                                 </button>
-                                
                                 <button onclick="verifyUser()" class="w-full py-4 bg-white border-2 border-stone-200 rounded-xl font-bold flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 transition-all group">
-                                    <i class="fas fa-file-upload text-stone-400 group-hover:text-green-500"></i>
-                                    Upload Pre-Approval
+                                    <i class="fas fa-file-upload text-stone-400 group-hover:text-green-500"></i> Upload Pre-Approval
                                 </button>
                             </div>
-
                             <!-- Step 4: Complete -->
                             <div id="step-4" class="step-content hidden fade-in text-center pt-10">
                                 <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -371,9 +386,7 @@
                                 <p class="text-xs text-stone-400">Check the dashboard on the right to see how builders view you.</p>
                                 <button onclick="resetDemo()" class="mt-8 text-sm text-blue-600 underline">Start Over</button>
                             </div>
-
                         </div>
-                        
                         <!-- App Footer -->
                         <div class="h-14 bg-white border-t border-stone-100 flex justify-around items-center text-stone-300">
                             <i class="fas fa-home text-stone-900"></i>
@@ -387,28 +400,27 @@
 
                 <!-- RIGHT COLUMN: Builder Dashboard Simulation -->
                 <div class="lg:col-span-8 flex flex-col h-[680px]">
-                    
+                    <div class="mb-4 text-center lg:text-left w-full pl-4">
+                        <span class="text-xs font-bold uppercase text-stone-400 tracking-wider">Phase B: The Builder</span>
+                        <h3 class="text-xl font-bold text-stone-800">The Bidder</h3>
+                        <p class="text-sm text-stone-500">Monitoring "Live Demand" & Pitching Inventory</p>
+                    </div>
                     <!-- Dashboard Header -->
                     <div class="bg-stone-900 text-white p-4 rounded-t-xl flex justify-between items-center shadow-lg z-10">
                         <div class="flex items-center gap-4">
                             <span class="font-bold tracking-wider">BUILDER TERMINAL</span>
                             <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30 animate-pulse">LIVE FEED</span>
                         </div>
-                        
-                        <!-- MAP TOGGLE (Visualization Improvement) -->
                         <div class="flex bg-stone-800 rounded-lg p-1 border border-stone-700">
                             <button onclick="toggleDashboardView('list')" id="view-list-btn" class="px-3 py-1 rounded text-xs font-bold bg-stone-600 text-white transition-all"><i class="fas fa-list"></i> List</button>
                             <button onclick="toggleDashboardView('map')" id="view-map-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-map-marker-alt"></i> Map</button>
                         </div>
                     </div>
-
                     <!-- Dashboard Body -->
                     <div class="bg-stone-800 flex-1 p-4 rounded-b-xl border border-stone-700 shadow-2xl relative overflow-hidden flex flex-col">
-                        
-                        <!-- Top Stats Bar -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600">
-                                <div class="text-xs text-stone-400 uppercase">Active Buyers</div>
+                                <div class="text-xs text-stone-400 uppercase">Verified Buyers</div>
                                 <div class="text-xl font-mono text-white font-bold" id="stat-active">1,248</div>
                             </div>
                             <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600">
@@ -424,7 +436,6 @@
                                 <div class="text-xl font-mono text-green-400 font-bold">18.4%</div>
                             </div>
                         </div>
-
                         <!-- LIST VIEW CONTAINER -->
                         <div id="dashboard-list-view" class="flex-1 bg-stone-900/50 rounded-lg border border-stone-700 overflow-hidden flex flex-col relative transition-opacity duration-300">
                             <div class="grid grid-cols-12 gap-2 p-3 border-b border-stone-700 bg-stone-800/80 text-xs font-bold text-stone-400 uppercase">
@@ -434,31 +445,11 @@
                                 <div class="col-span-4 sm:col-span-2">Budget</div>
                                 <div class="hidden sm:block sm:col-span-3 text-right">Action</div>
                             </div>
-                            
                             <div id="dashboard-feed" class="overflow-y-auto dashboard-scroll p-2 space-y-2 relative">
-                                <!-- Mock Rows -->
-                                <div class="grid grid-cols-12 gap-2 p-3 bg-stone-800 rounded border border-stone-700 items-center hover:bg-stone-700/50 transition-colors">
-                                    <div class="col-span-3 sm:col-span-2 font-mono text-blue-300 text-sm">#8821</div>
-                                    <div class="hidden sm:block sm:col-span-2"><span class="px-2 py-0.5 bg-green-900/30 text-green-500 text-[10px] rounded border border-green-800">Verified</span></div>
-                                    <div class="col-span-5 sm:col-span-3 text-stone-300 text-sm">3bd/2ba • 2000sqft</div>
-                                    <div class="col-span-4 sm:col-span-2 text-white font-bold text-sm">$450k</div>
-                                    <div class="hidden sm:block sm:col-span-3 text-right">
-                                        <button onclick="openPitchModal('#8821')" class="pitch-btn px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs rounded transition-colors shadow shadow-blue-900/40">Pitch</button>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-12 gap-2 p-3 bg-stone-800 rounded border border-stone-700 items-center hover:bg-stone-700/50 transition-colors">
-                                    <div class="col-span-3 sm:col-span-2 font-mono text-blue-300 text-sm">#8845</div>
-                                    <div class="hidden sm:block sm:col-span-2"><span class="px-2 py-0.5 bg-yellow-900/30 text-yellow-500 text-[10px] rounded border border-yellow-800">Pending</span></div>
-                                    <div class="col-span-5 sm:col-span-3 text-stone-300 text-sm">4bd/3ba • Pool Lot</div>
-                                    <div class="col-span-4 sm:col-span-2 text-white font-bold text-sm">$620k</div>
-                                    <div class="hidden sm:block sm:col-span-3 text-right">
-                                        <button onclick="openPitchModal('#8845')" class="pitch-btn px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs rounded transition-colors shadow shadow-blue-900/40">Pitch</button>
-                                    </div>
-                                </div>
+                                <!-- Mock Rows injected via JS -->
                             </div>
                         </div>
-
-                        <!-- MAP VIEW CONTAINER (Visualization) -->
+                        <!-- MAP VIEW CONTAINER -->
                         <div id="dashboard-map-view" class="absolute inset-0 top-[88px] bottom-0 bg-stone-900 rounded-lg border border-stone-700 overflow-hidden hidden transition-opacity duration-300">
                             <canvas id="demandMap" class="w-full h-full object-cover opacity-80"></canvas>
                             <div class="absolute bottom-4 right-4 bg-black/70 px-3 py-2 rounded text-xs text-white backdrop-blur">
@@ -466,7 +457,6 @@
                                 <span class="w-2 h-2 rounded-full bg-blue-500 inline-block ml-2 mr-1"></span> Your Lots
                             </div>
                         </div>
-
                         <!-- "Your Card" visualizer overlay -->
                         <div id="user-card-overlay" class="absolute bottom-0 left-0 right-0 bg-stone-800/95 border-t border-blue-500/50 p-4 transform translate-y-full transition-transform duration-500 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-20">
                             <div class="flex justify-between items-start">
@@ -496,125 +486,106 @@
                                     <div class="text-sm text-green-400 font-bold" id="dash-card-status">Unverified</div>
                                 </div>
                             </div>
-                            
-                            <!-- ACTIONABLE UNLOCK BUTTON -->
                             <div id="unlock-area" class="mt-4">
-                                <button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg shadow-blue-900/20 text-sm transition-all">
-                                    UNLOCK LEAD CONTACT ($50)
-                                </button>
+                                <button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg shadow-blue-900/20 text-sm transition-all">UNLOCK LEAD CONTACT ($50)</button>
                             </div>
                         </div>
-
-                        <!-- PITCH MODAL (Actionability) -->
+                        <!-- PITCH MODAL -->
                         <div id="pitch-modal" class="absolute inset-0 bg-black/80 z-30 hidden flex items-center justify-center p-4 backdrop-blur-sm">
                             <div class="bg-stone-800 border border-stone-600 rounded-xl p-4 w-full max-w-sm shadow-2xl">
                                 <h4 class="text-white font-bold mb-1">Pitch Buyer <span id="pitch-target-id" class="text-blue-400 font-mono">#0000</span></h4>
                                 <p class="text-xs text-stone-400 mb-4">Select inventory to offer.</p>
-                                
                                 <div class="space-y-2 mb-4">
-                                    <button onclick="selectPitch(this)" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
-                                        <div class="font-bold text-white">Spec: 123 Oak St</div>
-                                        <div>Ready in 30 days • $495k</div>
+                                    <button onclick="selectPitch(this, 'Spec')" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
+                                        <div class="flex justify-between"><span class="font-bold text-white"><i class="fas fa-home mr-1"></i> Proposition 1: Spec Home</span><span class="text-green-400">Ready in 30 Days</span></div>
+                                        <div class="mt-1">"I have a home finishing soon that matches 90% of your criteria."</div>
                                     </button>
-                                    <button onclick="selectPitch(this)" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
-                                        <div class="font-bold text-white">Plan: The Maverick</div>
-                                        <div>To be built • $480k Base</div>
+                                    <button onclick="selectPitch(this, 'Dirt')" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
+                                        <div class="flex justify-between"><span class="font-bold text-white"><i class="fas fa-layer-group mr-1"></i> Proposition 2: Dirt Lot</span><span class="text-blue-400">Custom Build</span></div>
+                                        <div class="mt-1">"Reserve a lot in Phase 2 and we'll build your exact plan."</div>
                                     </button>
                                 </div>
-                                
                                 <div class="flex gap-2">
                                     <button onclick="closePitchModal()" class="flex-1 py-2 bg-stone-700 text-stone-300 rounded text-xs font-bold">Cancel</button>
                                     <button onclick="sendPitch()" class="flex-1 py-2 bg-blue-600 text-white rounded text-xs font-bold">Send Offer</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- STICKY MOBILE DASHBOARD FOOTER -->
-    <div class="fixed bottom-0 left-0 right-0 bg-stone-900 text-white p-3 lg:hidden z-40 border-t border-stone-700 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        <div class="flex justify-between items-center text-xs">
-            <div>
-                <span class="block text-stone-400 uppercase text-[10px]">Active Buyers</span>
-                <span class="font-bold font-mono text-lg" id="mobile-stat-active">1,248</span>
+    <!-- Social Proof Section (Improvement #2) -->
+    <section id="testimonials" class="py-20 bg-white border-y border-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-stone-900">Stories from the "Reverse Market"</h2>
             </div>
-             <div>
-                <span class="block text-stone-400 uppercase text-[10px]">Avg Budget</span>
-                <span class="font-bold font-mono text-lg text-blue-400" id="mobile-stat-budget">$485k</span>
-            </div>
-            <div class="text-right">
-                 <span class="block text-stone-400 uppercase text-[10px]">Live Matches</span>
-                 <span class="font-bold font-mono text-lg text-green-400" id="mobile-dash-matches">12</span>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Buyer Story -->
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative">
+                    <div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">The Buyer</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user"></i></div>
+                        <div>
+                            <h4 class="font-bold text-stone-900">Sarah & Mark T.</h4>
+                            <p class="text-xs text-stone-500">Relocating to Austin, TX</p>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer.com, we posted our budget and got a pitch for a lot that wasn't even listed yet. We signed the contract 48 hours later."</p>
+                </div>
+                <!-- Builder Story -->
+                <div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative">
+                    <div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">The Builder</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">James R.</h4>
+                            <p class="text-xs text-stone-400">VP Sales, Regional Builder</p>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 italic">"I had a spec home sitting for 60 days. I searched Newer for buyers with a $550k budget in that zip code, found 3 matches, and pitched them. Sold it that weekend with zero marketing spend."</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- The Moat Section: Verification Logic -->
-    <section class="py-20 bg-white">
+    <!-- The Moat Section -->
+    <section class="py-20 bg-stone-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <div class="inline-block px-3 py-1 bg-stone-100 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div>
+                    <div class="inline-block px-3 py-1 bg-stone-200 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div>
                     <h2 class="text-3xl font-bold text-stone-900 mb-6">Why Builders Pay for "Unlocks"</h2>
-                    <p class="text-lg text-stone-600 mb-6">
-                        The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.
-                    </p>
-                    <p class="text-lg text-stone-600 mb-8">
-                        Newer.com solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.
-                    </p>
+                    <p class="text-lg text-stone-600 mb-6">The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.</p>
+                    <p class="text-lg text-stone-600 mb-8">Newer.com solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.</p>
                     <div class="space-y-4">
-                        <div class="flex items-center gap-4 p-4 bg-stone-50 rounded-lg border border-stone-100">
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Verified Funds</h4>
-                                <p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p>
-                            </div>
+                        <div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-check"></i></div>
+                            <div><h4 class="font-bold text-stone-900">Verified Funds</h4><p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p></div>
                         </div>
-                        <div class="flex items-center gap-4 p-4 bg-stone-50 rounded-lg border border-stone-100">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Buyer Anonymity</h4>
-                                <p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p>
-                            </div>
+                        <div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-secret"></i></div>
+                            <div><h4 class="font-bold text-stone-900">Buyer Anonymity</h4><p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p></div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-200">
+                <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-lg">
                     <h3 class="text-sm font-bold text-stone-400 uppercase mb-4 text-center">Conversion Funnel Comparison</h3>
-                    <!-- Simple CSS Bar Chart for Funnel -->
                     <div class="space-y-6">
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-stone-500">Industry Avg (Zillow/MLS)</span>
-                                <span class="font-bold text-stone-700">1-2% Conversion</span>
-                            </div>
-                            <div class="h-4 bg-stone-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-stone-400 w-[2%]"></div>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span class="text-stone-500">Industry Avg (Zillow/MLS)</span><span class="font-bold text-stone-700">1-2% Conversion</span></div>
+                            <div class="h-4 bg-stone-200 rounded-full overflow-hidden"><div class="h-full bg-stone-400 w-[2%]"></div></div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-blue-600 font-bold">Newer.com Verified</span>
-                                <span class="font-bold text-blue-700">15-20% Conversion</span>
-                            </div>
-                            <div class="h-4 bg-blue-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-600 w-[20%]"></div>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span class="text-blue-600 font-bold">Newer.com Verified</span><span class="font-bold text-blue-700">15-20% Conversion</span></div>
+                            <div class="h-4 bg-blue-100 rounded-full overflow-hidden"><div class="h-full bg-blue-600 w-[20%]"></div></div>
                         </div>
                     </div>
                     <div class="mt-8 pt-8 border-t border-stone-200 text-center">
-                        <p class="text-stone-500 text-sm italic">
-                            "I'd rather pay $50 for one verified lead than $500 for a billboard." <br>
-                            <span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span>
-                        </p>
+                        <p class="text-stone-500 text-sm italic">"I'd rather pay $50 for one verified lead than $500 for a billboard." <br><span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span></p>
                     </div>
                 </div>
             </div>
@@ -626,78 +597,115 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold">Unicorn Unit Economics</h2>
-                <p class="mt-4 text-stone-400 max-w-2xl mx-auto">
-                    Three revenue streams create a scalable, recurring income model.
-                </p>
+                <p class="mt-4 text-stone-400 max-w-2xl mx-auto">Three revenue streams create a scalable, recurring income model.</p>
             </div>
-
             <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
                 <div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors">
-                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl">
-                        <i class="fas fa-rss"></i>
-                    </div>
+                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-rss"></i></div>
                     <h3 class="text-xl font-bold mb-2">1. SaaS Subscription</h3>
                     <p class="text-stone-400 text-sm mb-4">Builders pay for access to the "Demand Feed" and market analytics.</p>
                     <div class="text-2xl font-mono font-bold text-white">$2k - $10k<span class="text-sm text-stone-500 font-normal">/mo</span></div>
                 </div>
-
-                <!-- Card 2 -->
                 <div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors">
-                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl">
-                        <i class="fas fa-lock-open"></i>
-                    </div>
+                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-lock-open"></i></div>
                     <h3 class="text-xl font-bold mb-2">2. Unlock Fees</h3>
                     <p class="text-stone-400 text-sm mb-4">Micro-transactions. Builders pay to unlock the contact info of a matched buyer.</p>
                     <div class="text-2xl font-mono font-bold text-white">$50 - $200<span class="text-sm text-stone-500 font-normal">/lead</span></div>
                 </div>
-
-                <!-- Card 3 -->
                 <div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors">
-                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl">
-                        <i class="fas fa-percentage"></i>
-                    </div>
+                    <div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-percentage"></i></div>
                     <h3 class="text-xl font-bold mb-2">3. Success Fees</h3>
                     <p class="text-stone-400 text-sm mb-4">Small take rate on the final transaction value upon closing.</p>
                     <div class="text-2xl font-mono font-bold text-white">0.5%<span class="text-sm text-stone-500 font-normal"> of Sale Price</span></div>
                 </div>
             </div>
-
-            <!-- Interactive Chart Container -->
             <div class="mt-16 bg-stone-800 p-6 rounded-2xl border border-stone-700">
                 <h4 class="text-lg font-bold mb-6 text-center">Projected Revenue Mix (Year 1 - Year 5)</h4>
-                
-                <!-- REVENUE TOGGLES -->
                 <div class="flex justify-center gap-2 mb-6">
                     <button onclick="updateRevenue('conservative')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Conservative</button>
                     <button onclick="updateRevenue('base')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white border border-blue-600 transition-colors">Base Case</button>
                     <button onclick="updateRevenue('aggressive')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Aggressive</button>
                 </div>
-
                 <div class="chart-container">
                     <canvas id="revenueChart"></canvas>
                 </div>
-                <p class="text-center text-xs text-stone-500 mt-4">
-                    *Based on Market Penetration in top 50 Metro Areas.
-                </p>
+                <p class="text-center text-xs text-stone-500 mt-4">*Based on Market Penetration in top 50 Metro Areas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Builder CTA Section (Improvement #3) -->
+    <section class="py-20 bg-blue-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-6">For Builders: The Infinite ROI Engine</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-10 text-white">
+                <div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30">
+                    <div class="text-3xl font-bold mb-1">0</div>
+                    <div class="text-sm opacity-80">Marketing Spend</div>
+                </div>
+                <div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30">
+                    <div class="text-3xl font-bold mb-1">20x</div>
+                    <div class="text-sm opacity-80">Higher Conversion</div>
+                </div>
+                <div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30">
+                    <div class="text-3xl font-bold mb-1">100%</div>
+                    <div class="text-sm opacity-80">Verified Intent</div>
+                </div>
+            </div>
+            <button onclick="openWaitlistModal()" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-stone-100 hover:scale-105 transition-all">Request Builder Access</button>
+        </div>
+    </section>
+
+    <!-- FAQ Section (Improvement #1) -->
+    <section class="py-20 bg-stone-50 border-t border-stone-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-stone-900 text-center mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">Is my data safe with builders?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">Absolutely. Builders only see your <strong>anonymized profile</strong> (Budget, Criteria, Timeline). They only get your name and contact info if YOU accept their pitch.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">Does this cost me money?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">No. Newer.com is 100% free for buyers. We monetize by charging builders for access to the marketplace and success fees upon closing.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-stone-200 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-stone-800">What if I don't find a match?</span>
+                        <i class="fas fa-chevron-down text-stone-400 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-stone-50">
+                        <p class="py-4 text-stone-600 text-sm">If no builders pitch you within 7 days, we broaden your search radius slightly or offer to connect you with a custom build consultant to refine your criteria.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-stone-50 py-12 border-t border-stone-200">
+    <footer class="bg-stone-900 py-12 text-stone-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
-                <div class="w-6 h-6 bg-stone-900 rounded flex items-center justify-center text-white text-xs font-bold">N</div>
-                <span class="text-lg font-bold text-stone-900">Newer.com</span>
+                <div class="w-6 h-6 bg-white rounded flex items-center justify-center text-stone-900 text-xs font-bold">N</div>
+                <span class="text-lg font-bold text-white">Newer.com</span>
             </div>
-            <div class="text-sm text-stone-500">
+            <div class="text-sm">
                 &copy; 2025 Newer Inc. All rights reserved.
             </div>
-            <div class="flex gap-4 text-stone-400">
-                <i class="fab fa-twitter hover:text-stone-900 cursor-pointer"></i>
-                <i class="fab fa-linkedin hover:text-stone-900 cursor-pointer"></i>
-                <i class="fab fa-instagram hover:text-stone-900 cursor-pointer"></i>
+            <div class="flex gap-4">
+                <i class="fab fa-twitter hover:text-white cursor-pointer"></i>
+                <i class="fab fa-linkedin hover:text-white cursor-pointer"></i>
+                <i class="fab fa-instagram hover:text-white cursor-pointer"></i>
             </div>
         </div>
     </footer>
@@ -811,47 +819,46 @@
 
         function handleWaitlistSubmit(e) {
             e.preventDefault();
-            // Fallback for submitter if triggered via Enter key
             const btn = e.submitter || e.target.querySelector('button[type="submit"]'); 
             const originalText = btn.innerText;
-            
-            // Loading state
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Opening Mail Client...';
             btn.disabled = true;
-
-            // Capture Data
             const formData = new FormData(e.target);
             const email = formData.get('email');
             const role = formData.get('role');
-
-            // Construct Email
             const subject = "Join Waitlist - Newer.com";
             const body = `I would like to join the waitlist.\n\nRole: ${role}\nEmail: ${email}`;
             const mailtoLink = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            // Fix: Trigger mailto immediately using a temporary link to preserve user-action context
-            // (Browser security often blocks window.location inside setTimeout)
             const link = document.createElement('a');
             link.href = mailtoLink;
             link.style.display = 'none';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-
-            // Show success UI after a short visual delay
             setTimeout(() => {
                 formState.classList.add('hidden');
                 modalFooter.classList.add('hidden');
                 successState.classList.remove('hidden');
-                
-                // Reset button for next time
                 btn.innerText = originalText;
                 btn.disabled = false;
             }, 1000);
         }
 
-        // --- State Management ---
-        const appState = {
+        // --- FAQ Toggle Function ---
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.classList.remove('rotate');
+            } else {
+                answer.classList.add('open');
+                icon.classList.add('rotate');
+            }
+        }
+
+        // --- State Management with Local Storage (Improvement #4) ---
+        let appState = {
             style: '',
             persona: '',
             bedrooms: 3,
@@ -861,9 +868,61 @@
             credits: 500
         };
 
+        function saveState() {
+            localStorage.setItem('newerState', JSON.stringify(appState));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('newerState');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    appState = { ...appState, ...parsed };
+                    
+                    // Restore UI from State
+                    // 1. Style Selection
+                    if (appState.style) {
+                        document.querySelectorAll('.style-btn').forEach(btn => {
+                            if(btn.innerText.includes(appState.style)) {
+                                btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
+                            }
+                        });
+                        // Jump to step 2 if style was selected
+                        document.getElementById('step-1').classList.add('hidden');
+                        document.getElementById('step-2').classList.remove('hidden');
+                    }
+
+                    // 2. Persona
+                    if (appState.persona) {
+                        setPersonaUI(appState.persona);
+                    }
+
+                    // 3. Sliders
+                    const bedSlider = document.querySelector('input[oninput*="bed"]');
+                    if(bedSlider) {
+                        bedSlider.value = appState.bedrooms;
+                        document.getElementById('bed-val').innerText = appState.bedrooms;
+                    }
+                    
+                    const budgetSlider = document.querySelector('input[oninput*="budget"]');
+                    if(budgetSlider) {
+                        budgetSlider.value = appState.budget;
+                        document.getElementById('budget-val').innerText = '$' + appState.budget + 'k';
+                    }
+
+                    // Update Dashboard
+                    updateDashboardPreview();
+
+                } catch (e) {
+                    console.error("Failed to load state", e);
+                }
+            }
+        }
+
         // --- Buyer App Functions ---
         function selectStyle(styleName) {
             appState.style = styleName;
+            saveState(); // Save to local storage
             document.querySelectorAll('.style-btn').forEach(btn => {
                 if(btn.innerText.includes(styleName)) {
                     btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
@@ -879,6 +938,11 @@
 
         function setPersona(personaType) {
             appState.persona = personaType;
+            saveState();
+            setPersonaUI(personaType);
+        }
+
+        function setPersonaUI(personaType) {
             const btns = document.querySelectorAll('.persona-btn');
             btns.forEach(btn => {
                 if(btn.innerText.includes(personaType === 'Family' ? 'Growing' : 'Professional')) {
@@ -899,12 +963,14 @@
                 appState.budget = value;
                 document.getElementById('budget-val').innerText = '$' + value + 'k';
             }
+            saveState(); // Save continuously
             updateDashboardPreview();
         }
 
         function nextStep(stepNum) {
             document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            const target = document.getElementById(`step-${stepNum}`);
+            if(target) target.classList.remove('hidden');
         }
 
         function verifyUser() {
@@ -912,15 +978,24 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin text-stone-400"></i> Verifying...';
             setTimeout(() => {
                 appState.verified = true;
+                saveState();
                 nextStep(4);
                 revealDashboardCard();
             }, 1500);
         }
 
         function resetDemo() {
-            appState.style = '';
-            appState.persona = '';
-            appState.verified = false;
+            appState = {
+                style: '',
+                persona: '',
+                bedrooms: 3,
+                budget: 500,
+                verified: false,
+                alias: '#8942',
+                credits: 500
+            };
+            saveState(); // Clear stored state
+            
             document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('step-1').classList.remove('hidden');
             document.getElementById('user-card-overlay').classList.remove('translate-y-0');
@@ -929,13 +1004,20 @@
             
             // Reset Unlock Button
             const unlockArea = document.getElementById('unlock-area');
-            unlockArea.innerHTML = `<button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg shadow-blue-900/20 text-sm transition-all">UNLOCK LEAD CONTACT ($50)</button>`;
+            if(unlockArea) unlockArea.innerHTML = `<button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg shadow-blue-900/20 text-sm transition-all">UNLOCK LEAD CONTACT ($50)</button>`;
             
-            // Clear notifications
             document.getElementById('phone-notifications').innerHTML = '';
+            
+            // Reset Dashboard Stats
+            document.getElementById('dash-card-status').innerText = 'Unverified';
+            document.getElementById('dash-card-status').classList.remove('text-green-400');
+            document.getElementById('dash-card-status').classList.add('text-stone-500');
+            document.getElementById('stat-credits').innerText = 500;
+            
+            updateDashboardPreview();
         }
 
-        // --- Notification Logic (Feedback Loop) ---
+        // --- Notification Logic ---
         function notifyPhone(title, msg, iconClass = 'fa-bell') {
             const container = document.getElementById('phone-notifications');
             const toast = document.createElement('div');
@@ -950,8 +1032,6 @@
                 </div>
             `;
             container.appendChild(toast);
-            
-            // Remove after 5s
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-[-10px]');
                 setTimeout(() => toast.remove(), 500);
@@ -974,15 +1054,17 @@
             card.classList.remove('translate-y-full');
             card.classList.add('translate-y-0');
             const matchCount = document.getElementById('dash-matches');
-            const currentMatches = parseInt(matchCount.innerText) + 1;
-            matchCount.innerText = currentMatches;
-            matchCount.classList.add('text-green-400', 'font-bold');
+            if(matchCount) {
+                const currentMatches = parseInt(matchCount.innerText) + 1;
+                matchCount.innerText = currentMatches;
+                matchCount.classList.add('text-green-400', 'font-bold');
+            }
             if(document.getElementById('mobile-dash-matches')) {
-                 document.getElementById('mobile-dash-matches').innerText = currentMatches;
+                 const mMatch = document.getElementById('mobile-dash-matches');
+                 mMatch.innerText = parseInt(mMatch.innerText) + 1;
             }
         }
 
-        // Map Toggle Logic
         function toggleDashboardView(view) {
             const listBtn = document.getElementById('view-list-btn');
             const mapBtn = document.getElementById('view-map-btn');
@@ -1010,32 +1092,23 @@
         function drawMap() {
             const canvas = document.getElementById('demandMap');
             if(!canvas) return;
-            // Set resolution
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
             const ctx = canvas.getContext('2d');
-            
-            // Dark BG
             ctx.fillStyle = '#111827';
             ctx.fillRect(0,0, canvas.width, canvas.height);
-
-            // Draw "Heatmap" blobs
             for(let i=0; i<30; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
                 const r = 20 + Math.random() * 40;
-                
                 const grad = ctx.createRadialGradient(x,y,0, x,y,r);
-                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); // Red
+                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); 
                 grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
-                
                 ctx.fillStyle = grad;
                 ctx.beginPath();
                 ctx.arc(x, y, r, 0, Math.PI*2);
                 ctx.fill();
             }
-            
-            // Draw Blue Dots (Your Lots)
             for(let i=0; i<5; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
@@ -1046,7 +1119,6 @@
             }
         }
 
-        // Actionability: Pitch Modal
         let currentPitchId = '';
         function openPitchModal(id) {
             currentPitchId = id;
@@ -1056,28 +1128,28 @@
         function closePitchModal() {
             document.getElementById('pitch-modal').classList.add('hidden');
         }
-        function selectPitch(el) {
+        function selectPitch(el, type) {
             document.querySelectorAll('.pitch-opt').forEach(b => b.classList.replace('border-blue-500', 'border-stone-600'));
             el.classList.replace('border-stone-600', 'border-blue-500');
+            el.setAttribute('data-type', type);
         }
         function sendPitch() {
+            const selected = document.querySelector('.pitch-opt.border-blue-500');
+            const type = selected ? selected.getAttribute('data-type') : 'Spec';
             closePitchModal();
-            // Trigger feedback loop
-            notifyPhone('New Offer Received!', 'Builder sent a pitch: "Spec Home: 123 Oak St"', 'fa-envelope-open-text');
-            // Visual feedback on list (simulated)
-            // Just notify for now to keep it simple
+            let msg = type === 'Spec' ? 'Builder sent a pitch: "Spec Home: 123 Oak St - Move in Ready"' : 'Builder sent a pitch: "Dirt Lot: Phase 2 - Custom Build Available"';
+            notifyPhone('New Offer Received!', msg, 'fa-envelope-open-text');
         }
 
-        // Actionability: Unlock Lead
         function unlockLead() {
             if(appState.credits < 50) {
                 alert("Insufficient Credits");
                 return;
             }
             appState.credits -= 50;
+            saveState(); // Update credits in local storage
             document.getElementById('stat-credits').innerText = appState.credits;
             
-            // Change Button State
             const container = document.getElementById('unlock-area');
             container.innerHTML = `
                 <div class="bg-stone-900 rounded p-3 border border-stone-600 flex justify-between items-center">
@@ -1089,12 +1161,9 @@
                     <div class="text-green-500"><i class="fas fa-check-circle"></i></div>
                 </div>
             `;
-            
-            // Trigger feedback loop
             notifyPhone('Profile Viewed', 'A Local Builder just unlocked your contact info.', 'fa-eye');
         }
 
-        // --- ALIVE SIMULATION ---
         function startMarketSimulation() {
             const fmt = (n) => n.toLocaleString();
             setInterval(() => {
@@ -1138,7 +1207,6 @@
             if(feed.children.length > 20) feed.lastElementChild.remove();
         }
 
-        // --- CHART LOGIC ---
         let revenueChartInstance = null;
         const revenueScenarios = {
             conservative: { saas: [0.8, 2.1, 4.5, 8.0, 12.0], unlock: [0.2, 1.0, 3.5, 6.0, 9.0], success: [0.05, 0.5, 2.0, 8.0, 18.0] },
@@ -1165,6 +1233,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            loadState(); // Restore user session
             startMarketSimulation();
             const ctx = document.getElementById('revenueChart').getContext('2d');
             revenueChartInstance = new Chart(ctx, {
