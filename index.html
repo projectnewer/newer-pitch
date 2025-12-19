@@ -813,15 +813,35 @@
             e.preventDefault();
             const btn = e.submitter;
             const originalText = btn.innerText;
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+            
+            // Loading state
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Opening Mail Client...';
             btn.disabled = true;
+
+            // Capture Data
+            const formData = new FormData(e.target);
+            const email = formData.get('email');
+            const role = formData.get('role');
+
+            // Construct Email
+            const subject = "Join Waitlist - Newer.com";
+            const body = `I would like to join the waitlist.\n\nRole: ${role}\nEmail: ${email}`;
+            const mailtoLink = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Simulate Network Delay then Action
             setTimeout(() => {
+                // Open Default Mail Client
+                window.location.href = mailtoLink;
+
+                // Show success UI
                 formState.classList.add('hidden');
                 modalFooter.classList.add('hidden');
                 successState.classList.remove('hidden');
+                
+                // Reset button for next time
                 btn.innerText = originalText;
                 btn.disabled = false;
-            }, 1500);
+            }, 800);
         }
 
         // --- State Management ---
