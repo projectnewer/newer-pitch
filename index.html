@@ -118,20 +118,9 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <!-- OPTIMIZED LOGO TREATMENT -->
-                <a href="#" class="flex items-center gap-2 group transition-all" onclick="setAudience('buyer')">
-                    <div class="w-9 h-9 bg-stone-900 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 group-hover:shadow-lg group-active:scale-95 shadow-md">
-                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 18V6H6.8L17.2 18H20V6H17.2V18L6.8 6H4V18Z" />
-                        </svg>
-                    </div>
-                    <div class="flex flex-col">
-                        <div class="flex items-center">
-                            <span class="text-xl font-black tracking-tighter text-stone-900 leading-none">Newer</span>
-                            <span class="w-1.5 h-1.5 bg-blue-600 rounded-full ml-0.5 mt-2"></span>
-                        </div>
-                        <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest leading-none mt-1">Real Estate</span>
-                    </div>
+                <!-- SIMPLIFIED TEXT LOGO -->
+                <a href="#" class="flex items-center gap-2 transition-opacity hover:opacity-80" onclick="setAudience('buyer')">
+                    <span class="text-2xl font-black tracking-tighter text-stone-900">Newer</span>
                 </a>
                 
                 <div class="hidden md:flex bg-stone-100 rounded-full p-1 border border-stone-200">
@@ -169,7 +158,7 @@
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Offer Sent: Custom Lot in Phoenix</span>
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <!-- Duplicated content for seamless loop -->
+                <!-- Duplicated content for marquee loop -->
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Builder Pitch Accepted: Denver ($720k)</span>
@@ -192,10 +181,11 @@
             <div id="hero-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
                 <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market
             </div>
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
-                Don't Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>
+            <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight min-h-[2.4em]">
+                Don't Search for a Home.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>
             </h1>
-            <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-xl text-stone-500">
+            <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-stone-500 min-h-[3em]">
                 From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>
             </p>
             <div class="mt-10 flex justify-center gap-4">
@@ -255,8 +245,9 @@
                     <div class="phone-frame flex flex-col shadow-2xl relative">
                         <div class="phone-notch"></div>
                         <div id="phone-notifications" class="absolute top-10 left-0 right-0 px-4 z-50 pointer-events-none space-y-2"></div>
+                        <!-- SIMPLIFIED TEXT LOGO IN PHONE DEMO -->
                         <div class="h-16 bg-white border-b border-stone-100 flex items-center justify-between px-6 pt-6 relative z-10">
-                            <span class="font-bold text-lg tracking-tighter">Newer</span>
+                            <span class="text-xl font-black tracking-tighter text-stone-900">Newer</span>
                             <div class="flex gap-1"><div class="w-2 h-2 rounded-full bg-stone-300"></div><div class="w-2 h-2 rounded-full bg-stone-300"></div></div>
                         </div>
                         <div id="buyer-screen-container" class="flex-1 p-6 overflow-y-auto bg-stone-50 relative">
@@ -564,14 +555,9 @@
     <!-- Footer -->
     <footer class="bg-stone-900 py-12 text-stone-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <!-- FOOTER LOGO -->
+            <!-- FOOTER LOGO SIMPLIFIED -->
             <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-md">
-                    <svg viewBox="0 0 24 24" class="w-4 h-4 fill-stone-900" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 18V6H6.8L17.2 18H20V6H17.2V18L6.8 6H4V18Z" />
-                    </svg>
-                </div>
-                <span class="text-lg font-black tracking-tighter text-white">Newer<span class="text-blue-500">.</span></span>
+                <span class="text-xl font-black tracking-tighter text-white">Newer</span>
             </div>
             <div class="text-sm">
                 &copy; 2025 Newer LLC. All rights reserved.
@@ -761,7 +747,7 @@
         const contentConfig = {
             buyer: {
                 badge: '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
-                title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>',
+                title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>',
                 desc: 'From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
                 ctaText: 'Start Your Dream Profile',
                 conceptTitle: 'The End of the Chase',
@@ -777,7 +763,7 @@
             builder: {
                 badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> High-Intent Leads',
                 title: 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Build What\'s Sold.</span>',
-                desc: 'Access a live feed of <strong>Verified Buyers</strong> prioritized by AI.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation. Just data.</span>',
+                desc: 'AI-Prioritized Demand for <strong>New Construction</strong>.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation. Just data.</span>',
                 ctaText: 'Claim Your Territory',
                 conceptTitle: 'Solving "Speculation Risk"',
                 conceptDesc: 'The traditional market forces everyone to guess.<br><span class="font-semibold text-stone-700">Newer creates a market based on verified requests (Certainty).</span>',
@@ -785,14 +771,14 @@
                 testimonialTitle: 'Builder Wins',
                 testimonialDesc: 'Real results from developers who stopped building blind and started building sold.',
                 oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li>',
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-robot text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Sales Copilot:</span><p class="text-sm">Instant pitch drafting and market intel analysis.</p></div></li>`,
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-robot text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Sales Copilot:</span><p class="text-sm">Instant pitch drafting and market intel analysis.</p></div></li>`,
                 demoDesc: 'Watch the <strong>Builder Terminal</strong> (Phase B) populate instantly as real demand flows in from the App.',
                 revenueTitle: 'Transparent Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
             investor: {
                 badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Unicorn Potential',
-                title: 'The Efficiency Engine<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">For Real Estate.</span>',
-                desc: 'Solving the liquidity crisis via an AI-driven reverse marketplace.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
+                title: 'Inverting Real Estate.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">High-Velocity Liquidity.</span>',
+                desc: 'AI-Driven Liquidity for <strong>New Construction</strong>.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
                 ctaText: 'Analyze Unit Economics',
                 conceptTitle: 'Market Inefficiency',
                 conceptDesc: 'The traditional housing supply chain is blind and capital intensive.<br><span class="font-semibold text-stone-700">Newer replaces speculation with a high-velocity Matching Engine.</span>',
