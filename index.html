@@ -199,7 +199,7 @@
                                 </div>
                             </div>
 
-                            <!-- NEW: Step 2: Crew & Amenities (Combined/Sequenced) -->
+                            <!-- Step 2: Crew -->
                             <div id="step-2" class="step-content hidden fade-in">
                                 <h3 class="text-2xl font-bold mb-2">Who is this for?</h3>
                                 <p class="text-sm text-stone-500 mb-6">Define your space needs.</p>
@@ -296,6 +296,7 @@
                         <h3 class="text-xl font-bold text-stone-800">The Bidder</h3>
                         <p class="text-sm text-stone-500">Monitoring "Live Demand" & Pitching Inventory</p>
                     </div>
+                    <!-- Dashboard Header -->
                     <div class="bg-stone-900 text-white p-4 rounded-t-xl flex justify-between items-center shadow-lg z-10">
                         <div class="flex items-center gap-4">
                             <span class="font-bold tracking-wider">BUILDER TERMINAL</span>
@@ -308,6 +309,7 @@
                             <button onclick="toggleDashboardView('intel')" id="view-intel-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-chart-pie mr-1"></i> Intel</button>
                         </div>
                     </div>
+                    <!-- Dashboard Body -->
                     <div class="bg-stone-800 flex-1 p-4 rounded-b-xl border border-stone-700 shadow-2xl relative overflow-hidden flex flex-col">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-xs text-stone-400 uppercase">Verified Buyers</div><div class="text-xl font-mono text-white font-bold" id="stat-active">1,248</div></div>
@@ -413,8 +415,7 @@
     <!-- Social Proof, Moat, Revenue, CTA, FAQ, Footer sections (Unchanged structure) -->
     <!-- Content logic applied via JS below -->
     <section id="testimonials" class="py-20 bg-white border-y border-stone-100" data-audience="buyer,builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 id="testimonial-title" class="text-3xl font-bold text-stone-900">Success Stories</h2><p id="testimonial-desc" class="mt-4 text-stone-500">Real results from the people changing how homes are bought and sold.</p></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">New Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user"></i></div><div><h4 class="font-bold text-stone-900">Sarah & Mark T.</h4><p class="text-xs text-stone-500">Relocating to Austin, TX</p></div></div><p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer.com, we posted our budget and got a pitch for a lot that wasn't even listed yet."</p></div><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">First-Time Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user-graduate"></i></div><div><h4 class="font-bold text-stone-900">Jason L.</h4><p class="text-xs text-stone-500">Denver, CO</p></div></div><p class="text-stone-600 italic">"I thought I was priced out. A builder saw my 'Verify' badge and offered me a pre-construction deal on a townhome if I could close quickly."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Production Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div><div><h4 class="font-bold text-white">James R.</h4><p class="text-xs text-stone-400">VP Sales, Regional Builder</p></div></div><p class="text-stone-300 italic">"I searched Newer for buyers with a $550k budget in that zip code, found 3 matches, and pitched them. Sold it that weekend with zero marketing spend."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Custom Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-drafting-compass"></i></div><div><h4 class="font-bold text-white">Elena V.</h4><p class="text-xs text-stone-400">Owner, Boutique Homes</p></div></div><p class="text-stone-300 italic">"The 'Lead Unlock' feature alone saved us $20k in ad spend. We connect with clients who already want a custom build in our territory."</p></div><div class="bg-purple-50 p-8 rounded-2xl border border-purple-100 relative" data-audience="investor"><div class="absolute -top-4 right-8 bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase">The Investor</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-purple-200 rounded-full overflow-hidden flex items-center justify-center text-xl text-purple-600"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold text-purple-900">Marcus T.</h4><p class="text-xs text-purple-600">Partner, PropTech VC</p></div></div><p class="text-purple-800 italic">"By inverting the model, Newer.com solves the liquidity crisis in new construction. It's not just lead gen; it's a market maker."</p></div></div></div></section>
-
-    <!-- Rest of sections (Revenue, CTA, FAQ) from previous steps included by reference to keep brevity, logic applied via JS -->
+    
     <section id="moat" class="py-20 bg-stone-50" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 gap-16 items-center"><div><div class="inline-block px-3 py-1 bg-stone-200 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div><h2 class="text-3xl font-bold text-stone-900 mb-6">Why Builders Pay for "Unlocks"</h2><p class="text-lg text-stone-600 mb-6">The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.</p><p class="text-lg text-stone-600 mb-8">Newer.com solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.</p><div class="space-y-4"><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-check"></i></div><div><h4 class="font-bold text-stone-900">Verified Funds</h4><p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p></div></div><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-secret"></i></div><div><h4 class="font-bold text-stone-900">Buyer Anonymity</h4><p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p></div></div></div></div><div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-lg"><h3 class="text-sm font-bold text-stone-400 uppercase mb-4 text-center">Conversion Funnel Comparison</h3><div class="space-y-6"><div><div class="flex justify-between text-sm mb-1"><span class="text-stone-500">Industry Avg (Zillow/MLS)</span><span class="font-bold text-stone-700">1-2% Conversion</span></div><div class="h-4 bg-stone-200 rounded-full overflow-hidden"><div class="h-full bg-stone-400 w-[2%]"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-blue-600 font-bold">Newer.com Verified</span><span class="font-bold text-blue-700">15-20% Conversion</span></div><div class="h-4 bg-blue-100 rounded-full overflow-hidden"><div class="h-full bg-blue-600 w-[20%]"></div></div></div></div><div class="mt-8 pt-8 border-t border-stone-200 text-center"><p class="text-stone-500 text-sm italic">"I'd rather pay $50 for one verified lead than $500 for a billboard." <br><span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span></p></div></div></div></div></section>
     
     <section id="revenue" class="py-24 bg-stone-900 text-white" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 id="revenue-title" class="text-3xl font-bold">Unicorn Unit Economics</h2><p id="revenue-desc" class="mt-4 text-stone-400 max-w-2xl mx-auto">Three revenue streams create a scalable, recurring income model.</p></div><div class="grid lg:grid-cols-3 gap-8"><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-rss"></i></div><h3 class="text-xl font-bold mb-2">1. SaaS Subscription</h3><p class="text-stone-400 text-sm mb-4">Builders pay for access to the "Demand Feed" and market analytics.</p><div class="text-2xl font-mono font-bold text-white">$2k - $10k<span class="text-sm text-stone-500 font-normal">/mo</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-lock-open"></i></div><h3 class="text-xl font-bold mb-2">2. Unlock Fees</h3><p class="text-stone-400 text-sm mb-4">Micro-transactions. Builders pay to unlock the contact info of a matched buyer.</p><div class="text-2xl font-mono font-bold text-white">$50 - $200<span class="text-sm text-stone-500 font-normal">/lead</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-percentage"></i></div><h3 class="text-xl font-bold mb-2">3. Success Fees</h3><p class="text-stone-400 text-sm mb-4">Small take rate on the final transaction value upon closing.</p><div class="text-2xl font-mono font-bold text-white">0.5%<span class="text-sm text-stone-500 font-normal"> of Sale Price</span></div></div></div><div class="mt-16 bg-stone-800 p-6 rounded-2xl border border-stone-700" data-audience="investor"><h4 class="text-lg font-bold mb-6 text-center">Projected Revenue Mix (Year 1 - Year 5)</h4><div class="flex justify-center gap-2 mb-6"><button onclick="updateRevenue('conservative')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Conservative</button><button onclick="updateRevenue('base')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white border border-blue-600 transition-colors">Base Case</button><button onclick="updateRevenue('aggressive')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Aggressive</button></div><div class="chart-container"><canvas id="revenueChart"></canvas></div><p class="text-center text-xs text-stone-500 mt-4">*Based on Market Penetration in top 50 Metro Areas.</p></div></div></section>
@@ -423,38 +424,102 @@
     
     <section class="py-20 bg-stone-50 border-t border-stone-200" data-audience="buyer,builder,investor"><div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-3xl font-bold text-stone-900 text-center mb-12">Frequently Asked Questions</h2><div class="space-y-4"><div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer"><button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)"><span class="font-bold text-stone-800">Is my data safe with builders?</span><i class="fas fa-chevron-down text-stone-400 faq-icon"></i></button><div class="faq-answer px-6 bg-stone-50"><p class="py-4 text-stone-600 text-sm">Absolutely. Builders only see your <strong>anonymized profile</strong>. They only get your name if YOU accept their pitch.</p></div></div><div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="buyer"><button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)"><span class="font-bold text-stone-800">Does this cost me money?</span><i class="fas fa-chevron-down text-stone-400 faq-icon"></i></button><div class="faq-answer px-6 bg-stone-50"><p class="py-4 text-stone-600 text-sm">No. Newer.com is 100% free for buyers.</p></div></div><div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="builder"><button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)"><span class="font-bold text-stone-800">Do I pay for leads that don't close?</span><i class="fas fa-chevron-down text-stone-400 faq-icon"></i></button><div class="faq-answer px-6 bg-stone-50"><p class="py-4 text-stone-600 text-sm">The "Unlock Fee" is for the introduction to a verified buyer. We don't refund, but our conversion rate is ~15x higher than Zillow.</p></div></div><div class="bg-white rounded-lg border border-stone-200 overflow-hidden" data-audience="investor"><button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)"><span class="font-bold text-stone-800">How do you prevent platform leakage?</span><i class="fas fa-chevron-down text-stone-400 faq-icon"></i></button><div class="faq-answer px-6 bg-stone-50"><p class="py-4 text-stone-600 text-sm">Anonymity is key. Builders can't ID buyers without paying. Success fees are enforced via title company partnerships.</p></div></div></div></div></section>
 
+    <!-- Footer -->
+    <footer class="bg-stone-900 py-12 text-stone-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-white rounded flex items-center justify-center text-stone-900 text-xs font-bold">N</div>
+                <span class="text-lg font-bold text-white">Newer.com</span>
+            </div>
+            <div class="text-sm">
+                &copy; 2025 Newer Inc. All rights reserved.
+            </div>
+            <div class="flex gap-4">
+                <i class="fab fa-twitter hover:text-white cursor-pointer"></i>
+                <i class="fab fa-linkedin hover:text-white cursor-pointer"></i>
+                <i class="fab fa-instagram hover:text-white cursor-pointer"></i>
+            </div>
+        </div>
+    </footer>
+
     <!-- JS Logic -->
     <script>
-        // Modal & FAQ
-        const modal = document.getElementById('waitlist-modal');
-        const backdrop = document.getElementById('modal-backdrop');
-        const panel = document.getElementById('modal-panel');
-        const formState = document.getElementById('modal-form-state');
-        const successState = document.getElementById('modal-success-state');
-        const modalFooter = document.getElementById('modal-footer');
+        // Cache DOM elements
+        const audienceElements = document.querySelectorAll('[data-audience]');
 
+        // Modal Logic Refactored: Query elements dynamically to prevent null reference errors on load
         function openWaitlistModal() {
-            formState.classList.remove('hidden'); successState.classList.add('hidden'); modalFooter.classList.remove('hidden');
-            document.getElementById('waitlist-form').reset(); modal.classList.remove('hidden');
-            setTimeout(() => { backdrop.classList.remove('opacity-0'); panel.classList.remove('opacity-0', 'scale-95'); panel.classList.add('opacity-100', 'scale-100'); }, 10);
+            const modal = document.getElementById('waitlist-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            const formState = document.getElementById('modal-form-state');
+            const successState = document.getElementById('modal-success-state');
+            const modalFooter = document.getElementById('modal-footer');
+            
+            if (!modal || !backdrop || !panel) return; // Safety check
+
+            formState.classList.remove('hidden'); 
+            successState.classList.add('hidden'); 
+            modalFooter.classList.remove('hidden');
+            document.getElementById('waitlist-form').reset(); 
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => { 
+                backdrop.classList.remove('opacity-0'); 
+                panel.classList.remove('opacity-0', 'scale-95'); 
+                panel.classList.add('opacity-100', 'scale-100'); 
+            }, 10);
         }
+
         function closeWaitlistModal() {
-            backdrop.classList.add('opacity-0'); panel.classList.remove('opacity-100', 'scale-100'); panel.classList.add('opacity-0', 'scale-95');
+            const modal = document.getElementById('waitlist-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            
+            if (!modal || !backdrop || !panel) return;
+
+            backdrop.classList.add('opacity-0'); 
+            panel.classList.remove('opacity-100', 'scale-100'); 
+            panel.classList.add('opacity-0', 'scale-95');
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
+
         function handleWaitlistSubmit(e) {
             e.preventDefault();
             const btn = e.submitter || e.target.querySelector('button[type="submit"]'); 
-            const originalText = btn.innerText; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Opening Mail...'; btn.disabled = true;
+            const originalText = btn.innerText; 
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Opening Mail...'; 
+            btn.disabled = true;
+            
             const formData = new FormData(e.target);
-            const link = document.createElement('a');
-            link.href = `mailto:info@housingmarket.com?subject=Join Waitlist&body=Role: ${formData.get('role')}%0D%0AEmail: ${formData.get('email')}`;
-            link.style.display = 'none'; document.body.appendChild(link); link.click(); document.body.removeChild(link);
-            setTimeout(() => { formState.classList.add('hidden'); modalFooter.classList.add('hidden'); successState.classList.remove('hidden'); btn.innerText = originalText; btn.disabled = false; }, 1000);
+            const subject = "Join Waitlist - Newer.com";
+            const body = `Role: ${formData.get('role')}\nEmail: ${formData.get('email')}`;
+            
+            window.location.href = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            const formState = document.getElementById('modal-form-state');
+            const successState = document.getElementById('modal-success-state');
+            const modalFooter = document.getElementById('modal-footer');
+
+            setTimeout(() => { 
+                formState.classList.add('hidden'); 
+                modalFooter.classList.add('hidden'); 
+                successState.classList.remove('hidden'); 
+                btn.innerText = originalText; 
+                btn.disabled = false; 
+            }, 1000);
         }
+
         function toggleFaq(btn) {
-            const answer = btn.nextElementSibling; const icon = btn.querySelector('.faq-icon');
-            if(answer.classList.contains('open')) { answer.classList.remove('open'); icon.classList.remove('rotate'); } else { answer.classList.add('open'); icon.classList.add('rotate'); }
+            const answer = btn.nextElementSibling; 
+            const icon = btn.querySelector('.faq-icon');
+            if(answer.classList.contains('open')) { 
+                answer.classList.remove('open'); 
+                icon.classList.remove('rotate'); 
+            } else { 
+                answer.classList.add('open'); 
+                icon.classList.add('rotate'); 
+            }
         }
 
         // State & Logic
@@ -537,7 +602,8 @@
             document.getElementById('concept-old-list').innerHTML = config.oldList; document.getElementById('concept-new-list').innerHTML = config.newList; document.getElementById('demo-desc').innerHTML = config.demoDesc;
             document.getElementById('revenue-title').innerText = config.revenueTitle; document.getElementById('revenue-desc').innerText = config.revenueDesc;
             
-            document.querySelectorAll('[data-audience]').forEach(el => {
+            // Use cached elements
+            audienceElements.forEach(el => {
                 const allowedRoles = el.getAttribute('data-audience').split(',').map(s => s.trim());
                 if(allowedRoles.includes(role)) { el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
             });
@@ -617,7 +683,10 @@
                     btn.classList.replace('text-stone-400', 'text-white'); btn.classList.add('bg-stone-600');
                     div.classList.remove('hidden');
                     if(view === 'map') drawMap();
-                    if(view === 'intel') drawIntelChart();
+                    if(view === 'intel') {
+                        drawIntelChart();
+                        if(intelChartInstance) intelChartInstance.resize();
+                    }
                 } else {
                     btn.classList.replace('text-white', 'text-stone-400'); btn.classList.remove('bg-stone-600');
                     div.classList.add('hidden');
@@ -637,6 +706,14 @@
             }
             for(let i=0; i<5; i++) { const x = Math.random() * canvas.width; const y = Math.random() * canvas.height; ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill(); }
         }
+        
+        // Fix: Map Resize Listener
+        window.addEventListener('resize', () => {
+            const mapView = document.getElementById('dashboard-map-view');
+            if (!mapView.classList.contains('hidden')) {
+                drawMap();
+            }
+        });
         
         let intelChartInstance = null;
         function drawIntelChart() {
