@@ -290,7 +290,7 @@
                 </div>
 
                 <!-- RIGHT COLUMN: Builder Dashboard -->
-                <div class="lg:col-span-8 flex flex-col h-auto lg:h-[680px]">
+                <div class="lg:col-span-8 flex flex-col h-[680px]">
                     <div class="mb-4 text-center lg:text-left w-full pl-4">
                         <span class="text-xs font-bold uppercase text-stone-400 tracking-wider">Phase B: The Builder</span>
                         <h3 class="text-xl font-bold text-stone-800">The Bidder</h3>
@@ -298,24 +298,24 @@
                     </div>
                     <!-- Dashboard Header -->
                     <div class="bg-stone-900 text-white p-4 rounded-t-xl flex justify-between items-center shadow-lg z-10">
-                        <div class="flex items-center gap-2 md:gap-4">
-                            <span class="font-bold tracking-wider text-sm md:text-base">BUILDER TERMINAL</span>
-                            <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] md:text-xs rounded border border-green-500/30 animate-pulse">LIVE</span>
+                        <div class="flex items-center gap-4">
+                            <span class="font-bold tracking-wider">BUILDER TERMINAL</span>
+                            <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/30 animate-pulse">LIVE</span>
                         </div>
                         <div class="text-xs text-stone-400 font-mono hidden lg:block">MATCHES: <span id="dash-matches" class="text-white font-bold">12</span></div>
                         <div class="flex bg-stone-800 rounded-lg p-1 border border-stone-700">
-                            <button onclick="toggleDashboardView('list')" id="view-list-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold bg-stone-600 text-white transition-all"><i class="fas fa-list md:mr-1"></i> <span class="hidden md:inline">List</span></button>
-                            <button onclick="toggleDashboardView('map')" id="view-map-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-map-marker-alt md:mr-1"></i> <span class="hidden md:inline">Map</span></button>
-                            <button onclick="toggleDashboardView('intel')" id="view-intel-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-chart-pie md:mr-1"></i> <span class="hidden md:inline">Intel</span></button>
+                            <button onclick="toggleDashboardView('list')" id="view-list-btn" class="px-3 py-1 rounded text-xs font-bold bg-stone-600 text-white transition-all"><i class="fas fa-list mr-1"></i> List</button>
+                            <button onclick="toggleDashboardView('map')" id="view-map-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-map-marker-alt mr-1"></i> Map</button>
+                            <button onclick="toggleDashboardView('intel')" id="view-intel-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-chart-pie mr-1"></i> Intel</button>
                         </div>
                     </div>
                     <!-- Dashboard Body -->
-                    <div class="bg-stone-800 flex-1 p-4 rounded-b-xl border border-stone-700 shadow-2xl relative overflow-hidden flex flex-col h-[500px] lg:h-auto">
+                    <div class="bg-stone-800 flex-1 p-4 rounded-b-xl border border-stone-700 shadow-2xl relative overflow-hidden flex flex-col">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Verified Buyers</div><div class="text-lg md:text-xl font-mono text-white font-bold" id="stat-active">1,248</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Avg Budget</div><div class="text-lg md:text-xl font-mono text-white font-bold" id="stat-budget">$485k</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Credits</div><div class="text-lg md:text-xl font-mono text-yellow-400 font-bold" id="stat-credits">500</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Unlock Rate</div><div class="text-lg md:text-xl font-mono text-green-400 font-bold">18.4%</div></div>
+                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-xs text-stone-400 uppercase">Verified Buyers</div><div class="text-xl font-mono text-white font-bold" id="stat-active">1,248</div></div>
+                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-xs text-stone-400 uppercase">Avg Budget</div><div class="text-xl font-mono text-white font-bold" id="stat-budget">$485k</div></div>
+                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-xs text-stone-400 uppercase">Credits</div><div class="text-xl font-mono text-yellow-400 font-bold" id="stat-credits">500</div></div>
+                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-xs text-stone-400 uppercase">Unlock Rate</div><div class="text-xl font-mono text-green-400 font-bold">18.4%</div></div>
                         </div>
                         
                         <!-- LIST VIEW CONTAINER -->
@@ -436,6 +436,8 @@
             </div>
             <div class="text-sm">
                 &copy; 2025 Newer Inc. All rights reserved.
+                <span class="mx-2">•</span>
+                <a href="mailto:your-email@example.com" class="hover:text-white transition-colors">Contact Us</a>
             </div>
             <div class="flex gap-4">
                 <i class="fab fa-twitter hover:text-white cursor-pointer"></i>
@@ -444,6 +446,87 @@
             </div>
         </div>
     </footer>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlist-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-stone-900/75 transition-opacity duration-300 opacity-0" id="modal-backdrop" onclick="closeWaitlistModal()"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto pointer-events-none">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <!-- Modal Panel -->
+                <div class="pointer-events-auto relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all duration-300 sm:my-8 sm:w-full sm:max-w-md scale-95 opacity-0" id="modal-panel">
+                    
+                    <!-- Close Button -->
+                    <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <!-- Form State -->
+                    <div id="modal-form-state" class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                                <i class="fas fa-rocket text-blue-600"></i>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                                <h3 class="text-lg font-semibold leading-6 text-stone-900" id="modal-title">Try the Newer Way</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-stone-500 mb-4">Be the first to know when we launch in your city. Builders are waiting.</p>
+                                    <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
+                                        <div class="mb-4">
+                                            <label for="email" class="block text-sm font-medium text-stone-700 mb-1">Email Address</label>
+                                            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="you@example.com">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label class="block text-sm font-medium text-stone-700 mb-2">I am a...</label>
+                                            <div class="grid grid-cols-3 gap-2">
+                                                <label class="cursor-pointer">
+                                                    <input type="radio" name="role" value="buyer" class="peer sr-only" checked>
+                                                    <div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all hover:bg-stone-50 text-stone-600">
+                                                        <i class="fas fa-home mr-1"></i> Buyer
+                                                    </div>
+                                                </label>
+                                                <label class="cursor-pointer">
+                                                    <input type="radio" name="role" value="builder" class="peer sr-only">
+                                                    <div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all hover:bg-stone-50 text-stone-600">
+                                                        <i class="fas fa-hard-hat mr-1"></i> Builder
+                                                    </div>
+                                                </label>
+                                                <label class="cursor-pointer">
+                                                    <input type="radio" name="role" value="investor" class="peer sr-only">
+                                                    <div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all hover:bg-stone-50 text-stone-600">
+                                                        <i class="fas fa-chart-line mr-1"></i> Investor
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="w-full bg-stone-900 text-white rounded-lg px-4 py-3 font-bold hover:bg-stone-800 transition-all shadow-lg shadow-stone-900/20 active:scale-[0.98]">
+                                            Secure My Spot
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success State (Hidden by default) -->
+                    <div id="modal-success-state" class="hidden bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 text-center py-10">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-[bounce_1s_infinite]">
+                            <i class="fas fa-check text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-stone-900 mb-2">You're on the list!</h3>
+                        <p class="text-stone-500 text-sm mb-6">We'll notify you as soon as builders in your area join the network.</p>
+                        <button type="button" onclick="closeWaitlistModal()" class="inline-flex w-full justify-center rounded-lg bg-stone-100 px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-stone-200 transition-colors">Close</button>
+                    </div>
+
+                    <!-- Modal Footer (Only visible with Form) -->
+                    <div id="modal-footer" class="bg-stone-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <p class="text-xs text-stone-400 text-center sm:text-right w-full">We respect your privacy. No spam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JS Logic -->
     <script>
@@ -465,30 +548,32 @@
         // Modal Logic Refactored: Robust safety checks
         function openWaitlistModal() {
             const modal = document.getElementById('waitlist-modal');
-            if (!modal) return; // Critical exit
-
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
             const formState = document.getElementById('modal-form-state');
             const successState = document.getElementById('modal-success-state');
             const modalFooter = document.getElementById('modal-footer');
             const form = document.getElementById('waitlist-form');
 
-            // Reset UI states safely
-            if (formState) formState.classList.remove('hidden'); 
-            if (successState) successState.classList.add('hidden'); 
-            if (modalFooter) modalFooter.classList.remove('hidden');
-            if (form) form.reset(); 
+            // Defensive check: If any element is missing, log it and stop to prevent crash
+            if (!modal || !backdrop || !panel || !formState || !successState || !modalFooter) {
+                console.warn('Modal elements missing');
+                return;
+            }
+
+            // Reset UI
+            formState.classList.remove('hidden'); 
+            successState.classList.add('hidden'); 
+            modalFooter.classList.remove('hidden');
+            if(form) form.reset(); 
             
             modal.classList.remove('hidden');
             
             // Animation
             setTimeout(() => { 
-                const backdrop = document.getElementById('modal-backdrop');
-                const panel = document.getElementById('modal-panel');
-                if (backdrop) backdrop.classList.remove('opacity-0'); 
-                if (panel) {
-                    panel.classList.remove('opacity-0', 'scale-95'); 
-                    panel.classList.add('opacity-100', 'scale-100'); 
-                }
+                backdrop.classList.remove('opacity-0'); 
+                panel.classList.remove('opacity-0', 'scale-95'); 
+                panel.classList.add('opacity-100', 'scale-100'); 
             }, 10);
         }
 
@@ -507,6 +592,7 @@
 
         function handleWaitlistSubmit(e) {
             e.preventDefault();
+            // Safer button selection
             const btn = e.submitter || e.target.querySelector('button[type="submit"]'); 
             const originalText = btn ? btn.innerText : 'Secure My Spot'; 
             
@@ -516,18 +602,15 @@
             }
             
             const formData = new FormData(e.target);
+            const destinationEmail = "your-email@example.com"; // UPDATE THIS WITH YOUR EMAIL
             const subject = "Join Waitlist - Newer.com";
+            // Fix: Use %0D%0A for robust line breaks in mailto links
             const body = `Role: ${formData.get('role')}%0D%0AEmail: ${formData.get('email')}`;
             
-            // Robust mailto trigger
-            const link = document.createElement('a');
-            link.href = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Attempt to open mail client
+            window.location.href = `mailto:${destinationEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
             
-            // Define elements locally to prevent ReferenceError
+            // Show Success UI regardless of mailto result
             const formState = document.getElementById('modal-form-state');
             const successState = document.getElementById('modal-success-state');
             const modalFooter = document.getElementById('modal-footer');
@@ -536,6 +619,7 @@
                 if (formState) formState.classList.add('hidden'); 
                 if (modalFooter) modalFooter.classList.add('hidden'); 
                 if (successState) successState.classList.remove('hidden'); 
+                
                 if (btn) {
                     btn.innerText = originalText; 
                     btn.disabled = false; 
