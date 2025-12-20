@@ -180,17 +180,17 @@
     <section class="relative pt-20 pb-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div id="hero-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
-                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The New Construction Marketplace
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market
             </div>
             <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight min-h-[2.4em]">
                 Don't Search for a Home.<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>
             </h1>
             <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-stone-500 min-h-[3em]">
-                From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>
+                Stop chasing leftovers. Post your "Dream Profile" and let top builders pitch you with <strong>off-market deals</strong> and <strong>custom lots</strong>.
             </p>
             <div class="mt-10 flex justify-center gap-4">
-                <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">Experience The Newer Way</a>
+                <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">Build My Dream Profile</a>
                 <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-semibold shadow-sm hover:bg-stone-50 transition-all duration-200">How It Works</a>
             </div>
         </div>
@@ -206,9 +206,9 @@
     <section id="concept" class="py-20 bg-white border-y border-stone-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 id="concept-title" class="text-3xl font-bold text-stone-900">The End of the Chase</h2>
+                <h2 id="concept-title" class="text-3xl font-bold text-stone-900">The Power Shift</h2>
                 <p id="concept-desc" class="mt-4 text-stone-500 max-w-2xl mx-auto">
-                    The traditional market forces you to hunt for leftovers.<br><span class="font-semibold text-stone-700">Newer sends your criteria to builders, who pitch <em>you</em> with options.</span>
+                    The traditional market makes you beg for a viewing.<br><span class="font-semibold text-stone-700">Newer turns you into the Client, and builders into the Service Providers.</span>
                 </p>
             </div>
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -240,7 +240,7 @@
                     <div class="mb-4 text-center lg:text-right w-full">
                         <span class="text-xs font-bold uppercase text-stone-400 tracking-wider">Phase A: The Buyer</span>
                         <h3 class="text-xl font-bold text-stone-800">The Asset</h3>
-                        <p class="text-sm text-stone-500">Building the "Dream Profile"</p>
+                        <p class="text-sm text-stone-500">Building the "Dream Home Profile"</p>
                     </div>
                     
                     <div class="phone-frame flex flex-col shadow-2xl relative">
@@ -415,7 +415,7 @@
                         </div>
                         
                         <!-- LIST VIEW CONTAINER -->
-                        <div id="dashboard-list-view" class="flex-1 bg-stone-900/50 rounded-lg border border-stone-700 overflow-hidden flex flex-col relative transition-opacity duration-300">
+                        <div id="dashboard-list-view" class="flex-1 min-h-0 bg-stone-900/50 rounded-lg border border-stone-700 overflow-hidden flex flex-col relative transition-opacity duration-300">
                             <div class="grid grid-cols-12 gap-2 p-3 border-b border-stone-700 bg-stone-800/80 text-xs font-bold text-stone-400 uppercase">
                                 <div class="col-span-2 sm:col-span-2">ID</div>
                                 <div class="hidden sm:block sm:col-span-2">Status</div>
@@ -427,7 +427,7 @@
                         </div>
                         
                         <!-- MAP VIEW CONTAINER -->
-                        <div id="dashboard-map-view" class="absolute inset-0 top-[88px] bottom-0 bg-stone-900 rounded-lg border border-stone-700 overflow-hidden hidden transition-opacity duration-300">
+                        <div id="dashboard-map-view" class="flex-1 min-h-0 relative bg-stone-900 rounded-lg border border-stone-700 overflow-hidden hidden transition-opacity duration-300">
                             <canvas id="demandMap" class="w-full h-full object-cover opacity-80"></canvas>
                             <div class="absolute bottom-4 right-4 bg-black/70 px-3 py-2 rounded text-xs text-white backdrop-blur">
                                 <span class="w-2 h-2 rounded-full bg-red-500 inline-block mr-1"></span> High Demand
@@ -436,7 +436,7 @@
                         </div>
 
                         <!-- INTEL VIEW -->
-                        <div id="dashboard-intel-view" class="absolute inset-0 top-[88px] bottom-0 bg-stone-900 rounded-lg border border-stone-700 overflow-y-auto overflow-x-hidden hidden p-6 transition-opacity duration-300">
+                        <div id="dashboard-intel-view" class="flex-1 min-h-0 bg-stone-900 rounded-lg border border-stone-700 overflow-y-auto overflow-x-hidden hidden p-6 transition-opacity duration-300">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
                                 <div>
                                     <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Top Requested Features (Live)</h4>
@@ -748,50 +748,50 @@
                 } catch (e) { console.error(e); }
             }
         }
-
+        // --- Content Configuration ---
         const contentConfig = {
             buyer: {
                 badge: '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
                 title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>',
-                desc: 'From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
-                ctaText: 'Start Your Dream Profile',
-                conceptTitle: 'The End of the Chase',
-                conceptDesc: 'The traditional market forces you to hunt for leftovers.<br><span class="font-semibold text-stone-700">Newer sends your criteria to builders, who pitch <em>you</em> with options.</span>',
+                desc: 'Stop chasing leftovers. Post your "Dream Profile" and let top builders pitch you with <strong>off-market deals</strong> and <strong>custom lots</strong>.',
+                ctaText: 'Build My Dream Profile',
+                conceptTitle: 'The Power Shift',
+                conceptDesc: 'The traditional market makes you beg for a viewing.<br><span class="font-semibold text-stone-700">Newer turns you into the Client, and builders into the Service Providers.</span>',
                 demoTitle: 'Your Personal Market',
                 testimonialTitle: 'Success Stories',
                 testimonialDesc: 'See how families are skipping the stress and getting offers directly from builders.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li>',
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-magic text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Profile Perfection:</span><p class="text-sm">Generative AI crafts your "Market Bio" to attract more offers.</p></div></li>`,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Chasing Listings:</span><p class="text-sm">Refreshing Zillow daily hoping for a match.</p></div></li>',
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-trophy text-blue-500"></i></div><div><span class="font-bold text-stone-900">Being the Prize:</span><p class="text-sm">Builders bid on <em>your</em> business with incentives.</p></div></li>`,
                 demoDesc: 'Interact with the <strong>Buyer App</strong> (Phase A) to broadcast your needs. Watch the market respond.',
                 revenueTitle: 'Pricing', revenueDesc: 'Simple, transparent pricing.'
             },
             builder: {
-                badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> High-Intent Leads',
-                title: 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Build What\'s Sold.</span>',
-                desc: 'AI-Prioritized Demand for <strong>New Construction</strong>.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation. Just data.</span>',
-                ctaText: 'Claim Your Territory',
-                conceptTitle: 'Solving "Speculation Risk"',
-                conceptDesc: 'The traditional market forces everyone to guess.<br><span class="font-semibold text-stone-700">Newer creates a market based on verified requests (Certainty).</span>',
+                badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> Guaranteed Absorption',
+                title: 'Build for Buyers.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Not for Speculation.</span>',
+                desc: 'Eliminate market risk. See exactly what <strong>verified buyers</strong> in your zip code want before you pour a single foundation.',
+                ctaText: 'Access Live Demand Feed',
+                conceptTitle: 'From Gambling to Manufacturing',
+                conceptDesc: 'Stop guessing what will sell next year.<br><span class="font-semibold text-stone-700">Newer gives you an order book of pre-approved buyers waiting for inventory.</span>',
                 demoTitle: 'Demand Command Center',
                 testimonialTitle: 'Builder Wins',
                 testimonialDesc: 'Real results from developers who stopped building blind and started building sold.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li>',
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-robot text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Sales Copilot:</span><p class="text-sm">Instant pitch drafting and market intel analysis.</p></div></li>`,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">The "Spec" Gamble:</span><p class="text-sm">Building homes and praying interest rates don\'t rise.</p></div></li>',
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-chart-line text-blue-500"></i></div><div><span class="font-bold text-stone-900">Build-to-Order:</span><p class="text-sm">Secure a buyer before you even break ground.</p></div></li>`,
                 demoDesc: 'Watch the <strong>Builder Terminal</strong> (Phase B) populate instantly as real demand flows in from the App.',
                 revenueTitle: 'Transparent Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
             investor: {
-                badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Unicorn Potential',
-                title: 'Inverting Real Estate.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">High-Velocity Liquidity.</span>',
-                desc: 'AI-Driven Liquidity for <strong>New Construction</strong>.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
-                ctaText: 'Analyze Unit Economics',
-                conceptTitle: 'Market Inefficiency',
-                conceptDesc: 'The traditional housing supply chain is blind and capital intensive.<br><span class="font-semibold text-stone-700">Newer replaces speculation with a high-velocity Matching Engine.</span>',
+                badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Market Efficiency',
+                title: 'Solving the $300B<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">"Speculation Tax" on Housing.</span>',
+                desc: 'By inverting the market from Supply-First to <strong>Demand-First</strong>, we unlock massive liquidity and zero-out customer acquisition costs.',
+                ctaText: 'See The Unit Economics',
+                conceptTitle: 'The Liquidity Engine',
+                conceptDesc: 'The housing market is illiquid because it lacks data.<br><span class="font-semibold text-stone-700">Newer is the clearinghouse that matches capital to verified demand instantly.</span>',
                 demoTitle: 'The Transaction Engine',
                 testimonialTitle: 'Market Validation',
                 testimonialDesc: 'Data-driven validation of the high-velocity matching engine and liquidity model.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li>',
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-brain text-blue-500"></i></div><div><span class="font-bold text-stone-900">Generative Insights:</span><p class="text-sm">Automated deal memos and predictive demand modeling.</p></div></li>`,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Capital Lockup:</span><p class="text-sm">Money stuck in finished inventory waiting for buyers.</p></div></li>',
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-bolt text-blue-500"></i></div><div><span class="font-bold text-stone-900">Velocity of Money:</span><p class="text-sm">Faster turns, higher IRR, and de-risked assets.</p></div></li>`,
                 demoDesc: 'Observe the ecosystem mechanics: How <strong>User Input</strong> converts to <strong>Monetizable Data</strong> for builders.',
                 revenueTitle: 'Unicorn Unit Economics', revenueDesc: 'Three revenue streams create a scalable, recurring income model with high LTV.'
             }
