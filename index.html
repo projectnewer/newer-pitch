@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Confetti Library for UX Delight -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         /* Custom Scrollbar for Dashboard */
         .dashboard-scroll::-webkit-scrollbar { width: 8px; }
@@ -50,6 +52,16 @@
         .pulse-ring { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
         @keyframes pulse-ring { 0% { transform: scale(0.33); opacity: 1; } 80%, 100% { transform: scale(1); opacity: 0; } }
 
+        /* Guided Action Pulse (UX Improvement) */
+        .action-pulse {
+            animation: softPulse 2s infinite;
+        }
+        @keyframes softPulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
         .toast-enter { animation: toastSlideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes toastSlideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
@@ -87,7 +99,7 @@
                     <button onclick="setAudience('investor')" class="role-btn px-4 py-1.5 rounded-full text-sm font-medium text-stone-600">Investor</button>
                 </div>
 
-                <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-800 transition-colors active:scale-95 transform duration-100">
+                <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-800 transition-colors active:scale-95 transform duration-100 shadow-sm">
                     Join Waitlist
                 </button>
             </div>
@@ -225,7 +237,8 @@
                                         </div>
                                         <input type="range" min="300" max="1500" step="50" value="500" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900" oninput="updateRange('budget', this.value)">
                                     </div>
-                                    <button onclick="nextStep('amenities')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4">Next Step</button>
+                                    <!-- Added UX Improvement: Action Pulse -->
+                                    <button onclick="nextStep('amenities')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4 action-pulse hover:animate-none">Next Step</button>
                                 </div>
                             </div>
 
@@ -469,13 +482,18 @@
                                 <i class="fas fa-rocket text-blue-600"></i>
                             </div>
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                                <h3 class="text-lg font-semibold leading-6 text-stone-900" id="modal-title">Try the Newer Way</h3>
+                                <h3 class="text-lg font-semibold leading-6 text-stone-900" id="modal-title">Join the Reverse Market</h3>
                                 <div class="mt-2">
                                     <p class="text-sm text-stone-500 mb-4">Be the first to know when we launch in your city. Builders are waiting.</p>
+                                    <!-- Added "Target Zip Code" field for improved data collection -->
                                     <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
-                                        <div class="mb-4">
+                                        <div class="mb-3">
                                             <label for="email" class="block text-sm font-medium text-stone-700 mb-1">Email Address</label>
                                             <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="you@example.com">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="zip" class="block text-sm font-medium text-stone-700 mb-1">Target Zip Code</label>
+                                            <input type="text" id="zip" name="zip" required class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="e.g. 78704">
                                         </div>
                                         <div class="mb-5">
                                             <label class="block text-sm font-medium text-stone-700 mb-2">I am a...</label>
@@ -569,7 +587,6 @@
             
             modal.classList.remove('hidden');
             
-            // Animation
             setTimeout(() => { 
                 backdrop.classList.remove('opacity-0'); 
                 panel.classList.remove('opacity-0', 'scale-95'); 
@@ -601,11 +618,21 @@
                 btn.disabled = true;
             }
             
+            // Add visual feedback (Confetti)
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#3b82f6', '#10b981', '#fbbf24']
+                });
+            }
+            
             const formData = new FormData(e.target);
             const destinationEmail = "your-email@example.com"; // UPDATE THIS WITH YOUR EMAIL
             const subject = "Join Waitlist - Newer.com";
             // Fix: Use %0D%0A for robust line breaks in mailto links
-            const body = `Role: ${formData.get('role')}%0D%0AEmail: ${formData.get('email')}`;
+            const body = `Role: ${formData.get('role')}%0D%0AZip: ${formData.get('zip')}%0D%0AEmail: ${formData.get('email')}`;
             
             // Attempt to open mail client
             window.location.href = `mailto:${destinationEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
@@ -630,6 +657,11 @@
         function toggleFaq(btn) {
             const answer = btn.nextElementSibling; 
             const icon = btn.querySelector('.faq-icon');
+            
+            // A11y Update: Toggle aria-expanded
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !isExpanded);
+            
             if(answer.classList.contains('open')) { 
                 answer.classList.remove('open'); 
                 icon.classList.remove('rotate'); 
@@ -814,51 +846,28 @@
         // Canvas Drawing
         function drawMap() {
             const canvas = document.getElementById('demandMap'); if(!canvas) return;
-            canvas.width = canvas.parentElement.offsetWidth; 
-            canvas.height = canvas.parentElement.offsetHeight;
-            const ctx = canvas.getContext('2d'); 
-            
-            // Clear and BG
-            ctx.fillStyle = '#111827'; 
-            ctx.fillRect(0,0, canvas.width, canvas.height);
-            
-            // Fix #1: Draw Heatmap from stable data points
+            canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight;
+            const ctx = canvas.getContext('2d'); ctx.fillStyle = '#111827'; ctx.fillRect(0,0, canvas.width, canvas.height);
+            // Stable points for heat map
             heatMapPoints.forEach(p => {
                 const x = p.x * canvas.width;
                 const y = p.y * canvas.height;
-                const grad = ctx.createRadialGradient(x, y, 0, x, y, p.r);
-                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); 
-                grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
-                ctx.fillStyle = grad; 
-                ctx.beginPath(); 
-                ctx.arc(x, y, p.r, 0, Math.PI*2); 
-                ctx.fill();
+                const grad = ctx.createRadialGradient(x,y,0, x,y,p.r); 
+                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(x, y, p.r, 0, Math.PI*2); ctx.fill();
             });
-
-            // Draw Lots from stable data
-            lotPoints.forEach(p => {
+            lotPoints.forEach(p => { 
                 const x = p.x * canvas.width;
                 const y = p.y * canvas.height;
-                ctx.fillStyle = '#3b82f6'; 
-                ctx.beginPath(); 
-                ctx.arc(x, y, 4, 0, Math.PI*2); 
-                ctx.fill();
+                ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill(); 
             });
         }
         
-        // Fix #2: Updated Resize Listener
+        // Fix: Map Resize Listener
         window.addEventListener('resize', () => {
             const mapView = document.getElementById('dashboard-map-view');
-            const intelView = document.getElementById('dashboard-intel-view');
-            
-            // Redraw map if visible
             if (!mapView.classList.contains('hidden')) {
                 drawMap();
-            }
-            
-            // Resize chart if visible
-            if (!intelView.classList.contains('hidden') && intelChartInstance) {
-                intelChartInstance.resize();
             }
         });
         
