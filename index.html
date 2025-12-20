@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newer.com | The Marketplace for New Construction</title>
+    <title>Newer.com | The Reverse Market for New Construction</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -450,7 +450,19 @@
         // Cache DOM elements
         const audienceElements = document.querySelectorAll('[data-audience]');
 
-        // Modal Logic Refactored: Query elements dynamically to prevent null reference errors on load
+        // --- STABLE MAP DATA (Fix #1) ---
+        // Generate once, use everywhere. Stored as 0-1 percentages for responsive positioning.
+        const heatMapPoints = Array.from({length: 30}, () => ({
+            x: Math.random(), 
+            y: Math.random(), 
+            r: 20 + Math.random() * 40
+        }));
+        const lotPoints = Array.from({length: 5}, () => ({
+            x: Math.random(), 
+            y: Math.random()
+        }));
+
+        // Modal Logic Refactored
         function openWaitlistModal() {
             const modal = document.getElementById('waitlist-modal');
             const backdrop = document.getElementById('modal-backdrop');
@@ -459,7 +471,7 @@
             const successState = document.getElementById('modal-success-state');
             const modalFooter = document.getElementById('modal-footer');
             
-            if (!modal || !backdrop || !panel) return; // Safety check
+            if (!modal || !backdrop || !panel) return;
 
             formState.classList.remove('hidden'); 
             successState.classList.add('hidden'); 
@@ -496,9 +508,11 @@
             
             const formData = new FormData(e.target);
             const subject = "Join Waitlist - Newer.com";
-            const body = `Role: ${formData.get('role')}\nEmail: ${formData.get('email')}`;
             
-            window.location.href = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            // Fix #3: Use %0D%0A for robust line breaks in mailto links
+            const body = `Role: ${formData.get('role')}%0D%0AEmail: ${formData.get('email')}`;
+            
+            window.location.href = `mailto:info@housingmarket.com?subject=${encodeURIComponent(subject)}&body=${body}`;
             
             const formState = document.getElementById('modal-form-state');
             const successState = document.getElementById('modal-success-state');
@@ -700,21 +714,51 @@
         // Canvas Drawing
         function drawMap() {
             const canvas = document.getElementById('demandMap'); if(!canvas) return;
-            canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight;
-            const ctx = canvas.getContext('2d'); ctx.fillStyle = '#111827'; ctx.fillRect(0,0, canvas.width, canvas.height);
-            for(let i=0; i<30; i++) {
-                const x = Math.random() * canvas.width; const y = Math.random() * canvas.height; const r = 20 + Math.random() * 40;
-                const grad = ctx.createRadialGradient(x,y,0, x,y,r); grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
-                ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
-            }
-            for(let i=0; i<5; i++) { const x = Math.random() * canvas.width; const y = Math.random() * canvas.height; ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill(); }
+            canvas.width = canvas.parentElement.offsetWidth; 
+            canvas.height = canvas.parentElement.offsetHeight;
+            const ctx = canvas.getContext('2d'); 
+            
+            // Clear and BG
+            ctx.fillStyle = '#111827'; 
+            ctx.fillRect(0,0, canvas.width, canvas.height);
+            
+            // Fix #1: Draw Heatmap from stable data points
+            heatMapPoints.forEach(p => {
+                const x = p.x * canvas.width;
+                const y = p.y * canvas.height;
+                const grad = ctx.createRadialGradient(x, y, 0, x, y, p.r);
+                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); 
+                grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                ctx.fillStyle = grad; 
+                ctx.beginPath(); 
+                ctx.arc(x, y, p.r, 0, Math.PI*2); 
+                ctx.fill();
+            });
+
+            // Draw Lots from stable data
+            lotPoints.forEach(p => {
+                const x = p.x * canvas.width;
+                const y = p.y * canvas.height;
+                ctx.fillStyle = '#3b82f6'; 
+                ctx.beginPath(); 
+                ctx.arc(x, y, 4, 0, Math.PI*2); 
+                ctx.fill();
+            });
         }
         
-        // Fix: Map Resize Listener
+        // Fix #2: Updated Resize Listener
         window.addEventListener('resize', () => {
             const mapView = document.getElementById('dashboard-map-view');
+            const intelView = document.getElementById('dashboard-intel-view');
+            
+            // Redraw map if visible
             if (!mapView.classList.contains('hidden')) {
                 drawMap();
+            }
+            
+            // Resize chart if visible
+            if (!intelView.classList.contains('hidden') && intelChartInstance) {
+                intelChartInstance.resize();
             }
         });
         
