@@ -1,2 +1,2 @@
-# newer-pitch
-Pitch for Project Newer
+# newer
+Project Newer
