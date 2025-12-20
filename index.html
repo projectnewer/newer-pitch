@@ -87,6 +87,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .ai-border {
+             border: 1px solid transparent;
+             background-image: linear-gradient(white, white), linear-gradient(to right, #4f46e5, #9333ea);
+             background-origin: border-box;
+             background-clip: content-box, border-box;
+        }
         .ai-btn {
             background: linear-gradient(to right, #4f46e5, #7c3aed);
             color: white;
@@ -136,12 +142,9 @@
             <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
                 Don't Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>
             </h1>
-            
-            <!-- Dynamic Subheadline -->
             <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-xl text-stone-500">
                 From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>
             </p>
-            
             <div class="mt-10 flex justify-center gap-4">
                 <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">Experience The Newer Way</a>
                 <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-semibold shadow-sm hover:bg-stone-50 transition-all duration-200">How It Works</a>
@@ -810,57 +813,45 @@
             buyer: {
                 badge: '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
                 title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>',
-                desc: 'From <strong>Search Engine</strong> to <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
+                desc: 'Flipping the real estate script from a <strong>Search Engine</strong> to a <strong>Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
                 ctaText: 'Start Your Dream Profile',
                 conceptTitle: 'The End of the Chase',
                 conceptDesc: 'The traditional market forces you to hunt for leftovers.<br><span class="font-semibold text-stone-700">Newer.com sends your criteria to builders, who pitch <em>you</em> with options.</span>',
                 demoTitle: 'Your Personal Market',
                 testimonialTitle: 'Success Stories',
                 testimonialDesc: 'See how families are skipping the stress and getting offers directly from builders.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Buyer Fatigue:</span><p class="text-sm">Buyers spend hours doom-scrolling MLS listings.</p></div></li>',
-                newList: `
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Builders see "Live Demand" and build exactly what is requested.</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">The "Reverse" Auction:</span><p class="text-sm">Verified buyers create a "Dream Profile."</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-magic text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Profile Perfection:</span><p class="text-sm">Generative AI crafts your "Market Bio" to attract more offers.</p></div></li>
-                `,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li>',
+                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Builders see "Live Demand" and build exactly what is requested.</p></div></li>',
                 demoDesc: 'Interact with the <strong>Buyer App</strong> (Phase A) to broadcast your needs. Watch the market respond.',
                 revenueTitle: 'Pricing', revenueDesc: 'Simple, transparent pricing.'
             },
             builder: {
                 badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> High-Intent Leads',
                 title: 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Build What\'s Sold.</span>',
-                desc: 'Access a live feed of <strong>Verified Buyers</strong> prioritized by AI.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation. Just data.</span>',
+                desc: 'Access a live feed of <strong>Verified Buyers</strong> actively looking for your inventory.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation.</span>',
                 ctaText: 'Claim Your Territory',
                 conceptTitle: 'Solving "Speculation Risk"',
                 conceptDesc: 'The traditional market forces everyone to guess.<br><span class="font-semibold text-stone-700">Newer.com creates a market based on verified requests (Certainty).</span>',
                 demoTitle: 'Demand Command Center',
                 testimonialTitle: 'Builder Wins',
                 testimonialDesc: 'Real results from developers who stopped building blind and started building sold.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">High CAC:</span><p class="text-sm">Paying $500+ per lead for tire-kickers.</p></div></li>',
-                newList: `
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Direct Sales:</span><p class="text-sm">Pitch directly to buyers with funding proof.</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-robot text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Sales Copilot:</span><p class="text-sm">Instant pitch drafting and market intel analysis.</p></div></li>
-                `,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li>',
+                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li>',
                 demoDesc: 'Watch the <strong>Builder Terminal</strong> (Phase B) populate instantly as real demand flows in from the App.',
                 revenueTitle: 'Transparent Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
             investor: {
                 badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Unicorn Potential',
                 title: 'The Efficiency Engine<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">For Real Estate.</span>',
-                desc: 'Solving the liquidity crisis via an AI-driven reverse marketplace.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
+                desc: 'Solving the liquidity crisis in new construction by inverting the supply chain.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
                 ctaText: 'Analyze Unit Economics',
                 conceptTitle: 'Market Inefficiency',
                 conceptDesc: 'The traditional housing supply chain is blind and capital intensive.<br><span class="font-semibold text-stone-700">Newer.com replaces speculation with a high-velocity Matching Engine.</span>',
                 demoTitle: 'The Transaction Engine',
                 testimonialTitle: 'Market Validation',
                 testimonialDesc: 'Data-driven validation of the high-velocity matching engine and liquidity model.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Opaque Data:</span><p class="text-sm">No real-time signal on consumer preference.</p></div></li>',
-                newList: `
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Matching supply to demand instantly.</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Data Monetization:</span><p class="text-sm">Aggregating demand signals for developers.</p></div></li>
-                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-brain text-blue-500"></i></div><div><span class="font-bold text-stone-900">Generative Insights:</span><p class="text-sm">Automated deal memos and predictive demand modeling.</p></div></li>
-                `,
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li>',
+                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Matching supply to demand instantly.</p></div></li>',
                 demoDesc: 'Observe the ecosystem mechanics: How <strong>User Input</strong> converts to <strong>Monetizable Data</strong> for builders.',
                 revenueTitle: 'Unicorn Unit Economics', revenueDesc: 'Three revenue streams create a scalable, recurring income model with high LTV.'
             }
