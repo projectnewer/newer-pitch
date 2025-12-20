@@ -11,10 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         /* Custom Scrollbar for Dashboard */
-        .dashboard-scroll::-webkit-scrollbar { width: 8px; }
-        .dashboard-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
-        .dashboard-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .dashboard-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .dashboard-scroll::-webkit-scrollbar { width: 6px; }
+        .dashboard-scroll::-webkit-scrollbar-track { background: #1c1917; }
+        .dashboard-scroll::-webkit-scrollbar-thumb { background: #44403c; border-radius: 4px; }
+        .dashboard-scroll::-webkit-scrollbar-thumb:hover { background: #57534e; }
 
         /* Responsive Phone Frame Styling */
         .phone-frame {
@@ -23,41 +23,51 @@
             overflow: hidden;
             width: 100%;
             height: 600px;
-            border-radius: 1rem;
+            border-radius: 2rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 8px solid #1c1917;
         }
         
         @media (min-width: 1024px) {
             .phone-frame {
-                border: 12px solid #1f2937;
-                border-radius: 30px;
-                width: 320px;
-                height: 680px;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                border: 12px solid #1c1917;
+                border-radius: 3rem;
+                width: 340px;
+                height: 700px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             }
             .phone-notch { display: block; }
         }
 
         .phone-notch {
-            display: none; 
             position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 40%; height: 20px; background-color: #1f2937;
-            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 10;
+            width: 40%; height: 24px; background-color: #1c1917;
+            border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; z-index: 20;
         }
 
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none; width: 100%; background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #1c1917; cursor: pointer; margin-top: -6px; box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer; background: #e7e5e4; border-radius: 2px;
+        }
+        input[type=range]:focus::-webkit-slider-runnable-track { background: #d6d3d1; }
+
         /* Animations */
-        .fade-in { animation: fadeIn 0.5s ease-in; }
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .pulse-ring { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
         @keyframes pulse-ring { 0% { transform: scale(0.33); opacity: 1; } 80%, 100% { transform: scale(1); opacity: 0; } }
 
         /* Guided Action Pulse (UX Improvement) */
-        .action-pulse {
-            animation: softPulse 2s infinite;
-        }
+        .action-pulse { animation: softPulse 2s infinite; }
         @keyframes softPulse {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
             100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
@@ -69,13 +79,8 @@
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         /* Marquee Animation for Live Ticker */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 40s linear infinite;
-        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { animation: marquee 60s linear infinite; }
 
         .chart-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto; height: 300px; max-height: 400px; }
         
@@ -86,9 +91,9 @@
         .faq-icon.rotate { transform: rotate(180deg); }
 
         .role-btn { transition: all 0.2s ease; }
-        .role-btn.active { background-color: #1f2937; color: white !important; border-color: #1f2937; }
-        .role-btn.active:hover { background-color: #111827; color: white !important; }
-        .role-btn:not(.active):hover { background-color: #e5e7eb; color: #1f2937; }
+        .role-btn.active { background-color: #1c1917; color: white !important; border-color: #1c1917; }
+        .role-btn.active:hover { background-color: #0c0a09; color: white !important; }
+        .role-btn:not(.active):hover { background-color: #e7e5e4; color: #1c1917; }
         
         /* AI Gradient Styling */
         .ai-text-gradient {
@@ -96,114 +101,99 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .ai-border {
-             border: 1px solid transparent;
-             background-image: linear-gradient(white, white), linear-gradient(to right, #4f46e5, #9333ea);
-             background-origin: border-box;
-             background-clip: content-box, border-box;
-        }
         .ai-btn {
             background: linear-gradient(to right, #4f46e5, #7c3aed);
             color: white;
             border: none;
         }
-        .ai-btn:hover {
-            background: linear-gradient(to right, #4338ca, #6d28d9);
-        }
+        .ai-btn:hover { background: linear-gradient(to right, #4338ca, #6d28d9); }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800 font-sans antialiased pb-16 lg:pb-0">
+<body class="bg-stone-50 text-stone-800 font-sans antialiased pb-16 lg:pb-0 selection:bg-blue-100 selection:text-blue-900">
 
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <!-- SIMPLIFIED LOGO WITH COLORED DOT -->
-                <a href="#" class="flex items-center gap-0.5 transition-opacity hover:opacity-80" onclick="setAudience('buyer')">
+                <a href="#" class="flex items-center gap-0.5 transition-opacity hover:opacity-80 group" onclick="setAudience('buyer')">
                     <span class="text-2xl font-black tracking-tighter text-stone-900">Newer</span>
-                    <span class="w-2 h-2 bg-blue-600 rounded-full mt-2.5"></span>
+                    <span class="w-2 h-2 bg-blue-600 rounded-full mt-2.5 group-hover:animate-pulse"></span>
                 </a>
                 
                 <div class="hidden md:flex bg-stone-100 rounded-full p-1 border border-stone-200">
-                    <button onclick="setAudience('buyer')" class="role-btn active px-4 py-1.5 rounded-full text-sm font-medium text-stone-600">For Buyers</button>
-                    <button onclick="setAudience('builder')" class="role-btn px-4 py-1.5 rounded-full text-sm font-medium text-stone-600">For Builders</button>
-                    <button onclick="setAudience('investor')" class="role-btn px-4 py-1.5 rounded-full text-sm font-medium text-stone-600">Investor</button>
+                    <button onclick="setAudience('buyer')" class="role-btn active px-5 py-1.5 rounded-full text-sm font-semibold text-stone-500">For Buyers</button>
+                    <button onclick="setAudience('builder')" class="role-btn px-5 py-1.5 rounded-full text-sm font-semibold text-stone-500">For Builders</button>
+                    <button onclick="setAudience('investor')" class="role-btn px-5 py-1.5 rounded-full text-sm font-semibold text-stone-500">Investors</button>
                 </div>
 
-                <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-800 transition-colors active:scale-95 transform duration-100 shadow-sm">
+                <button onclick="openWaitlistModal()" class="bg-stone-900 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-stone-800 transition-colors active:scale-95 transform duration-100 shadow-lg shadow-stone-900/10">
                     Join Waitlist
                 </button>
             </div>
             <!-- Mobile Role Switcher -->
-            <div class="md:hidden flex justify-center py-2 space-x-2 border-t border-stone-100">
-                <button onclick="setAudience('buyer')" class="role-btn active text-xs px-3 py-1 rounded-full border border-stone-200">Buyers</button>
-                <button onclick="setAudience('builder')" class="role-btn text-xs px-3 py-1 rounded-full border border-stone-200">Builders</button>
-                <button onclick="setAudience('investor')" class="role-btn text-xs px-3 py-1 rounded-full border border-stone-200">Investors</button>
+            <div class="md:hidden flex justify-center py-3 space-x-2 border-t border-stone-100">
+                <button onclick="setAudience('buyer')" class="role-btn active text-xs px-4 py-1.5 rounded-full border border-stone-200 font-bold">Buyers</button>
+                <button onclick="setAudience('builder')" class="role-btn text-xs px-4 py-1.5 rounded-full border border-stone-200 font-bold">Builders</button>
+                <button onclick="setAudience('investor')" class="role-btn text-xs px-4 py-1.5 rounded-full border border-stone-200 font-bold">Investors</button>
             </div>
         </div>
     </nav>
 
     <!-- LIVE MARKET TICKER -->
-    <div class="w-full bg-stone-900 text-stone-300 overflow-hidden border-b border-stone-800 z-40 relative">
-        <div class="flex whitespace-nowrap overflow-hidden">
-            <div class="animate-marquee inline-block py-2">
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Builder Pitch Accepted: Denver ($720k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-yellow-400">●</span> Demand Spike: 3-Car Garages in Zip 78704</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> Just Joined: Pulte Homes</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-purple-400">●</span> New Match: 3bd in Dallas ($420k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Offer Sent: Custom Lot in Phoenix</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <!-- Duplicated content for marquee loop -->
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Builder Pitch Accepted: Denver ($720k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-yellow-400">●</span> Demand Spike: 3-Car Garages in Zip 78704</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> Just Joined: Pulte Homes</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-purple-400">●</span> New Match: 3bd in Dallas ($420k)</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Offer Sent: Custom Lot in Phoenix</span>
-                <span class="mx-6 text-xs font-mono text-stone-600">|</span>
+    <div class="w-full bg-stone-900 text-stone-400 overflow-hidden border-b border-stone-800 z-40 relative h-9 flex items-center">
+        <div class="flex whitespace-nowrap overflow-hidden absolute w-full">
+            <div class="animate-marquee inline-block">
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Pitch Accepted: Denver ($720k)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-yellow-400">●</span> Demand Spike: 3-Car Garages (78704)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> Joined: Pulte Homes</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-purple-400">●</span> Match: 3bd in Dallas ($420k)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Offer: Custom Lot Phoenix</span>
+                <span class="text-stone-700">|</span>
+                <!-- Duplicated content -->
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Pitch Accepted: Denver ($720k)</span>
+                <span class="text-stone-700">|</span>
+                <span class="mx-8 text-xs font-mono tracking-wide"><span class="text-yellow-400">●</span> Demand Spike: 3-Car Garages (78704)</span>
             </div>
         </div>
     </div>
 
     <!-- Hero Section -->
-    <section class="relative pt-20 pb-32 overflow-hidden">
+    <section class="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div id="hero-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wide mb-6">
-                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market
+            <div id="hero-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[10px] md:text-xs font-bold uppercase tracking-wide mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market
             </div>
-            <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight min-h-[2.4em]">
+            <h1 id="hero-title" class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight min-h-[2.4em]">
                 Don't Search for a Home.<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>
             </h1>
-            <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-stone-500 min-h-[3em]">
+            <p id="hero-desc" class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-stone-500 min-h-[3em] leading-relaxed">
                 Stop chasing leftovers. Post your "Dream Home" and let top builders pitch you with <strong>off-market deals</strong> and <strong>custom builds</strong>.
             </p>
-            <div class="mt-10 flex justify-center gap-4">
-                <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">Build My Dream Profile</a>
-                <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-semibold shadow-sm hover:bg-stone-50 transition-all duration-200">How It Works</a>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-stone-900 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-200">Build My Dream Profile</a>
+                <a href="#concept" class="px-8 py-4 bg-white text-stone-900 border border-stone-200 rounded-xl font-bold shadow-sm hover:bg-stone-50 transition-all duration-200">How It Works</a>
             </div>
         </div>
         
         <!-- Background Elements -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-            <div class="absolute top-20 right-10 w-72 h-72 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-100/40 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-teal-100/40 rounded-full blur-[100px]"></div>
         </div>
     </section>
 
     <!-- Concept Section -->
-    <section id="concept" class="py-20 bg-white border-y border-stone-100">
+    <section id="concept" class="py-16 md:py-24 bg-white border-y border-stone-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 id="concept-title" class="text-3xl font-bold text-stone-900">The Power Shift</h2>
@@ -212,22 +202,22 @@
                 </p>
             </div>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="p-8 rounded-2xl bg-stone-50 border border-stone-100 relative group">
-                    <div class="absolute -top-4 left-8 bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase">The Old Way</div>
+                <div class="p-8 rounded-3xl bg-stone-50 border border-stone-100 relative group hover:shadow-lg transition-all duration-300">
+                    <div class="absolute -top-3 left-8 bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide">The Old Way</div>
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2"><i class="fas fa-search text-stone-400"></i> Active Buyer, Passive Seller</h3>
-                    <ul id="concept-old-list" class="space-y-4 text-stone-600"></ul>
+                    <ul id="concept-old-list" class="space-y-4 text-stone-600 text-sm"></ul>
                 </div>
-                <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg relative group">
-                    <div class="absolute -top-4 left-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">The Newer Way</div>
+                <div class="p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-xl relative group hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
+                    <div class="absolute -top-3 left-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide">The Newer Way</div>
                     <h3 class="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2"><i class="fas fa-handshake text-blue-500"></i> Passive Buyer, Active Seller</h3>
-                    <ul id="concept-new-list" class="space-y-4 text-stone-700"></ul>
+                    <ul id="concept-new-list" class="space-y-4 text-stone-700 text-sm"></ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Interactive Demo Section -->
-    <section id="demo" class="py-24 bg-stone-100 overflow-hidden">
+    <section id="demo" class="py-16 md:py-24 bg-stone-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
                 <h2 id="demo-title" class="text-3xl font-bold text-stone-900">Your Personal Market</h2>
@@ -245,189 +235,175 @@
                     
                     <div class="phone-frame flex flex-col shadow-2xl relative">
                         <div class="phone-notch"></div>
-                        <div id="phone-notifications" class="absolute top-10 left-0 right-0 px-4 z-50 pointer-events-none space-y-2"></div>
+                        <div id="phone-notifications" class="absolute top-12 left-0 right-0 px-3 z-50 pointer-events-none flex flex-col items-center space-y-2"></div>
                         <!-- LOGO WITH DOT IN PHONE DEMO -->
-                        <div class="h-16 bg-white border-b border-stone-100 flex items-center justify-between px-6 pt-6 relative z-10">
+                        <div class="h-16 bg-white border-b border-stone-100 flex items-center justify-between px-6 pt-6 relative z-10 shrink-0">
                             <div class="flex items-center gap-0.5">
                                 <span class="text-2xl font-black tracking-tighter text-stone-900">Newer</span>
                                 <span class="w-2 h-2 bg-blue-600 rounded-full mt-2.5"></span>
                             </div>
-                            <div class="flex gap-1"><div class="w-2 h-2 rounded-full bg-stone-300"></div><div class="w-2 h-2 rounded-full bg-stone-300"></div></div>
+                            <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center"><i class="fas fa-user text-stone-400 text-xs"></i></div>
                         </div>
                         <div id="buyer-screen-container" class="flex-1 p-6 overflow-y-auto bg-stone-50 relative">
                             
                             <!-- Step 1: Vibe Check -->
                             <div id="step-1" class="step-content fade-in">
-                                <h3 class="text-2xl font-bold mb-2">Let's set the mood.</h3>
-                                <p class="text-sm text-stone-500 mb-6">Which style feels like home?</p>
+                                <h3 class="text-xl font-bold mb-1">Set the mood.</h3>
+                                <p class="text-xs text-stone-500 mb-6">Which style feels like home?</p>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <button onclick="selectStyle('Modern Farmhouse')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-warehouse text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
-                                        <span class="text-xs font-bold block">Modern Farmhouse</span>
+                                    <button onclick="selectStyle('Modern Farmhouse')" class="style-btn group p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:shadow-md transition-all text-left">
+                                        <div class="h-16 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-warehouse text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
+                                        <span class="text-[10px] font-bold block text-stone-600 group-hover:text-blue-600">Modern Farmhouse</span>
                                     </button>
-                                    <button onclick="selectStyle('Contemporary')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-cube text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
-                                        <span class="text-xs font-bold block">Contemporary</span>
+                                    <button onclick="selectStyle('Contemporary')" class="style-btn group p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:shadow-md transition-all text-left">
+                                        <div class="h-16 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-cube text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
+                                        <span class="text-[10px] font-bold block text-stone-600 group-hover:text-blue-600">Contemporary</span>
                                     </button>
-                                    <button onclick="selectStyle('Traditional')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-landmark text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
-                                        <span class="text-xs font-bold block">Traditional</span>
+                                    <button onclick="selectStyle('Traditional')" class="style-btn group p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:shadow-md transition-all text-left">
+                                        <div class="h-16 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-landmark text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
+                                        <span class="text-[10px] font-bold block text-stone-600 group-hover:text-blue-600">Traditional</span>
                                     </button>
-                                    <button onclick="selectStyle('Mediterranean')" class="style-btn p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
-                                        <div class="h-20 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-sun text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
-                                        <span class="text-xs font-bold block">Mediterranean</span>
+                                    <button onclick="selectStyle('Mediterranean')" class="style-btn group p-3 bg-white rounded-xl border border-stone-200 hover:border-blue-500 hover:shadow-md transition-all text-left">
+                                        <div class="h-16 bg-stone-100 rounded-lg mb-2 flex items-center justify-center group-hover:bg-blue-100 transition-colors"><i class="fas fa-sun text-2xl text-stone-400 group-hover:text-blue-500"></i></div>
+                                        <span class="text-[10px] font-bold block text-stone-600 group-hover:text-blue-600">Mediterranean</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Step 2: Crew & Amenities -->
                             <div id="step-2" class="step-content hidden fade-in">
-                                <h3 class="text-2xl font-bold mb-2">Who is this for?</h3>
-                                <p class="text-sm text-stone-500 mb-6">Define your space needs.</p>
+                                <h3 class="text-xl font-bold mb-1">The Basics.</h3>
+                                <p class="text-xs text-stone-500 mb-6">Define your space needs.</p>
                                 <div class="space-y-6">
                                     <div>
-                                        <label class="text-xs font-bold uppercase text-stone-400">Persona</label>
-                                        <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
-                                            <button onclick="setPersona('Family')" class="persona-btn whitespace-nowrap px-4 py-2 bg-white border border-stone-200 rounded-full text-sm font-medium hover:bg-stone-900 hover:text-white transition-colors">Growing Family</button>
-                                            <button onclick="setPersona('Couple')" class="persona-btn whitespace-nowrap px-4 py-2 bg-white border border-stone-200 rounded-full text-sm font-medium hover:bg-stone-900 hover:text-white transition-colors">Professional Couple</button>
+                                        <label class="text-[10px] font-bold uppercase text-stone-400">Persona</label>
+                                        <div class="flex gap-2 mt-2">
+                                            <button onclick="setPersona('Family')" class="persona-btn flex-1 py-2 bg-white border border-stone-200 rounded-lg text-xs font-bold hover:border-stone-900 transition-colors text-stone-600">Growing Family</button>
+                                            <button onclick="setPersona('Couple')" class="persona-btn flex-1 py-2 bg-white border border-stone-200 rounded-lg text-xs font-bold hover:border-stone-900 transition-colors text-stone-600">Pro Couple</button>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="flex justify-between mb-2">
-                                            <label class="text-xs font-bold uppercase text-stone-400">Bedrooms</label>
-                                            <span id="bed-val" class="text-sm font-bold text-blue-600">3</span>
+                                            <label class="text-[10px] font-bold uppercase text-stone-400">Bedrooms</label>
+                                            <span id="bed-val" class="text-xs font-bold text-blue-600">3</span>
                                         </div>
-                                        <input type="range" min="2" max="6" value="3" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900" oninput="updateRange('bed', this.value)">
+                                        <input type="range" min="2" max="6" value="3" class="w-full" oninput="updateRange('bed', this.value)">
                                     </div>
                                     <div>
                                         <div class="flex justify-between mb-2">
-                                            <label class="text-xs font-bold uppercase text-stone-400">Budget Max</label>
-                                            <span id="budget-val" class="text-sm font-bold text-blue-600">$500k</span>
+                                            <label class="text-[10px] font-bold uppercase text-stone-400">Max Budget</label>
+                                            <span id="budget-val" class="text-xs font-bold text-blue-600">$500k</span>
                                         </div>
-                                        <input type="range" min="300" max="1500" step="50" value="500" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-900" oninput="updateRange('budget', this.value)">
+                                        <input type="range" min="300" max="1500" step="50" value="500" class="w-full" oninput="updateRange('budget', this.value)">
                                     </div>
-                                    <button onclick="nextStep('amenities')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4 action-pulse hover:animate-none">Next Step</button>
+                                    <button onclick="nextStep('amenities')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold text-sm shadow-lg shadow-stone-900/20 action-pulse hover:animate-none hover:bg-stone-800 transition-all">Next Step</button>
                                 </div>
                             </div>
 
                             <!-- Amenities Step -->
                             <div id="step-amenities" class="step-content hidden fade-in">
-                                <h3 class="text-2xl font-bold mb-2">The Non-Negotiables.</h3>
-                                <p class="text-sm text-stone-500 mb-6">Select deal-breaker features.</p>
+                                <h3 class="text-xl font-bold mb-1">Non-Negotiables.</h3>
+                                <p class="text-xs text-stone-500 mb-6">Select top 3 features.</p>
                                 <div class="grid grid-cols-2 gap-3 mb-6">
-                                    <button onclick="toggleAmenity(this, 'Office')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2">
-                                        <i class="fas fa-laptop-house text-xl"></i><span class="text-xs font-bold">Home Office</span>
+                                    <button onclick="toggleAmenity(this, 'Office')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2 group">
+                                        <i class="fas fa-laptop-house text-lg text-stone-400 group-hover:text-blue-500"></i><span class="text-[10px] font-bold">Home Office</span>
                                     </button>
-                                    <button onclick="toggleAmenity(this, '3-Car Garage')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2">
-                                        <i class="fas fa-car text-xl"></i><span class="text-xs font-bold">3-Car Garage</span>
+                                    <button onclick="toggleAmenity(this, '3-Car Garage')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2 group">
+                                        <i class="fas fa-car text-lg text-stone-400 group-hover:text-blue-500"></i><span class="text-[10px] font-bold">3-Car Garage</span>
                                     </button>
-                                    <button onclick="toggleAmenity(this, 'Master Down')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2">
-                                        <i class="fas fa-bed text-xl"></i><span class="text-xs font-bold">Master Down</span>
+                                    <button onclick="toggleAmenity(this, 'Master Down')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2 group">
+                                        <i class="fas fa-bed text-lg text-stone-400 group-hover:text-blue-500"></i><span class="text-[10px] font-bold">Master Down</span>
                                     </button>
-                                    <button onclick="toggleAmenity(this, 'Pool Ready')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2">
-                                        <i class="fas fa-swimming-pool text-xl"></i><span class="text-xs font-bold">Pool Ready</span>
+                                    <button onclick="toggleAmenity(this, 'Pool Ready')" class="amenity-btn p-3 rounded-xl border border-stone-200 bg-white text-stone-600 hover:border-blue-500 hover:text-blue-600 transition-all flex flex-col items-center gap-2 group">
+                                        <i class="fas fa-swimming-pool text-lg text-stone-400 group-hover:text-blue-500"></i><span class="text-[10px] font-bold">Pool Ready</span>
                                     </button>
                                 </div>
-                                <button onclick="nextStep('2.5')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold">Next Step</button>
-                            </div>
-
-                            <!-- Step 2.5: Location -->
-                            <div id="step-2.5" class="step-content hidden fade-in">
-                                <h3 class="text-2xl font-bold mb-2">The Reality.</h3>
-                                <p class="text-sm text-stone-500 mb-6">Location is a commute.</p>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="text-xs font-bold uppercase text-stone-400">Daily Anchor</label>
-                                        <input type="text" placeholder="e.g. Tesla Gigafactory" class="w-full mt-1 px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:border-blue-500 focus:outline-none">
-                                    </div>
-                                    <button onclick="nextStep(3)" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold mt-4">Next Step</button>
-                                </div>
+                                <button onclick="nextStep('3')" class="w-full py-3 bg-stone-900 text-white rounded-xl font-bold text-sm hover:bg-stone-800 transition-all">Review & Verify</button>
                             </div>
 
                             <!-- Step 3: Verification -->
                             <div id="step-3" class="step-content hidden fade-in">
-                                <h3 class="text-2xl font-bold mb-2">Unlock Offers</h3>
-                                <p class="text-sm text-stone-500 mb-6">"Hard Verification" is your superpower.</p>
-                                <button onclick="verifyUser(event)" class="w-full py-4 bg-white border-2 border-stone-200 rounded-xl font-bold flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 transition-all group mb-3">
-                                    <i class="fas fa-university text-stone-400 group-hover:text-green-500"></i> Connect Bank (Plaid)
+                                <h3 class="text-xl font-bold mb-1">Unlock Offers</h3>
+                                <p class="text-xs text-stone-500 mb-6">Builders prioritize verified buyers.</p>
+                                <button onclick="verifyUser(event)" class="w-full py-3 bg-white border-2 border-stone-100 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 hover:bg-green-50 transition-all group mb-3 text-stone-600">
+                                    <i class="fas fa-university text-stone-300 group-hover:text-green-500"></i> Connect Bank (Plaid)
                                 </button>
-                                <button onclick="verifyUser(event)" class="w-full py-4 bg-white border-2 border-stone-200 rounded-xl font-bold flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 transition-all group">
-                                    <i class="fas fa-file-upload text-stone-400 group-hover:text-green-500"></i> Upload Pre-Approval
+                                <button onclick="verifyUser(event)" class="w-full py-3 bg-white border-2 border-stone-100 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:border-green-500 hover:text-green-600 hover:bg-green-50 transition-all group text-stone-600">
+                                    <i class="fas fa-file-upload text-stone-300 group-hover:text-green-500"></i> Upload Approval
                                 </button>
                             </div>
 
                             <!-- Step 4: Complete -->
-                            <div id="step-4" class="step-content hidden fade-in text-center pt-10">
-                                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><i class="fas fa-check text-3xl text-green-600"></i></div>
-                                <h3 class="text-2xl font-bold mb-2">Profile Live!</h3>
-                                <p class="text-sm text-stone-500 mb-8">Alias generated: <span class="bg-stone-100 py-1 px-3 rounded font-mono font-bold text-stone-700">"Buyer #8942"</span></p>
+                            <div id="step-4" class="step-content hidden fade-in text-center pt-8">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce"><i class="fas fa-check text-2xl text-green-600"></i></div>
+                                <h3 class="text-xl font-bold mb-1">You are Live!</h3>
+                                <p class="text-xs text-stone-500 mb-6">Alias: <span class="bg-stone-100 py-0.5 px-2 rounded font-mono font-bold text-stone-700">Buyer #8942</span></p>
                                 
                                 <!-- AI Feature: Buyer Bio -->
                                 <div class="mt-4 mb-6">
-                                    <div id="ai-bio-container" class="hidden p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-xl text-left mb-3">
+                                    <div id="ai-bio-container" class="hidden p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-xl text-left mb-3">
                                         <div class="flex items-center gap-2 mb-2">
-                                            <span class="text-lg">✨</span>
-                                            <span class="text-xs font-bold uppercase text-indigo-600 tracking-wider">AI Generated Bio</span>
+                                            <span class="text-base">✨</span>
+                                            <span class="text-[10px] font-bold uppercase text-indigo-600 tracking-wider">AI Generated Bio</span>
                                         </div>
-                                        <p id="ai-bio-text" class="text-sm text-stone-700 italic leading-relaxed"></p>
+                                        <p id="ai-bio-text" class="text-xs text-stone-700 italic leading-relaxed"></p>
                                     </div>
-                                    <button onclick="generateBuyerBio()" id="btn-generate-bio" class="w-full py-2 bg-white border border-indigo-200 text-indigo-600 font-bold rounded-lg text-sm hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                    <button onclick="generateBuyerBio()" id="btn-generate-bio" class="w-full py-2.5 bg-white border border-indigo-200 text-indigo-600 font-bold rounded-lg text-xs hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2 shadow-sm">
                                         <span>✨</span> Enhance Profile with AI
                                     </button>
                                 </div>
 
-                                <button onclick="resetDemo()" class="mt-4 text-sm text-blue-600 underline">Start Over</button>
+                                <button onclick="resetDemo()" class="mt-2 text-xs text-stone-400 hover:text-stone-600 underline">Start Over</button>
                             </div>
                         </div>
-                        <div class="h-14 bg-white border-t border-stone-100 flex justify-around items-center text-stone-300">
+                        <div class="h-14 bg-white border-t border-stone-100 flex justify-around items-center text-stone-300 shrink-0">
                             <i class="fas fa-home text-stone-900"></i><i class="fas fa-heart"></i><i class="fas fa-comment"></i><i class="fas fa-user"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- RIGHT COLUMN: Builder Dashboard -->
-                <div class="lg:col-span-8 flex flex-col h-auto lg:h-[680px]">
-                    <div class="mb-4 text-center lg:text-left w-full pl-4">
+                <div class="lg:col-span-8 flex flex-col h-[600px] lg:h-[700px]">
+                    <div class="mb-4 text-center lg:text-left pl-4">
                         <span class="text-xs font-bold uppercase text-stone-400 tracking-wider">Phase B: The Builder</span>
                         <h3 class="text-xl font-bold text-stone-800">The Bidder</h3>
                         <p class="text-sm text-stone-500">Monitoring "Live Demand" & Pitching Inventory</p>
                     </div>
                     <!-- Dashboard Header -->
-                    <div class="bg-stone-900 text-white p-4 rounded-t-xl flex justify-between items-center shadow-lg z-10">
-                        <div class="flex items-center gap-2 md:gap-4">
-                            <span class="font-bold tracking-wider text-sm md:text-base">BUILDER TERMINAL</span>
-                            <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] md:text-xs rounded border border-green-500/30 animate-pulse">LIVE</span>
+                    <div class="bg-stone-900 text-white p-4 rounded-t-2xl flex justify-between items-center shadow-lg z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 font-mono font-bold text-sm tracking-wider text-stone-300 hidden md:inline">BUILDER_TERMINAL_V1</span>
+                            <span class="ml-2 px-2 py-0.5 bg-green-900 text-green-400 text-[10px] rounded border border-green-700 animate-pulse">LIVE</span>
                         </div>
-                        <div class="text-xs text-stone-400 font-mono hidden lg:block">MATCHES: <span id="dash-matches" class="text-white font-bold">12</span></div>
                         <div class="flex bg-stone-800 rounded-lg p-1 border border-stone-700">
-                            <button onclick="toggleDashboardView('list')" id="view-list-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold bg-stone-600 text-white transition-all"><i class="fas fa-list md:mr-1"></i> <span class="hidden md:inline">List</span></button>
-                            <button onclick="toggleDashboardView('map')" id="view-map-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-map-marker-alt md:mr-1"></i> <span class="hidden md:inline">Map</span></button>
-                            <button onclick="toggleDashboardView('intel')" id="view-intel-btn" class="px-2 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold text-stone-400 hover:text-white transition-all"><i class="fas fa-chart-pie md:mr-1"></i> <span class="hidden md:inline">Intel</span></button>
+                            <button onclick="toggleDashboardView('list')" id="view-list-btn" class="px-3 py-1 rounded text-xs font-bold bg-stone-600 text-white transition-all">Feed</button>
+                            <button onclick="toggleDashboardView('map')" id="view-map-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all">Map</button>
+                            <button onclick="toggleDashboardView('intel')" id="view-intel-btn" class="px-3 py-1 rounded text-xs font-bold text-stone-400 hover:text-white transition-all">Intel</button>
                         </div>
                     </div>
                     <!-- Dashboard Body -->
-                    <div class="bg-stone-800 flex-1 p-4 rounded-b-xl border border-stone-700 shadow-2xl relative overflow-hidden flex flex-col h-[500px] lg:h-auto">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Verified Buyers</div><div class="text-lg md:text-xl font-mono text-white font-bold" id="stat-active">1,248</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Avg Budget</div><div class="text-lg md:text-xl font-mono text-white font-bold" id="stat-budget">$485k</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Credits</div><div class="text-lg md:text-xl font-mono text-yellow-400 font-bold" id="stat-credits">500</div></div>
-                            <div class="bg-stone-700/50 p-3 rounded-lg border border-stone-600"><div class="text-[10px] md:text-xs text-stone-400 uppercase">Unlock Rate</div><div class="text-lg md:text-xl font-mono text-green-400 font-bold">18.4%</div></div>
+                    <div class="bg-stone-800 flex-1 rounded-b-2xl border-x border-b border-stone-700 shadow-2xl relative overflow-hidden flex flex-col">
+                        <div class="grid grid-cols-4 gap-px bg-stone-700 border-b border-stone-700">
+                            <div class="bg-stone-800 p-3"><div class="text-[10px] text-stone-500 uppercase font-bold">Active Demand</div><div class="text-white font-mono text-base md:text-lg font-bold" id="stat-active">1,248</div></div>
+                            <div class="bg-stone-800 p-3"><div class="text-[10px] text-stone-500 uppercase font-bold">Avg Budget</div><div class="text-white font-mono text-base md:text-lg font-bold" id="stat-budget">$485k</div></div>
+                            <div class="bg-stone-800 p-3"><div class="text-[10px] text-stone-500 uppercase font-bold">Your Credits</div><div class="text-yellow-400 font-mono text-base md:text-lg font-bold" id="stat-credits">500</div></div>
+                            <div class="bg-stone-800 p-3"><div class="text-[10px] text-stone-500 uppercase font-bold">Conv. Rate</div><div class="text-green-400 font-mono text-base md:text-lg font-bold">18.4%</div></div>
                         </div>
                         
                         <!-- LIST VIEW CONTAINER -->
-                        <div id="dashboard-list-view" class="flex-1 min-h-0 bg-stone-900/50 rounded-lg border border-stone-700 overflow-hidden flex flex-col relative transition-opacity duration-300">
-                            <div class="grid grid-cols-12 gap-2 p-3 border-b border-stone-700 bg-stone-800/80 text-xs font-bold text-stone-400 uppercase">
-                                <div class="col-span-2 sm:col-span-2">ID</div>
-                                <div class="hidden sm:block sm:col-span-2">Status</div>
-                                <div class="col-span-5 sm:col-span-3">Criteria</div>
-                                <div class="col-span-3 sm:col-span-2">Budget</div>
-                                <div class="col-span-2 sm:col-span-3 text-right">Action</div>
+                        <div id="dashboard-list-view" class="flex-1 min-h-0 bg-stone-900/50 flex flex-col relative transition-opacity duration-300">
+                            <div class="flex justify-between items-center p-2 bg-stone-900/80 border-b border-stone-700 text-[10px] uppercase text-stone-500 font-bold tracking-wider px-4">
+                                <span>Incoming Stream</span>
+                                <span>Updates <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block ml-1 animate-pulse"></span></span>
                             </div>
-                            <div id="dashboard-feed" class="overflow-y-auto dashboard-scroll p-2 space-y-2 relative"></div>
+                            <div id="dashboard-feed" class="flex-1 overflow-y-auto dashboard-scroll p-2 space-y-2 relative"></div>
                         </div>
                         
                         <!-- MAP VIEW CONTAINER -->
-                        <div id="dashboard-map-view" class="flex-1 min-h-0 relative bg-stone-900 rounded-lg border border-stone-700 overflow-hidden hidden transition-opacity duration-300">
+                        <div id="dashboard-map-view" class="flex-1 min-h-0 relative bg-stone-900 overflow-hidden hidden transition-opacity duration-300">
                             <canvas id="demandMap" class="w-full h-full object-cover opacity-80"></canvas>
                             <div class="absolute bottom-4 right-4 bg-black/70 px-3 py-2 rounded text-xs text-white backdrop-blur">
                                 <span class="w-2 h-2 rounded-full bg-red-500 inline-block mr-1"></span> High Demand
@@ -436,85 +412,69 @@
                         </div>
 
                         <!-- INTEL VIEW -->
-                        <div id="dashboard-intel-view" class="flex-1 min-h-0 bg-stone-900 rounded-lg border border-stone-700 overflow-y-auto overflow-x-hidden hidden p-6 transition-opacity duration-300">
+                        <div id="dashboard-intel-view" class="flex-1 min-h-0 bg-stone-800 overflow-y-auto hidden p-6 transition-opacity duration-300">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                                <div>
-                                    <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Top Requested Features (Live)</h4>
+                                <div class="bg-stone-900/50 p-4 rounded-xl border border-stone-700">
+                                    <h4 class="text-xs font-bold text-stone-400 uppercase mb-4">Live Feature Demand</h4>
                                     <div class="space-y-4">
-                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>Home Office</span><span class="text-green-400">42% <i class="fas fa-arrow-up"></i></span></div><div class="h-2 bg-stone-700 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width: 42%"></div></div></div>
-                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>3-Car Garage</span><span class="text-stone-400">28%</span></div><div class="h-2 bg-stone-700 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width: 28%"></div></div></div>
-                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>Pool Ready</span><span class="text-red-400">15% <i class="fas fa-arrow-down"></i></span></div><div class="h-2 bg-stone-700 rounded-full"><div class="h-full bg-teal-500 rounded-full" style="width: 15%"></div></div></div>
+                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>Home Office</span><span class="text-green-400">42% <i class="fas fa-arrow-up"></i></span></div><div class="h-1.5 bg-stone-700 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width: 42%"></div></div></div>
+                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>3-Car Garage</span><span class="text-stone-400">28%</span></div><div class="h-1.5 bg-stone-700 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width: 28%"></div></div></div>
+                                        <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>Pool Ready</span><span class="text-red-400">15% <i class="fas fa-arrow-down"></i></span></div><div class="h-1.5 bg-stone-700 rounded-full"><div class="h-full bg-teal-500 rounded-full" style="width: 15%"></div></div></div>
                                     </div>
-                                    <div class="mt-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                                    <div class="mt-6 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
                                         <div class="flex justify-between items-center mb-2">
-                                            <div class="text-blue-400 text-xs font-bold uppercase"><i class="fas fa-lightbulb mr-1"></i> Strategic Insight</div>
-                                            <button onclick="generateMarketIntel()" id="btn-ai-intel" class="text-[10px] text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-500 transition-colors">✨ Analyze Trends</button>
+                                            <div class="text-blue-400 text-[10px] font-bold uppercase"><i class="fas fa-robot mr-1"></i> AI Insight</div>
+                                            <button onclick="generateMarketIntel()" id="btn-ai-intel" class="text-[10px] text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-500 transition-colors">Analyze</button>
                                         </div>
-                                        <p id="ai-intel-text" class="text-stone-300 text-xs leading-relaxed">Click 'Analyze Trends' to generate a market report based on live demand data.</p>
+                                        <p id="ai-intel-text" class="text-stone-400 text-xs leading-relaxed">Click Analyze to generate report.</p>
                                     </div>
                                 </div>
-                                <div class="bg-stone-800 rounded-xl border border-stone-700 p-2 flex flex-col justify-center min-h-[200px]">
-                                    <h4 class="text-sm font-bold text-white mb-2 uppercase tracking-wider text-center">Avg Budget Trend (90 Days)</h4>
+                                <div class="bg-stone-900/50 p-4 rounded-xl border border-stone-700">
+                                    <h4 class="text-xs font-bold text-stone-400 uppercase mb-4">Budget Trend (90 Days)</h4>
                                     <div class="chart-container h-48 w-full"><canvas id="intelChart"></canvas></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card Visualizer -->
-                        <div id="user-card-overlay" class="absolute bottom-0 left-0 right-0 bg-stone-800/95 border-t border-blue-500/50 p-4 transform translate-y-full transition-transform duration-500 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-20">
-                            <div class="flex justify-between items-start">
+                        <div id="user-card-overlay" class="absolute bottom-0 left-0 right-0 bg-stone-900/95 border-t border-blue-500 p-5 transform translate-y-full transition-transform duration-500 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-20 backdrop-blur-sm">
+                            <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-blue-400 uppercase">Incoming Demand Signal</span><span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span></div>
-                                    <h4 class="text-white font-bold text-lg">New High-Intent Buyer Detected</h4>
+                                    <div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">New High-Intent Match</span><span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span></div>
+                                    <h4 class="text-white font-bold text-xl">Verified Buyer #8942</h4>
                                 </div>
-                                <div class="text-right"><div class="text-2xl font-bold text-green-400" id="dash-card-budget">$500k</div><div class="text-xs text-stone-400">Max Budget</div></div>
+                                <div class="text-right"><div class="text-2xl font-bold text-green-400" id="dash-card-budget">$500k</div><div class="text-[10px] text-stone-500 uppercase">Pre-Approved</div></div>
                             </div>
-                            <div class="grid grid-cols-3 gap-4 mt-4">
-                                <div class="bg-stone-900 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Style</div><div class="text-sm text-white" id="dash-card-style">Modern</div></div>
-                                <div class="bg-stone-900 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Config</div><div class="text-sm text-white" id="dash-card-config">3bd / 2ba</div></div>
-                                <div class="bg-stone-900 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Must Haves</div><div class="text-sm text-white truncate" id="dash-card-amenities">None</div></div>
+                            <div class="grid grid-cols-3 gap-3 mb-4">
+                                <div class="bg-stone-800 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Style</div><div class="text-sm text-white font-medium" id="dash-card-style">Modern</div></div>
+                                <div class="bg-stone-800 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Size</div><div class="text-sm text-white font-medium" id="dash-card-config">3bd / 2ba</div></div>
+                                <div class="bg-stone-800 p-2 rounded border border-stone-700"><div class="text-[10px] text-stone-500 uppercase">Must Have</div><div class="text-sm text-white font-medium truncate" id="dash-card-amenities">...</div></div>
                             </div>
-                            <div id="unlock-area" class="mt-4"><button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg text-sm transition-all">UNLOCK LEAD CONTACT ($50)</button></div>
+                            <div id="unlock-area"><button onclick="unlockLead()" id="btn-unlock" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-lg text-sm transition-all flex items-center justify-center gap-2"><i class="fas fa-lock-open"></i> UNLOCK CONTACT DETAILS (50 Credits)</button></div>
                         </div>
 
                         <!-- Pitch Modal -->
                         <div id="pitch-modal" class="absolute inset-0 bg-black/80 z-30 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-                            <div class="bg-stone-800 border border-stone-600 rounded-xl p-4 w-full max-w-sm shadow-2xl">
+                            <div class="bg-stone-800 border border-stone-600 rounded-xl p-5 w-full max-w-sm shadow-2xl">
                                 <h4 class="text-white font-bold mb-1">Pitch Buyer <span id="pitch-target-id" class="text-blue-400 font-mono">#0000</span></h4>
-                                <p class="text-xs text-stone-400 mb-4">Select inventory to offer.</p>
+                                <p class="text-xs text-stone-400 mb-4">Select inventory type to offer.</p>
                                 
-                                <div class="mb-4">
-                                    <label class="text-[10px] text-stone-400 uppercase font-bold mb-1 block">Message</label>
-                                    <div class="relative">
-                                        <textarea id="pitch-message" class="w-full bg-stone-900 border border-stone-600 text-white text-xs rounded p-2 focus:border-blue-500 outline-none h-20 resize-none" placeholder="Enter your pitch..."></textarea>
-                                        <button onclick="generateBuilderPitch()" id="btn-ai-pitch" class="absolute bottom-2 right-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded flex items-center gap-1 transition-colors">
-                                            <span>✨</span> Smart Draft
-                                        </button>
-                                    </div>
+                                <div class="mb-4 relative">
+                                    <textarea id="pitch-message" class="w-full bg-stone-900 border border-stone-600 text-white text-xs rounded-lg p-3 focus:border-blue-500 outline-none h-20 resize-none leading-relaxed" placeholder="Drafting pitch..."></textarea>
+                                    <button onclick="generateBuilderPitch()" id="btn-ai-pitch" class="absolute bottom-2 right-2 text-[10px] bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded flex items-center gap-1 transition-colors font-bold"><span>✨</span> AI Draft</button>
                                 </div>
 
-                                <div class="space-y-3 mb-4">
-                                    <button onclick="selectPitch(this, 'Spec')" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
-                                        <div class="flex justify-between"><span class="font-bold text-white"><i class="fas fa-home mr-1"></i> Proposition 1: Spec Home</span><span class="text-green-400">Ready in 30 Days</span></div>
-                                        <div class="mt-1">"I have a home finishing soon that matches 90% of your criteria."</div>
+                                <div class="space-y-2 mb-4">
+                                    <button onclick="selectPitch(this, 'Spec')" class="pitch-opt w-full text-left p-3 rounded-lg bg-stone-700 border border-stone-600 hover:border-blue-500 hover:bg-stone-600 transition-all text-xs text-stone-300 group">
+                                        <div class="flex justify-between mb-1"><span class="font-bold text-white group-hover:text-blue-400"><i class="fas fa-home mr-2"></i> Inventory Home</span><span class="text-green-400">Quick Close</span></div>
                                     </button>
-                                    <button onclick="selectPitch(this, 'Dirt')" class="pitch-opt w-full text-left p-2 rounded bg-stone-700 border border-stone-600 hover:border-blue-500 text-xs text-stone-300">
-                                        <div class="flex justify-between"><span class="font-bold text-white"><i class="fas fa-layer-group mr-1"></i> Proposition 2: Dirt Lot</span><span class="text-blue-400">Custom Build</span></div>
-                                        <div class="mt-1">"Reserve a lot in Phase 2 and we'll build your exact plan."</div>
+                                    <button onclick="selectPitch(this, 'Dirt')" class="pitch-opt w-full text-left p-3 rounded-lg bg-stone-700 border border-stone-600 hover:border-blue-500 hover:bg-stone-600 transition-all text-xs text-stone-300 group">
+                                        <div class="flex justify-between mb-1"><span class="font-bold text-white group-hover:text-blue-400"><i class="fas fa-layer-group mr-2"></i> Custom Build</span><span class="text-blue-400">High Margin</span></div>
                                     </button>
-                                    <div class="pt-2 border-t border-stone-700 mt-2">
-                                        <label class="text-[10px] text-stone-400 uppercase font-bold mb-1 block">Add Deal Sweetener</label>
-                                        <select id="pitch-incentive" class="w-full bg-stone-900 border border-stone-600 text-white text-xs rounded p-2 focus:border-blue-500 outline-none">
-                                            <option value="None">No Incentive</option>
-                                            <option value="Closing Costs">$5,000 Closing Costs</option>
-                                            <option value="Appliance Package">Free Appliance Package</option>
-                                            <option value="Rate Buydown">2-1 Rate Buydown</option>
-                                        </select>
-                                    </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <button onclick="closePitchModal()" class="flex-1 py-2 bg-stone-700 text-stone-300 rounded text-xs font-bold">Cancel</button>
-                                    <button onclick="sendPitch()" class="flex-1 py-2 bg-blue-600 text-white rounded text-xs font-bold">Send Offer</button>
+                                <div class="flex gap-3">
+                                    <button onclick="document.getElementById('pitch-modal').classList.add('hidden')" class="flex-1 py-2.5 bg-stone-700 hover:bg-stone-600 text-stone-300 rounded-lg text-xs font-bold">Cancel</button>
+                                    <button onclick="sendPitch()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold">Send Pitch</button>
                                 </div>
                             </div>
                         </div>
@@ -525,11 +485,11 @@
     </section>
 
     <!-- Social Proof -->
-    <section id="testimonials" class="py-20 bg-white border-y border-stone-100" data-audience="buyer,builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 id="testimonial-title" class="text-3xl font-bold text-stone-900">Success Stories</h2><p id="testimonial-desc" class="mt-4 text-stone-500">Real results from the people changing how homes are bought and sold.</p></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">New Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user"></i></div><div><h4 class="font-bold text-stone-900">Sarah & Mark T.</h4><p class="text-xs text-stone-500">Relocating to Austin, TX</p></div></div><p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer, we posted our budget and got a pitch for a lot that wasn't even listed yet."</p></div><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">First-Time Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user-graduate"></i></div><div><h4 class="font-bold text-stone-900">Jason L.</h4><p class="text-xs text-stone-500">Denver, CO</p></div></div><p class="text-stone-600 italic">"I thought I was priced out. A builder saw my 'Verify' badge and offered me a pre-construction deal on a townhome if I could close quickly."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Production Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div><div><h4 class="font-bold text-white">James R.</h4><p class="text-xs text-stone-400">VP Sales, Regional Builder</p></div></div><p class="text-stone-300 italic">"I searched Newer for buyers with a $550k budget in that zip code, found 3 matches, and pitched them. Sold it that weekend with zero marketing spend."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Custom Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-drafting-compass"></i></div><div><h4 class="font-bold text-white">Elena V.</h4><p class="text-xs text-stone-400">Owner, Boutique Homes</p></div></div><p class="text-stone-300 italic">"The 'Lead Unlock' feature alone saved us $20k in ad spend. We connect with clients who already want a custom build in our territory."</p></div><div class="bg-purple-50 p-8 rounded-2xl border border-purple-100 relative" data-audience="investor"><div class="absolute -top-4 right-8 bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase">The Investor</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-purple-200 rounded-full overflow-hidden flex items-center justify-center text-xl text-purple-600"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold text-purple-900">Marcus T.</h4><p class="text-xs text-purple-600">Partner, PropTech VC</p></div></div><p class="text-purple-800 italic">"By inverting the model, Newer solves the liquidity crisis in new construction. It's not just lead gen; it's a market maker."</p></div></div></div></section>
+    <section id="testimonials" class="py-16 md:py-24 bg-white border-y border-stone-100" data-audience="buyer,builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 id="testimonial-title" class="text-3xl font-bold text-stone-900">Success Stories</h2><p id="testimonial-desc" class="mt-4 text-stone-500">Real results from the people changing how homes are bought and sold.</p></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">New Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user"></i></div><div><h4 class="font-bold text-stone-900">Sarah & Mark T.</h4><p class="text-xs text-stone-500">Relocating to Austin, TX</p></div></div><p class="text-stone-600 italic">"We spent 3 months driving around looking at 'Sold' signs. On Newer, we posted our budget and got a pitch for a lot that wasn't even listed yet."</p></div><div class="bg-stone-50 p-8 rounded-2xl border border-stone-100 relative" data-audience="buyer,investor"><div class="absolute -top-4 right-8 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold uppercase">First-Time Buyer</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-300 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-500"><i class="fas fa-user-graduate"></i></div><div><h4 class="font-bold text-stone-900">Jason L.</h4><p class="text-xs text-stone-500">Denver, CO</p></div></div><p class="text-stone-600 italic">"I thought I was priced out. A builder saw my 'Verify' badge and offered me a pre-construction deal on a townhome if I could close quickly."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Production Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-hard-hat"></i></div><div><h4 class="font-bold text-white">James R.</h4><p class="text-xs text-stone-400">VP Sales, Regional Builder</p></div></div><p class="text-stone-300 italic">"I searched Newer for buyers with a $550k budget in that zip code, found 3 matches, and pitched them. Sold it that weekend with zero marketing spend."</p></div><div class="bg-stone-900 p-8 rounded-2xl border border-stone-700 relative" data-audience="builder,investor"><div class="absolute -top-4 right-8 bg-green-900 text-green-400 px-3 py-1 rounded-full text-xs font-bold uppercase">Custom Builder</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-stone-700 rounded-full overflow-hidden flex items-center justify-center text-xl text-stone-400"><i class="fas fa-drafting-compass"></i></div><div><h4 class="font-bold text-white">Elena V.</h4><p class="text-xs text-stone-400">Owner, Boutique Homes</p></div></div><p class="text-stone-300 italic">"The 'Lead Unlock' feature alone saved us $20k in ad spend. We connect with clients who already want a custom build in our territory."</p></div><div class="bg-purple-50 p-8 rounded-2xl border border-purple-100 relative" data-audience="investor"><div class="absolute -top-4 right-8 bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase">The Investor</div><div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 bg-purple-200 rounded-full overflow-hidden flex items-center justify-center text-xl text-purple-600"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold text-purple-900">Marcus T.</h4><p class="text-xs text-purple-600">Partner, PropTech VC</p></div></div><p class="text-purple-800 italic">"By inverting the model, Newer solves the liquidity crisis in new construction. It's not just lead gen; it's a market maker."</p></div></div></div></section>
     
-    <section id="moat" class="py-20 bg-stone-50" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 gap-16 items-center"><div><div class="inline-block px-3 py-1 bg-stone-200 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div><h2 class="text-3xl font-bold text-stone-900 mb-6">Why Builders Pay for "Unlocks"</h2><p class="text-lg text-stone-600 mb-6">The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.</p><p class="text-lg text-stone-600 mb-8">Newer solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.</p><div class="space-y-4"><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-check"></i></div><div><h4 class="font-bold text-stone-900">Verified Funds</h4><p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p></div></div><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-secret"></i></div><div><h4 class="font-bold text-stone-900">Buyer Anonymity</h4><p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p></div></div></div></div><div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-lg"><h3 class="text-sm font-bold text-stone-400 uppercase mb-4 text-center">Conversion Funnel Comparison</h3><div class="space-y-6"><div><div class="flex justify-between text-sm mb-1"><span class="text-stone-500">Industry Avg (Zillow/MLS)</span><span class="font-bold text-stone-700">1-2% Conversion</span></div><div class="h-4 bg-stone-200 rounded-full overflow-hidden"><div class="h-full bg-stone-400 w-[2%]"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-blue-600 font-bold">Newer Verified</span><span class="font-bold text-blue-700">15-20% Conversion</span></div><div class="h-4 bg-blue-100 rounded-full overflow-hidden"><div class="h-full bg-blue-600 w-[20%]"></div></div></div></div><div class="mt-8 pt-8 border-t border-stone-200 text-center"><p class="text-stone-500 text-sm italic">"I'd rather pay $50 for one verified lead than $500 for a billboard." <br><span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span></p></div></div></div></div></section>
+    <section id="moat" class="py-16 md:py-24 bg-stone-50" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 gap-16 items-center"><div><div class="inline-block px-3 py-1 bg-stone-200 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div><h2 class="text-3xl font-bold text-stone-900 mb-6">Why Builders Pay for "Unlocks"</h2><p class="text-lg text-stone-600 mb-6">The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.</p><p class="text-lg text-stone-600 mb-8">Newer solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.</p><div class="space-y-4"><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-check"></i></div><div><h4 class="font-bold text-stone-900">Verified Funds</h4><p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p></div></div><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-secret"></i></div><div><h4 class="font-bold text-stone-900">Buyer Anonymity</h4><p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p></div></div></div></div><div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-lg"><h3 class="text-sm font-bold text-stone-400 uppercase mb-4 text-center">Conversion Funnel Comparison</h3><div class="space-y-6"><div><div class="flex justify-between text-sm mb-1"><span class="text-stone-500">Industry Avg (Zillow/MLS)</span><span class="font-bold text-stone-700">1-2% Conversion</span></div><div class="h-4 bg-stone-200 rounded-full overflow-hidden"><div class="h-full bg-stone-400 w-[2%]"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-blue-600 font-bold">Newer Verified</span><span class="font-bold text-blue-700">15-20% Conversion</span></div><div class="h-4 bg-blue-100 rounded-full overflow-hidden"><div class="h-full bg-blue-600 w-[20%]"></div></div></div></div><div class="mt-8 pt-8 border-t border-stone-200 text-center"><p class="text-stone-500 text-sm italic">"I'd rather pay $50 for one verified lead than $500 for a billboard." <br><span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span></p></div></div></div></div></section>
     
-    <section id="revenue" class="py-24 bg-stone-900 text-white" data-audience="builder,investor">
+    <section id="revenue" class="py-16 md:py-24 bg-stone-900 text-white" data-audience="builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16"><h2 id="revenue-title" class="text-3xl font-bold">Unicorn Unit Economics</h2><p id="revenue-desc" class="mt-4 text-stone-400 max-w-2xl mx-auto">Three revenue streams create a scalable, recurring income model.</p></div>
             <div class="grid lg:grid-cols-3 gap-8"><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-rss"></i></div><h3 class="text-xl font-bold mb-2">1. SaaS Subscription</h3><p class="text-stone-400 text-sm mb-4">Builders pay for access to the "Demand Feed" and market analytics.</p><div class="text-2xl font-mono font-bold text-white">$2k - $10k<span class="text-sm text-stone-500 font-normal">/mo</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-lock-open"></i></div><h3 class="text-xl font-bold mb-2">2. Unlock Fees</h3><p class="text-stone-400 text-sm mb-4">Micro-transactions. Builders pay to unlock the contact info of a matched buyer.</p><div class="text-2xl font-mono font-bold text-white">$50 - $200<span class="text-sm text-stone-500 font-normal">/lead</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-percentage"></i></div><h3 class="text-xl font-bold mb-2">3. Success Fees</h3><p class="text-stone-400 text-sm mb-4">Small take rate on the final transaction value upon closing.</p><div class="text-2xl font-mono font-bold text-white">0.5%<span class="text-sm text-stone-500 font-normal"> of Sale Price</span></div></div></div>
@@ -552,9 +512,9 @@
         </div>
     </section>
     
-    <section id="cta-builder" class="py-20 bg-blue-600" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h2 class="text-3xl font-bold text-white mb-6">For Builders: The Infinite ROI Engine</h2><div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-10 text-white"><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">0</div><div class="text-sm opacity-80">Marketing Spend</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">20x</div><div class="text-sm opacity-80">Higher Conversion</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">100%</div><div class="text-sm opacity-80">Verified Intent</div></div></div><button onclick="openWaitlistModal()" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-stone-100 hover:scale-105 transition-all">Request Builder Access</button></div></section>
+    <section id="cta-builder" class="py-16 md:py-24 bg-blue-600" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h2 class="text-3xl font-bold text-white mb-6">For Builders: The Infinite ROI Engine</h2><div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-10 text-white"><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">0</div><div class="text-sm opacity-80">Marketing Spend</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">20x</div><div class="text-sm opacity-80">Higher Conversion</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">100%</div><div class="text-sm opacity-80">Verified Intent</div></div></div><button onclick="openWaitlistModal()" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-stone-100 hover:scale-105 transition-all">Request Builder Access</button></div></section>
     
-    <section class="py-20 bg-stone-50 border-t border-stone-200" data-audience="buyer,builder,investor">
+    <section class="py-16 md:py-24 bg-stone-50 border-t border-stone-200" data-audience="buyer,builder,investor">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-stone-900 text-center mb-12">Frequently Asked Questions</h2>
             <div class="space-y-4">
@@ -662,8 +622,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <!-- FOOTER LOGO WITH DOT -->
             <div class="flex items-center gap-0.5 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <span class="text-2xl font-black tracking-tighter text-white">Newer</span>
-                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2.5"></span>
+                <span class="text-xl font-black tracking-tighter text-white">Newer</span>
+                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5"></span>
             </div>
             <div class="text-sm">
                 &copy; 2025 Newer LLC. All rights reserved.
@@ -680,38 +640,41 @@
 
     <!-- Waitlist Modal -->
     <div id="waitlist-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-stone-900/75 transition-opacity duration-300 opacity-0" id="modal-backdrop" onclick="closeWaitlistModal()"></div>
+        <div class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop" onclick="closeWaitlistModal()"></div>
         <div class="fixed inset-0 z-10 overflow-y-auto pointer-events-none">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="pointer-events-auto relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all duration-300 sm:my-8 sm:w-full sm:max-w-md scale-95 opacity-0" id="modal-panel">
-                    <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600"><i class="fas fa-times"></i></button>
-                    <div id="modal-form-state" class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-rocket text-blue-600"></i></div>
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                                <h3 class="text-lg font-semibold leading-6 text-stone-900" id="modal-title">Try the Newer Way</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-stone-500 mb-4">Be the first to know when we launch in your city. Builders are waiting.</p>
-                                    <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
-                                        <div class="mb-3"><label for="email" class="block text-sm font-medium text-stone-700 mb-1">Email Address</label><input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="you@example.com"></div>
-                                        <div class="mb-4"><label for="zip" class="block text-sm font-medium text-stone-700 mb-1">Target Zip Code</label><input type="text" id="zip" name="zip" required class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="e.g. 78704"></div>
-                                        <div class="mb-5"><label class="block text-sm font-medium text-stone-700 mb-2">I am a...</label>
-                                            <div class="grid grid-cols-3 gap-2">
-                                                <label class="cursor-pointer"><input type="radio" name="role" value="buyer" class="peer sr-only" checked><div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white transition-all hover:bg-stone-50 text-stone-600"><i class="fas fa-home mr-1"></i> Buyer</div></label>
-                                                <label class="cursor-pointer"><input type="radio" name="role" value="builder" class="peer sr-only"><div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white transition-all hover:bg-stone-50 text-stone-600"><i class="fas fa-hard-hat mr-1"></i> Builder</div></label>
-                                                <label class="cursor-pointer"><input type="radio" name="role" value="investor" class="peer sr-only"><div class="px-2 py-2 border border-stone-200 rounded-lg text-center text-xs font-medium peer-checked:bg-stone-900 peer-checked:text-white transition-all hover:bg-stone-50 text-stone-600"><i class="fas fa-chart-line mr-1"></i> Investor</div></label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="w-full bg-stone-900 text-white rounded-lg px-4 py-3 font-bold hover:bg-stone-800 transition-all shadow-lg active:scale-[0.98]">Secure My Spot</button>
-                                    </form>
-                                </div>
-                            </div>
+                <div class="pointer-events-auto relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all scale-95 opacity-0 sm:w-full sm:max-w-md" id="modal-panel">
+                    <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600"><i class="fas fa-times text-xl"></i></button>
+                    
+                    <!-- Form State -->
+                    <div id="modal-form-state" class="p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fas fa-rocket"></i></div>
+                            <h3 class="text-xl font-bold text-stone-900">Get Early Access</h3>
                         </div>
+                        <p class="text-sm text-stone-500 mb-6">Join 4,200+ buyers and builders waiting for the launch in your city.</p>
+                        <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
+                            <div class="space-y-4">
+                                <div><label class="block text-xs font-bold uppercase text-stone-500 mb-1">Email</label><input type="email" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm" placeholder="you@example.com"></div>
+                                <div><label class="block text-xs font-bold uppercase text-stone-500 mb-1">Zip Code</label><input type="text" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm" placeholder="e.g. 78704"></div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-stone-500 mb-2">I am a...</label>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <label class="cursor-pointer"><input type="radio" name="role" value="buyer" class="peer sr-only" checked><div class="px-2 py-3 border border-stone-200 rounded-xl text-center text-xs font-bold text-stone-500 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 hover:bg-stone-50 transition-all">Buyer</div></label>
+                                        <label class="cursor-pointer"><input type="radio" name="role" value="builder" class="peer sr-only"><div class="px-2 py-3 border border-stone-200 rounded-xl text-center text-xs font-bold text-stone-500 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 hover:bg-stone-50 transition-all">Builder</div></label>
+                                        <label class="cursor-pointer"><input type="radio" name="role" value="investor" class="peer sr-only"><div class="px-2 py-3 border border-stone-200 rounded-xl text-center text-xs font-bold text-stone-500 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 hover:bg-stone-50 transition-all">Investor</div></label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 text-white rounded-xl py-3 font-bold hover:bg-blue-700 transition-all shadow-lg active:scale-[0.98]">Secure My Spot</button>
+                            </div>
+                        </form>
                     </div>
-                    <div id="modal-success-state" class="hidden bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 text-center py-10">
-                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-[bounce_1s_infinite]"><i class="fas fa-check text-2xl text-green-600"></i></div>
-                        <h3 class="text-xl font-bold text-stone-900 mb-2">You're on the list!</h3>
-                        <p class="text-stone-500 text-sm mb-6">We'll notify you as soon as builders in your area join the network.</p>
+
+                    <!-- Success State -->
+                    <div id="modal-success-state" class="hidden p-10 text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500 text-2xl animate-bounce"><i class="fas fa-check"></i></div>
+                        <h3 class="text-2xl font-bold text-stone-900 mb-2">You're on the list!</h3>
+                        <p class="text-stone-500 text-sm mb-8">We'll notify you when Newer launches in your chosen zip code.</p>
                         <button type="button" onclick="closeWaitlistModal()" class="inline-flex w-full justify-center rounded-lg bg-stone-100 px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-stone-200 transition-colors">Close</button>
                     </div>
                     <div id="modal-footer" class="bg-stone-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"><p class="text-xs text-stone-400 text-center sm:text-right w-full">We respect your privacy. No spam.</p></div>
@@ -722,138 +685,21 @@
 
     <!-- JS Logic -->
     <script>
-        const apiKey = "";
+        // --- State Management ---
+        let appState = { style: '', persona: '', bedrooms: 3, budget: 500, amenities: [], verified: false, credits: 500 };
         
-        async function callGemini(prompt) {
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                if (!response.ok) throw new Error(`API Error: ${response.status}`);
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "AI could not generate a response.";
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                return "Error connecting to AI service.";
-            }
-        }
-
-        const audienceElements = document.querySelectorAll('[data-audience]');
+        // Data for Map
         const heatMapPoints = Array.from({length: 30}, () => ({ x: Math.random(), y: Math.random(), r: 20 + Math.random() * 40 }));
         const lotPoints = Array.from({length: 5}, () => ({ x: Math.random(), y: Math.random() }));
+        
+        // DOM Elements
+        const audienceElements = document.querySelectorAll('[data-audience]');
 
-        function openWaitlistModal() {
-            const modal = document.getElementById('waitlist-modal');
-            const backdrop = document.getElementById('modal-backdrop');
-            const panel = document.getElementById('modal-panel');
-            const formState = document.getElementById('modal-form-state');
-            const successState = document.getElementById('modal-success-state');
-            const modalFooter = document.getElementById('modal-footer');
-            const form = document.getElementById('waitlist-form');
-
-            if (!modal || !backdrop || !panel || !formState || !successState || !modalFooter) return;
-
-            formState.classList.remove('hidden'); 
-            successState.classList.add('hidden'); 
-            modalFooter.classList.remove('hidden');
-            if(form) form.reset(); 
-            modal.classList.remove('hidden');
-            
-            setTimeout(() => { 
-                backdrop.classList.remove('opacity-0'); 
-                panel.classList.remove('opacity-0', 'scale-95'); 
-                panel.classList.add('opacity-100', 'scale-100'); 
-            }, 10);
-        }
-
-        function closeWaitlistModal() {
-            const modal = document.getElementById('waitlist-modal');
-            const backdrop = document.getElementById('modal-backdrop');
-            const panel = document.getElementById('modal-panel');
-            if (!modal || !backdrop || !panel) return;
-            backdrop.classList.add('opacity-0'); 
-            panel.classList.remove('opacity-100', 'scale-100'); 
-            panel.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => { clearTimeout(timeout); func(...args); };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        function handleWaitlistSubmit(e) {
-            e.preventDefault();
-            const btn = e.submitter || e.target.querySelector('button[type="submit"]'); 
-            const originalText = btn ? btn.innerText : 'Secure My Spot'; 
-            if (btn) { btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...'; btn.disabled = true; }
-            
-            const rect = btn.getBoundingClientRect();
-            const x = (rect.left + rect.width / 2) / window.innerWidth;
-            const y = (rect.top + rect.height / 2) / window.innerHeight;
-
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 100, spread: 70, origin: { x: x, y: y }, colors: ['#3b82f6', '#10b981', '#fbbf24'] });
-            }
-            
-            const formData = new FormData(e.target);
-            const destinationEmail = "your-email@example.com"; 
-            const subject = "Join Waitlist - Newer";
-            const body = `Role: ${formData.get('role')}%0D%0AZip: ${formData.get('zip')}%0D%0AEmail: ${formData.get('email')}`;
-            
-            window.location.href = `mailto:${destinationEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
-            
-            const formState = document.getElementById('modal-form-state');
-            const successState = document.getElementById('modal-success-state');
-            const modalFooter = document.getElementById('modal-footer');
-
-            setTimeout(() => { 
-                if (formState) formState.classList.add('hidden'); 
-                if (modalFooter) modalFooter.classList.add('hidden'); 
-                if (successState) successState.classList.remove('hidden'); 
-                if (btn) { btn.innerText = originalText; btn.disabled = false; }
-            }, 1000);
-        }
-
-        function toggleFaq(btn) {
-            const answer = btn.nextElementSibling; 
-            const icon = btn.querySelector('.faq-icon');
-            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', !isExpanded);
-            if(answer.classList.contains('open')) { answer.classList.remove('open'); icon.classList.remove('rotate'); } else { answer.classList.add('open'); icon.classList.add('rotate'); }
-        }
-
-        let appState = { style: '', persona: '', bedrooms: 3, budget: 500, amenities: [], verified: false, alias: '#8942', credits: 500 };
-        function saveState() { localStorage.setItem('newerState', JSON.stringify(appState)); }
-        function loadState() {
-            const saved = localStorage.getItem('newerState');
-            if (saved) {
-                try {
-                    appState = { ...appState, ...JSON.parse(saved) };
-                    if (appState.style) {
-                        document.querySelectorAll('.style-btn').forEach(btn => { if(btn.innerText.includes(appState.style)) btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50'); });
-                        document.getElementById('step-1').classList.add('hidden'); document.getElementById('step-2').classList.remove('hidden');
-                    }
-                    if (appState.amenities) {
-                        appState.amenities.forEach(am => {
-                            document.querySelectorAll('.amenity-btn').forEach(btn => { if(btn.innerText.includes(am)) { btn.classList.add('border-blue-500', 'text-blue-600', 'bg-blue-50'); btn.classList.remove('border-stone-200'); } });
-                        });
-                    }
-                    updateDashboardPreview();
-                } catch (e) { console.error(e); }
-            }
-        }
         // --- Content Configuration ---
         const contentConfig = {
             buyer: {
-                badge: '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
-                title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let New Homes Find You.</span>',
+                badge: '<span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
+                title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Let New Homes Find You.</span>',
                 desc: 'Stop chasing leftovers. Post your "Dream Home" and let top builders pitch you with <strong>off-market deals</strong> and <strong>custom builds</strong>.',
                 ctaText: 'Build My Dream Profile',
                 conceptTitle: 'The Power Shift',
@@ -867,7 +713,7 @@
                 revenueTitle: 'Pricing', revenueDesc: 'Simple, transparent pricing.'
             },
             builder: {
-                badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> Guaranteed Absorption',
+                badge: '<span class="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse"></span> Guaranteed Absorption',
                 title: 'Build for Buyers.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Not for Speculation.</span>',
                 desc: 'Eliminate market risk. See exactly what <strong>verified buyers</strong> in your zip code want before you pour a single foundation.',
                 ctaText: 'Access Live Demand Feed',
@@ -882,7 +728,7 @@
                 revenueTitle: 'Transparent Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
             investor: {
-                badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Market Efficiency',
+                badge: '<span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span> Market Efficiency',
                 title: 'Solving the $300B<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Housing Speculation Tax.</span>',
                 desc: 'By inverting the market from Supply-First to <strong>Demand-First</strong>, we unlock massive liquidity and zero-out customer acquisition costs.',
                 ctaText: 'See The Unit Economics',
@@ -897,238 +743,533 @@
                 revenueTitle: 'Unicorn Unit Economics', revenueDesc: 'Three revenue streams create a scalable, recurring income model with high LTV.'
             }
         };
+        
+        // --- Mock AI Logic (Reliable for Demos) ---
+        const mockBios = [
+            "Professional Couple seeking a modern sanctuary. Pre-approved and ready to move quickly for the right home office setup.",
+            "Growing family prioritizing school district and space. Looking for a functional layout with room to expand.",
+            "Design-conscious buyer seeking architectural uniqueness. Flexible closing timeline for the perfect modern aesthetic."
+        ];
+        
+        const mockPitches = [
+            "We have a lot in Phase 2 perfectly suited for your custom plan. Let's discuss a build-to-suit option.",
+            "I have a spec home finishing in 45 days that hits all your requirements. $10k incentive if under contract this month.",
+            "Your budget aligns with our new 'Modern Series'. Verify your funds and let's schedule a hard hat tour."
+        ];
 
+        const mockIntel = "Analysis: High demand for Home Offices in this zip code suggests shifting to Plan B layouts. Recommendation: Increase spec starts on 4bd models to capture verified $500k+ buyers.";
+        
+        const mockMemo = "Investment Thesis: Newer effectively eliminates CAC for builders by monetizing verified demand. This creates a negative working capital cycle and high LTV/CAC ratio, positioning it as a liquidity layer for the $1T new construction market.";
+
+        // Corrected Function Names to match HTML onclicks
+        function generateBuyerBio() {
+            const btn = document.getElementById('btn-generate-bio');
+            const container = document.getElementById('ai-bio-container');
+            const text = document.getElementById('ai-bio-text');
+            
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating...'; btn.disabled = true;
+            
+            setTimeout(() => {
+                const randomBio = mockBios[Math.floor(Math.random() * mockBios.length)];
+                container.classList.remove('hidden');
+                text.innerText = `"${randomBio}"`;
+                btn.innerHTML = '<span>✨</span> Regenerate Bio'; btn.disabled = false;
+            }, 1200);
+        }
+
+        function generateBuilderPitch() {
+            const btn = document.getElementById('btn-ai-pitch');
+            const area = document.getElementById('pitch-message');
+            
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; btn.disabled = true;
+            
+            setTimeout(() => {
+                area.value = mockPitches[Math.floor(Math.random() * mockPitches.length)];
+                btn.innerHTML = '<span>✨</span> AI Draft'; btn.disabled = false;
+            }, 800);
+        }
+
+        function generateMarketIntel() {
+            const btn = document.getElementById('btn-ai-intel');
+            const text = document.getElementById('ai-intel-text');
+            
+            btn.innerText = 'Analyzing...'; btn.disabled = true;
+            
+            setTimeout(() => {
+                text.innerText = mockIntel;
+                text.classList.add('text-white', 'font-medium');
+                btn.innerText = 'Analyze'; btn.disabled = false;
+            }, 1500);
+        }
+        
+        function generateInvestmentMemo() {
+            const btn = document.getElementById('btn-ai-memo');
+            const container = document.getElementById('ai-memo-container');
+            const text = document.getElementById('ai-memo-text');
+            
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; btn.disabled = true;
+            
+            setTimeout(() => {
+                container.classList.remove('hidden');
+                text.innerText = mockMemo;
+                btn.innerHTML = '<span>✨</span> Regenerate'; btn.disabled = false;
+            }, 1200);
+        }
+
+        // --- Helper Functions ---
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => { clearTimeout(timeout); func(...args); };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling; 
+            const icon = btn.querySelector('.faq-icon');
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !isExpanded);
+            if(answer.classList.contains('open')) { answer.classList.remove('open'); icon.classList.remove('rotate'); } 
+            else { answer.classList.add('open'); icon.classList.add('rotate'); }
+        }
+
+        function startMarketSimulation() {
+            setInterval(() => {
+                const activeEl = document.getElementById('stat-active'); 
+                if(!activeEl) return;
+                let current = parseInt(activeEl.innerText.replace(/,/g, ''));
+                current += Math.random() > 0.6 ? 1 : (Math.random() > 0.5 ? -1 : 0);
+                activeEl.innerText = current.toLocaleString();
+            }, 3000);
+        }
+
+        // --- Demo Flow Logic ---
         function setAudience(role) {
+            // Update Buttons
             document.querySelectorAll('.role-btn').forEach(btn => {
-                if(btn.innerText.toLowerCase().includes(role) || (role === 'buyer' && btn.innerText.includes('Buyers')) || (role === 'builder' && btn.innerText.includes('Builders'))) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+                const isActive = (btn.innerText.toLowerCase().includes(role) || 
+                                (role === 'buyer' && btn.innerText.includes('Buyers')) || 
+                                (role === 'builder' && btn.innerText.includes('Builders')));
+                
+                if (isActive) {
+                    btn.classList.add('active', 'bg-stone-900', 'text-white', 'border-stone-900');
+                    btn.classList.remove('bg-stone-100', 'text-stone-500', 'border-stone-200');
+                } else {
+                    btn.classList.remove('active', 'bg-stone-900', 'text-white', 'border-stone-900');
+                    btn.classList.add('bg-stone-100', 'text-stone-500', 'border-stone-200');
+                }
             });
+
+            // Update Content
             const config = contentConfig[role] || contentConfig['buyer'];
-            document.getElementById('hero-badge').innerHTML = config.badge; document.getElementById('hero-title').innerHTML = config.title; document.getElementById('hero-desc').innerHTML = config.desc; document.getElementById('hero-cta-btn').innerText = config.ctaText;
-            document.getElementById('concept-title').innerText = config.conceptTitle; document.getElementById('concept-desc').innerHTML = config.conceptDesc; document.getElementById('demo-title').innerText = config.demoTitle; document.getElementById('testimonial-title').innerText = config.testimonialTitle; document.getElementById('testimonial-desc').innerText = config.testimonialDesc;
-            document.getElementById('concept-old-list').innerHTML = config.oldList; document.getElementById('concept-new-list').innerHTML = config.newList; document.getElementById('demo-desc').innerHTML = config.demoDesc;
-            document.getElementById('revenue-title').innerText = config.revenueTitle; document.getElementById('revenue-desc').innerText = config.revenueDesc;
+            const badgeEl = document.getElementById('hero-badge');
+            const titleEl = document.getElementById('hero-title');
+            const descEl = document.getElementById('hero-desc');
+            const ctaEl = document.getElementById('hero-cta-btn');
+            
+            const conceptTitleEl = document.getElementById('concept-title');
+            const conceptDescEl = document.getElementById('concept-desc');
+            const demoTitleEl = document.getElementById('demo-title');
+            const demoDescEl = document.getElementById('demo-desc');
+            const testimonialTitleEl = document.getElementById('testimonial-title');
+            const testimonialDescEl = document.getElementById('testimonial-desc');
+            const conceptOldListEl = document.getElementById('concept-old-list');
+            const conceptNewListEl = document.getElementById('concept-new-list');
+            const revenueTitleEl = document.getElementById('revenue-title');
+            const revenueDescEl = document.getElementById('revenue-desc');
+
+            if(badgeEl) badgeEl.innerHTML = config.badge;
+            if(titleEl) titleEl.innerHTML = config.title;
+            if(descEl) descEl.innerHTML = config.desc;
+            if(ctaEl) ctaEl.innerText = config.ctaText;
+            
+            if(conceptTitleEl) conceptTitleEl.innerText = config.conceptTitle;
+            if(conceptDescEl) conceptDescEl.innerHTML = config.conceptDesc;
+            if(demoTitleEl) demoTitleEl.innerText = config.demoTitle;
+            if(demoDescEl) demoDescEl.innerHTML = config.demoDesc;
+            if(testimonialTitleEl) testimonialTitleEl.innerText = config.testimonialTitle;
+            if(testimonialDescEl) testimonialDescEl.innerText = config.testimonialDesc;
+            if(conceptOldListEl) conceptOldListEl.innerHTML = config.oldList;
+            if(conceptNewListEl) conceptNewListEl.innerHTML = config.newList;
+            if(revenueTitleEl) revenueTitleEl.innerText = config.revenueTitle;
+            if(revenueDescEl) revenueDescEl.innerText = config.revenueDesc;
+
             audienceElements.forEach(el => {
                 const allowedRoles = el.getAttribute('data-audience').split(',').map(s => s.trim());
                 if(allowedRoles.includes(role)) { el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
             });
         }
 
-        function triggerMatchNotification(amenity) {
-             const count = Math.floor(Math.random() * 5) + 2;
-             notifyPhone('Inventory Updated', `${count} homes match your '${amenity}' requirement`, 'fa-bell');
+        function selectStyle(style) {
+            appState.style = style;
+            document.querySelectorAll('.style-btn').forEach(btn => {
+                if(btn.innerText.includes(style)) btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
+                else btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50');
+            });
+            setTimeout(() => nextStep('2'), 400);
+        }
+
+        function setPersona(type) {
+            appState.persona = type;
+            document.querySelectorAll('.persona-btn').forEach(btn => {
+               if(btn.innerText === type) { btn.classList.add('bg-stone-900', 'text-white', 'border-stone-900'); btn.classList.remove('bg-white', 'text-stone-600'); }
+               else { btn.classList.remove('bg-stone-900', 'text-white', 'border-stone-900'); btn.classList.add('bg-white', 'text-stone-600'); }
+            });
+        }
+
+        function updateRange(type, val) {
+            if(type === 'bed') { appState.bedrooms = val; document.getElementById('bed-val').innerText = val; }
+            if(type === 'budget') { appState.budget = val; document.getElementById('budget-val').innerText = `$${val}k`; }
+            updateDashPreview();
         }
 
         function toggleAmenity(btn, name) {
             if(appState.amenities.includes(name)) {
                 appState.amenities = appState.amenities.filter(a => a !== name);
-                btn.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50'); btn.classList.add('border-stone-200', 'text-stone-600', 'bg-white');
+                btn.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50');
             } else {
-                if(appState.amenities.length >= 3) return; 
+                if(appState.amenities.length >= 3) return;
                 appState.amenities.push(name);
-                btn.classList.add('border-blue-500', 'text-blue-600', 'bg-blue-50'); btn.classList.remove('border-stone-200', 'text-stone-600', 'bg-white');
-                triggerMatchNotification(name);
+                btn.classList.add('border-blue-500', 'text-blue-600', 'bg-blue-50');
+                // Simulate "Match Found" notification on phone
+                notifyPhone("Market Update", `3 Builders match your ${name} request.`);
             }
-            saveState(); updateDashboardPreview();
+            updateDashPreview();
         }
 
-        function selectStyle(styleName) {
-            appState.style = styleName; saveState();
-            document.querySelectorAll('.style-btn').forEach(btn => { if(btn.innerText.includes(styleName)) { btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50'); } else { btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50'); } });
-            setTimeout(() => { nextStep('amenities'); }, 500);
-        }
-
-        function setPersona(personaType) { appState.persona = personaType; saveState(); }
-
-        function updateRange(type, value) {
-            if (type === 'bed') { appState.bedrooms = value; document.getElementById('bed-val').innerText = value; } 
-            else if (type === 'budget') { appState.budget = value; document.getElementById('budget-val').innerText = '$' + value + 'k'; }
-            saveState(); updateDashboardPreview();
-        }
-
-        function nextStep(stepNum) {
+        function nextStep(id) {
             document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
-            const target = document.getElementById(`step-${stepNum}`); if(target) target.classList.remove('hidden');
+            document.getElementById(`step-${id}`).classList.remove('hidden');
         }
 
         function verifyUser(e) {
-            const btn = e ? e.currentTarget : event.currentTarget; btn.innerHTML = '<i class="fas fa-spinner fa-spin text-stone-400"></i> Verifying...';
-            setTimeout(() => { appState.verified = true; saveState(); nextStep(4); revealDashboardCard(); }, 1500);
+            const btn = e.currentTarget;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verifying...';
+            
+            setTimeout(() => {
+                appState.verified = true;
+                nextStep('4');
+                revealBuilderCard(); // Trigger the builder side event
+            }, 1500);
         }
 
-        function resetDemo() {
-            appState = { style: '', persona: '', bedrooms: 3, budget: 500, amenities: [], verified: false, alias: '#8942', credits: 500 }; saveState();
-            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden')); document.getElementById('step-1').classList.remove('hidden');
-            document.getElementById('user-card-overlay').classList.remove('translate-y-0'); document.getElementById('user-card-overlay').classList.add('translate-y-full');
-            document.querySelectorAll('.style-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50'));
-            document.querySelectorAll('.amenity-btn').forEach(btn => { btn.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50'); btn.classList.add('border-stone-200'); });
-            document.getElementById('phone-notifications').innerHTML = '';
-            const bioContainer = document.getElementById('ai-bio-container'); const bioText = document.getElementById('ai-bio-text');
-            if(bioContainer) bioContainer.classList.add('hidden'); if(bioText) bioText.innerText = '';
-            const statusEl = document.getElementById('dash-card-status'); if (statusEl) { statusEl.innerText = 'Unverified'; statusEl.classList.remove('text-green-400'); statusEl.classList.add('text-stone-500'); }
-            const creditsEl = document.getElementById('stat-credits'); if (creditsEl) creditsEl.innerText = 500;
-            const unlockArea = document.getElementById('unlock-area'); if (unlockArea) unlockArea.innerHTML = `<button onclick="unlockLead()" id="btn-unlock" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg text-sm transition-all">UNLOCK LEAD CONTACT ($50)</button>`;
-            updateDashboardPreview();
-        }
-
-        function notifyPhone(title, msg, iconClass = 'fa-bell') {
-            const container = document.getElementById('phone-notifications');
-            const toast = document.createElement('div'); toast.className = 'bg-white rounded-lg shadow-xl p-3 flex items-start gap-3 border border-stone-100 transform toast-enter mb-2';
-            toast.innerHTML = `<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0"><i class="fas ${iconClass} text-blue-600 text-xs"></i></div><div><h4 class="text-xs font-bold text-stone-900">${title}</h4><p class="text-[10px] text-stone-500 leading-tight">${msg}</p></div>`;
-            container.appendChild(toast); setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-[-10px]'); setTimeout(() => toast.remove(), 500); }, 5000);
-        }
-
-        function updateDashboardPreview() {
-            document.getElementById('dash-card-style').innerText = appState.style || 'Pending...';
-            document.getElementById('dash-card-config').innerText = `${appState.bedrooms}bd / ${Math.floor(appState.bedrooms * 0.75) + 1}ba`;
+        function updateDashPreview() {
+            document.getElementById('dash-card-style').innerText = appState.style || 'Pending';
+            document.getElementById('dash-card-config').innerText = `${appState.bedrooms}bd / ${Math.ceil(appState.bedrooms * 0.7)}ba`;
             document.getElementById('dash-card-budget').innerText = `$${appState.budget}k`;
-            const amEl = document.getElementById('dash-card-amenities'); if(amEl) amEl.innerText = appState.amenities.length > 0 ? appState.amenities.join(', ') : 'None';
+            document.getElementById('dash-card-amenities').innerText = appState.amenities.join(', ') || 'None';
         }
 
-        function revealDashboardCard() {
-            const statusEl = document.getElementById('dash-card-status'); if (statusEl) { statusEl.innerText = "VERIFIED FUNDS"; statusEl.classList.replace('text-stone-500', 'text-green-400'); }
-            const card = document.getElementById('user-card-overlay'); if (card) card.classList.replace('translate-y-full', 'translate-y-0');
-            const mc = document.getElementById('dash-matches'); if(mc) mc.innerText = parseInt(mc.innerText) + 1;
-        }
-
-        function toggleDashboardView(view) {
-            const btns = ['list', 'map', 'intel'];
-            btns.forEach(b => {
-                const btn = document.getElementById(`view-${b}-btn`); const div = document.getElementById(`dashboard-${b}-view`);
-                if(b === view) {
-                    btn.classList.replace('text-stone-400', 'text-white'); btn.classList.add('bg-stone-600'); div.classList.remove('hidden');
-                    if(view === 'map') drawMap();
-                    if(view === 'intel') { drawIntelChart(); if(intelChartInstance) intelChartInstance.resize(); }
-                } else { btn.classList.replace('text-white', 'text-stone-400'); btn.classList.remove('bg-stone-600'); div.classList.add('hidden'); }
-            });
-        }
-
-        function drawMap() {
-            const canvas = document.getElementById('demandMap'); if(!canvas) return;
-            canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight;
-            const ctx = canvas.getContext('2d'); ctx.fillStyle = '#111827'; ctx.fillRect(0,0, canvas.width, canvas.height);
-            heatMapPoints.forEach(p => {
-                const x = p.x * canvas.width; const y = p.y * canvas.height;
-                const grad = ctx.createRadialGradient(x,y,0, x,y,p.r); grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
-                ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(x, y, p.r, 0, Math.PI*2); ctx.fill();
-            });
-            lotPoints.forEach(p => { const x = p.x * canvas.width; const y = p.y * canvas.height; ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill(); });
-        }
-
-        const debouncedDraw = debounce(() => {
-             const mapView = document.getElementById('dashboard-map-view'); const intelView = document.getElementById('dashboard-intel-view');
-             if (!mapView.classList.contains('hidden')) drawMap();
-             if (!intelView.classList.contains('hidden') && intelChartInstance) intelChartInstance.resize();
-        }, 100);
-        window.addEventListener('resize', debouncedDraw);
-
-        let intelChartInstance = null;
-        function drawIntelChart() {
-            const ctx = document.getElementById('intelChart'); if(!ctx || intelChartInstance) return;
-            intelChartInstance = new Chart(ctx, {
-                type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'], datasets: [{ label: 'Avg Budget', data: [450, 465, 460, 480, 485], borderColor: '#3b82f6', tension: 0.4, borderWidth: 2, pointBackgroundColor: '#fff' }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { display: false, min: 400 }, x: { grid: { display: false }, ticks: { color: '#6b7280', font: {size: 10} } } } }
-            });
-        }
-
-        function openPitchModal(id) { document.getElementById('pitch-target-id').innerText = id; document.getElementById('pitch-modal').classList.remove('hidden'); }
-        function closePitchModal() { document.getElementById('pitch-modal').classList.add('hidden'); }
-        function selectPitch(el, type) {
-            document.querySelectorAll('.pitch-opt').forEach(b => b.classList.replace('border-blue-500', 'border-stone-600'));
-            el.classList.replace('border-stone-600', 'border-blue-500'); el.setAttribute('data-type', type);
-        }
-        function sendPitch() {
-            const selected = document.querySelector('.pitch-opt.border-blue-500'); const type = selected ? selected.getAttribute('data-type') : 'Spec';
-            const incentive = document.getElementById('pitch-incentive').value; const message = document.getElementById('pitch-message').value;
-            closePitchModal();
-            let msg = type === 'Spec' ? 'Builder Pitch: Spec Home (Ready in 30 Days)' : 'Builder Pitch: Custom Dirt Lot';
-            if(message && message.length > 5) msg = "Personalized Offer Received!";
-            else if(incentive !== 'None') msg += ` + ${incentive}!`;
-            notifyPhone('New Offer Received!', msg, 'fa-gift');
+        function revealBuilderCard() {
+            const card = document.getElementById('user-card-overlay');
+            card.classList.remove('translate-y-full');
+            document.getElementById('stat-active').innerText = "1,249"; // Increment counter
         }
 
         function unlockLead() {
-            if(appState.credits < 50) { alert("Insufficient Credits"); return; }
-            appState.credits -= 50; saveState(); document.getElementById('stat-credits').innerText = appState.credits;
-            document.getElementById('unlock-area').innerHTML = `<div class="bg-stone-900 rounded p-3 border border-stone-600 flex justify-between items-center"><div><div class="text-[10px] text-stone-400 uppercase">Contact Revealed</div><div class="text-sm font-bold text-white">John Doe • (512) 555-0192</div><div class="text-xs text-blue-400">john.doe@gmail.com</div></div><div class="text-green-500"><i class="fas fa-check-circle"></i></div></div>`;
-            notifyPhone('Profile Viewed', 'A Local Builder just unlocked your contact info.', 'fa-eye');
+            if(appState.credits < 50) return alert("Low Credits");
+            appState.credits -= 50;
+            document.getElementById('stat-credits').innerText = appState.credits;
+            document.getElementById('unlock-area').innerHTML = `
+                <div class="bg-stone-800 rounded-lg p-3 border border-stone-600 flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] text-stone-400 uppercase">Contact Info</div>
+                        <div class="text-sm font-bold text-white">James Smith • (512) 555-0122</div>
+                        <div class="text-xs text-blue-400">Verified • 750+ Credit Score</div>
+                    </div>
+                    <div class="w-8 h-8 bg-green-900/50 rounded-full flex items-center justify-center text-green-500"><i class="fas fa-check"></i></div>
+                </div>
+            `;
+            notifyPhone("Profile Viewed", "A Builder just unlocked your contact info!");
         }
 
-        async function generateBuyerBio() {
-            const btn = document.getElementById('btn-generate-bio'); const container = document.getElementById('ai-bio-container'); const bioText = document.getElementById('ai-bio-text');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...'; btn.disabled = true;
-            const amenities = appState.amenities.join(', ') || "standard features"; const persona = appState.persona === 'Family' ? 'Growing Family' : 'Professional Couple';
-            const prompt = `Write a short, engaging 2-sentence bio for a home buyer profile. They are a ${persona} looking for a ${appState.style || 'Modern'} home with ${appState.bedrooms} bedrooms. Key requirements: ${amenities}. Tone: Serious and ready to buy.`;
-            const result = await callGemini(prompt);
-            container.classList.remove('hidden'); bioText.innerText = `"${result}"`;
-            btn.innerHTML = '<span>✨</span> Regenerate Bio'; btn.disabled = false;
+        function sendPitch() {
+            document.getElementById('pitch-modal').classList.add('hidden');
+            notifyPhone("New Offer!", "Builder Pitch: Custom Lot in Phase 2.");
+            
+            // Visual feedback on list items (Simulated on the first item for demo)
+            const firstPitchBtn = document.querySelector('.pitch-btn');
+            if(firstPitchBtn) {
+                firstPitchBtn.innerText = "Sent";
+                firstPitchBtn.classList.remove('bg-blue-600', 'hover:bg-blue-500', 'text-white');
+                firstPitchBtn.classList.add('bg-green-600', 'text-white', 'cursor-default');
+                firstPitchBtn.disabled = true;
+            }
         }
 
-        async function generateBuilderPitch() {
-            const btn = document.getElementById('btn-ai-pitch'); const textarea = document.getElementById('pitch-message');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
-            const selectedOpt = document.querySelector('.pitch-opt.border-blue-500');
-            const type = selectedOpt ? (selectedOpt.innerText.includes('Spec') ? 'Move-in Ready Spec Home' : 'Custom Dirt Lot Build') : 'New Home';
-            const prompt = `Act as a sales agent for a home builder. Write a short, punchy 1-sentence sales pitch to a buyer. We are offering a ${type}. Incentive: ${document.getElementById('pitch-incentive').value}. Tone: Professional and exciting. Max 20 words.`;
-            const result = await callGemini(prompt);
-            textarea.value = result; btn.innerHTML = '<span>✨</span> Smart Draft'; btn.disabled = false;
+        function resetDemo() {
+            // Reset state
+            appState = { style: '', persona: '', bedrooms: 3, budget: 500, amenities: [], verified: false, credits: 500 };
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('step-1').classList.remove('hidden');
+            document.getElementById('user-card-overlay').classList.add('translate-y-full');
+            
+            // Reset UI bits
+            document.querySelectorAll('.style-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50'));
+            document.querySelectorAll('.amenity-btn').forEach(btn => btn.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50'));
+            document.getElementById('stat-credits').innerText = "500";
+            document.getElementById('unlock-area').innerHTML = '<button onclick="unlockLead()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-lg text-sm transition-all flex items-center justify-center gap-2"><i class="fas fa-lock-open"></i> UNLOCK CONTACT DETAILS (50 Credits)</button>';
+            
+            // Clear notifications
+            document.getElementById('phone-notifications').innerHTML = '';
         }
 
-        async function generateMarketIntel() {
-            const btn = document.getElementById('btn-ai-intel'); const textField = document.getElementById('ai-intel-text');
-            btn.innerText = 'Analyzing...'; btn.disabled = true;
-            const prompt = "Analyze trends: Top features Home Office (42%), 3-Car Garage (28%), Pool Ready (15%). Budget trend increasing 90 days. Write 1-sentence strategic insight for builder next steps.";
-            const result = await callGemini(prompt);
-            textField.innerText = result; textField.classList.add('text-white', 'font-semibold'); textField.classList.remove('text-stone-300');
-            btn.innerText = '✨ Analyze Trends'; btn.disabled = false;
+        // --- Notification System ---
+        function notifyPhone(title, msg) {
+            const container = document.getElementById('phone-notifications');
+            const el = document.createElement('div');
+            el.className = 'w-full bg-white/95 backdrop-blur shadow-lg rounded-xl p-3 border border-stone-100 flex items-start gap-3 transform translate-y-[-10px] opacity-0 transition-all duration-300';
+            el.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-blue-100 shrink-0 flex items-center justify-center text-blue-600 text-xs"><i class="fas fa-bell"></i></div>
+                <div><h4 class="text-xs font-bold text-stone-900">${title}</h4><p class="text-[10px] text-stone-500 leading-tight mt-0.5">${msg}</p></div>
+            `;
+            container.appendChild(el);
+            
+            // Animation In
+            requestAnimationFrame(() => { el.classList.remove('translate-y-[-10px]', 'opacity-0'); });
+            
+            // Remove after 4s
+            setTimeout(() => {
+                el.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => el.remove(), 300);
+            }, 4000);
         }
 
-        async function generateInvestmentMemo() {
-            const btn = document.getElementById('btn-ai-memo'); const container = document.getElementById('ai-memo-container'); const textArea = document.getElementById('ai-memo-text');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...'; btn.disabled = true;
-            const prompt = "Write a 2-sentence investment thesis for Newer. Zero CAC for builders, verified intent, SaaS + Transaction fees. Tone: VC-style, bullish.";
-            const result = await callGemini(prompt);
-            container.classList.remove('hidden'); textArea.innerText = result;
-            btn.innerHTML = '<span>✨</span> Draft Deal Memo'; btn.disabled = false;
+        // Add drawMap function
+        function drawMap() {
+            const canvas = document.getElementById('demandMap');
+            if(!canvas) return;
+            
+            // Ensure parent has dimensions
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Clear/Background
+            ctx.fillStyle = '#1c1917'; // stone-900
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Heatmap (Demand)
+            heatMapPoints.forEach(p => {
+                const x = p.x * canvas.width;
+                const y = p.y * canvas.height;
+                const grad = ctx.createRadialGradient(x, y, 0, x, y, p.r);
+                grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)'); // red
+                grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(x, y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            // Draw Lots (Supply)
+            lotPoints.forEach(p => {
+                const x = p.x * canvas.width;
+                const y = p.y * canvas.height;
+                ctx.fillStyle = '#3b82f6'; // blue
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Pulse effect ring
+                ctx.strokeStyle = 'rgba(59, 130, 246, 0.5)';
+                ctx.beginPath();
+                ctx.arc(x, y, 8, 0, Math.PI * 2);
+                ctx.stroke();
+            });
         }
 
-        function startMarketSimulation() {
-            setInterval(() => {
-                const activeEl = document.getElementById('stat-active'); if(!activeEl) return;
-                let current = parseInt(activeEl.innerText.replace(/,/g, ''));
-                current += Math.random() > 0.4 ? Math.floor(Math.random() * 3) : -Math.floor(Math.random() * 2);
-                activeEl.innerText = current.toLocaleString();
-                if(Math.random() > 0.7) addNewFeedRow();
-            }, 2500);
+        const debouncedDraw = debounce(() => {
+             const mapView = document.getElementById('dashboard-map-view'); 
+             const intelView = document.getElementById('dashboard-intel-view');
+             if (mapView && !mapView.classList.contains('hidden')) drawMap();
+             if (intelView && !intelView.classList.contains('hidden') && intelChartInstance) intelChartInstance.resize();
+        }, 100);
+        window.addEventListener('resize', debouncedDraw);
+
+        // --- View Toggles ---
+        function toggleDashboardView(view) {
+            if(view === 'list') {
+                document.getElementById('dashboard-list-view').classList.remove('hidden');
+                document.getElementById('dashboard-intel-view').classList.add('hidden');
+                document.getElementById('dashboard-map-view').classList.add('hidden');
+                document.getElementById('view-list-btn').classList.add('bg-stone-600', 'text-white'); document.getElementById('view-list-btn').classList.remove('text-stone-400');
+                document.getElementById('view-intel-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-intel-btn').classList.add('text-stone-400');
+                document.getElementById('view-map-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-map-btn').classList.add('text-stone-400');
+            } else if (view === 'intel') {
+                document.getElementById('dashboard-list-view').classList.add('hidden');
+                document.getElementById('dashboard-map-view').classList.add('hidden');
+                document.getElementById('dashboard-intel-view').classList.remove('hidden');
+                document.getElementById('view-intel-btn').classList.add('bg-stone-600', 'text-white'); document.getElementById('view-intel-btn').classList.remove('text-stone-400');
+                document.getElementById('view-list-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-list-btn').classList.add('text-stone-400');
+                document.getElementById('view-map-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-map-btn').classList.add('text-stone-400');
+                initChart();
+            } else {
+                document.getElementById('dashboard-list-view').classList.add('hidden');
+                document.getElementById('dashboard-intel-view').classList.add('hidden');
+                document.getElementById('dashboard-map-view').classList.remove('hidden');
+                document.getElementById('view-map-btn').classList.add('bg-stone-600', 'text-white'); document.getElementById('view-map-btn').classList.remove('text-stone-400');
+                document.getElementById('view-list-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-list-btn').classList.add('text-stone-400');
+                document.getElementById('view-intel-btn').classList.remove('bg-stone-600', 'text-white'); document.getElementById('view-intel-btn').classList.add('text-stone-400');
+                drawMap();
+            }
         }
 
-        function addNewFeedRow() {
-            const feed = document.getElementById('dashboard-feed'); if(!feed) return;
+        function selectPitch(el, type) {
+            document.querySelectorAll('.pitch-opt').forEach(opt => opt.classList.remove('border-blue-500', 'bg-stone-600'));
+            el.classList.add('border-blue-500', 'bg-stone-600');
+        }
+
+        // --- Waitlist Logic ---
+        function openWaitlistModal() {
+            const modal = document.getElementById('waitlist-modal');
+            const panel = document.getElementById('modal-panel');
+            const backdrop = document.getElementById('modal-backdrop');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                panel.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+        }
+
+        function closeWaitlistModal() {
+            const modal = document.getElementById('waitlist-modal');
+            const panel = document.getElementById('modal-panel');
+            const backdrop = document.getElementById('modal-backdrop');
+            
+            panel.classList.add('opacity-0', 'scale-95');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        function handleWaitlistSubmit(e) {
+            e.preventDefault();
+            // Confetti effect
+            if(typeof confetti === 'function') {
+                const btn = e.submitter;
+                const rect = btn.getBoundingClientRect();
+                confetti({
+                    particleCount: 150, spread: 70, origin: { x: (rect.left + rect.width/2)/window.innerWidth, y: (rect.top + rect.height/2)/window.innerHeight }
+                });
+            }
+            
+            // Switch to success state
+            document.getElementById('modal-form-state').classList.add('hidden');
+            document.getElementById('modal-success-state').classList.remove('hidden');
+        }
+
+        // --- Feed Simulation ---
+        function addFeedItem() {
+            const container = document.getElementById('dashboard-feed');
             const id = Math.floor(Math.random() * 8999) + 1000;
-            const html = `<div class="grid grid-cols-12 gap-2 p-3 bg-stone-800 rounded border border-stone-700 items-center opacity-0 feed-item-enter border-l-2 border-l-blue-500 hover:bg-stone-700/50 transition-colors"><div class="col-span-2 sm:col-span-2 font-mono text-blue-300 text-[10px] sm:text-sm">#${id}</div><div class="hidden sm:block sm:col-span-2"><span class="px-2 py-0.5 bg-stone-700 text-stone-400 text-[10px] rounded">New</span></div><div class="col-span-5 sm:col-span-3 text-stone-300 text-[10px] sm:text-sm truncate">3bd • Modern</div><div class="col-span-3 sm:col-span-2 text-white font-bold text-[10px] sm:text-sm">$${Math.floor(Math.random() * 400) + 350}k</div><div class="col-span-2 sm:col-span-3 text-right"><button onclick="openPitchModal('#${id}')" class="pitch-btn px-2 sm:px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white text-[10px] sm:text-xs rounded shadow shadow-blue-900/40">Pitch</button></div></div>`;
-            feed.insertAdjacentHTML('afterbegin', html);
-            if(feed.children.length > 20) feed.lastElementChild.remove();
+            const budget = Math.floor(Math.random() * 500) + 300;
+            const item = document.createElement('div');
+            item.className = 'grid grid-cols-12 gap-2 p-3 bg-stone-700/30 rounded border border-stone-700 items-center animate-[slideInRight_0.4s_ease-out] hover:bg-stone-700 transition-colors border-l-2 border-l-blue-500';
+            item.innerHTML = `
+                <div class="col-span-2 font-mono text-blue-300 text-[10px] sm:text-xs">#${id}</div>
+                <div class="col-span-5 text-stone-300 text-[10px] sm:text-xs truncate">3bd • Modern Farmhouse</div>
+                <div class="col-span-2 text-white font-bold text-[10px] sm:text-xs">$${budget}k</div>
+                <div class="col-span-3 text-right"><button onclick="document.getElementById('pitch-modal').classList.remove('hidden'); document.getElementById('pitch-target-id').innerText='#${id}'" class="pitch-btn px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white text-[10px] rounded shadow-sm transition-colors">Pitch</button></div>
+            `;
+            container.prepend(item);
+            if(container.children.length > 15) container.lastElementChild.remove();
+        }
+
+        // --- Init ---
+        let chartInstance = null;
+        function initChart() {
+            if(chartInstance) return;
+            const ctx = document.getElementById('intelChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Avg Buyer Budget',
+                        data: [420, 435, 430, 450, 465, 485],
+                        borderColor: '#3b82f6',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { display: false },
+                        x: { ticks: { color: '#6b7280', font: {size: 10} }, grid: { display: false } }
+                    }
+                }
+            });
         }
 
         let revenueChartInstance = null;
         function updateRevenue(scenario) {
             if(!revenueChartInstance) return;
-            const scenarios = { conservative: { saas: [0.8, 2.1, 4.5, 8.0, 12.0], unlock: [0.2, 1.0, 3.5, 6.0, 9.0], success: [0.05, 0.5, 2.0, 8.0, 18.0] }, base: { saas: [1.2, 3.5, 8.0, 15.5, 24.0], unlock: [0.5, 2.1, 6.5, 12.0, 18.5], success: [0.1, 1.5, 5.0, 18.0, 42.0] }, aggressive: { saas: [2.0, 5.5, 12.0, 25.0, 45.0], unlock: [1.0, 4.0, 12.0, 25.0, 40.0], success: [0.5, 3.0, 10.0, 35.0, 85.0] } };
+            const scenarios = { 
+                conservative: { saas: [0.8, 2.1, 4.5, 8.0, 12.0], unlock: [0.2, 1.0, 3.5, 6.0, 9.0], success: [0.05, 0.5, 2.0, 8.0, 18.0] }, 
+                base: { saas: [1.2, 3.5, 8.0, 15.5, 24.0], unlock: [0.5, 2.1, 6.5, 12.0, 18.5], success: [0.1, 1.5, 5.0, 18.0, 42.0] }, 
+                aggressive: { saas: [2.0, 5.5, 12.0, 25.0, 45.0], unlock: [1.0, 4.0, 12.0, 25.0, 40.0], success: [0.5, 3.0, 10.0, 35.0, 85.0] } 
+            };
             const data = scenarios[scenario];
-            revenueChartInstance.data.datasets[0].data = data.saas; revenueChartInstance.data.datasets[1].data = data.unlock; revenueChartInstance.data.datasets[2].data = data.success;
+            revenueChartInstance.data.datasets[0].data = data.saas; 
+            revenueChartInstance.data.datasets[1].data = data.unlock; 
+            revenueChartInstance.data.datasets[2].data = data.success;
             revenueChartInstance.update();
+            
             document.querySelectorAll('.scenario-btn').forEach(btn => {
-                if(btn.innerText.toLowerCase().includes(scenario)) { btn.classList.replace('border-stone-600', 'bg-blue-600'); btn.classList.replace('text-stone-300', 'text-white'); btn.classList.add('border-blue-600'); }
-                else { btn.classList.replace('bg-blue-600', 'border-stone-600'); btn.classList.replace('text-white', 'text-stone-300'); btn.classList.remove('border-blue-600'); }
+                if(btn.innerText.toLowerCase().includes(scenario)) { 
+                    btn.classList.replace('border-stone-600', 'bg-blue-600'); 
+                    btn.classList.replace('text-stone-300', 'text-white'); 
+                    btn.classList.add('border-blue-600'); 
+                } else { 
+                    btn.classList.replace('bg-blue-600', 'border-stone-600'); 
+                    btn.classList.replace('text-white', 'text-stone-300'); 
+                    btn.classList.remove('border-blue-600'); 
+                }
             });
         }
 
+        // Start loops
+        setInterval(addFeedItem, 3500); // Slower, more realistic feed
+        addFeedItem(); addFeedItem(); // Initial data
+
         document.addEventListener('DOMContentLoaded', function() {
-            loadState(); setAudience('buyer'); startMarketSimulation();
-            const ctx = document.getElementById('revenueChart').getContext('2d');
-            revenueChartInstance = new Chart(ctx, {
-                type: 'bar', data: { labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'], datasets: [{ label: 'SaaS', data: [1.2, 3.5, 8.0, 15.5, 24.0], backgroundColor: '#3b82f6', stack: 'Stack 0' }, { label: 'Unlock', data: [0.5, 2.1, 6.5, 12.0, 18.5], backgroundColor: '#10b981', stack: 'Stack 0' }, { label: 'Success', data: [0.1, 1.5, 5.0, 18.0, 42.0], backgroundColor: '#6366f1', stack: 'Stack 0' }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#9ca3af' } } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(75, 85, 99, 0.2)' }, ticks: { color: '#9ca3af', callback: v => '$' + v + 'M' } }, x: { grid: { display: false }, ticks: { color: '#9ca3af' } } } }
-            });
+            setAudience('buyer');
+            
+            // Revenue Chart Init
+            const ctx = document.getElementById('revenueChart');
+            if(ctx) {
+                revenueChartInstance = new Chart(ctx.getContext('2d'), {
+                    type: 'bar', 
+                    data: { 
+                        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'], 
+                        datasets: [
+                            { label: 'SaaS', data: [1.2, 3.5, 8.0, 15.5, 24.0], backgroundColor: '#3b82f6', stack: 'Stack 0' }, 
+                            { label: 'Unlock', data: [0.5, 2.1, 6.5, 12.0, 18.5], backgroundColor: '#10b981', stack: 'Stack 0' }, 
+                            { label: 'Success', data: [0.1, 1.5, 5.0, 18.0, 42.0], backgroundColor: '#6366f1', stack: 'Stack 0' }
+                        ] 
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { position: 'bottom', labels: { color: '#9ca3af' } } }, 
+                        scales: { 
+                            y: { beginAtZero: true, grid: { color: 'rgba(75, 85, 99, 0.2)' }, ticks: { color: '#9ca3af', callback: v => '$' + v + 'M' } }, 
+                            x: { grid: { display: false }, ticks: { color: '#9ca3af' } } 
+                        } 
+                    }
+                });
+            }
+            
+            startMarketSimulation();
         });
     </script>
 </body>
