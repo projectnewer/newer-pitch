@@ -118,10 +118,21 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2 cursor-pointer" onclick="setAudience('buyer')">
-                    <div class="w-8 h-8 bg-stone-900 rounded-lg flex items-center justify-center text-white font-bold">N</div>
-                    <span class="text-xl font-bold tracking-tight text-stone-900">Newer</span>
-                </div>
+                <!-- OPTIMIZED LOGO TREATMENT -->
+                <a href="#" class="flex items-center gap-2 group transition-all" onclick="setAudience('buyer')">
+                    <div class="w-9 h-9 bg-stone-900 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 group-hover:shadow-lg group-active:scale-95 shadow-md">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 18V6H6.8L17.2 18H20V6H17.2V18L6.8 6H4V18Z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center">
+                            <span class="text-xl font-black tracking-tighter text-stone-900 leading-none">Newer</span>
+                            <span class="w-1.5 h-1.5 bg-blue-600 rounded-full ml-0.5 mt-2"></span>
+                        </div>
+                        <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest leading-none mt-1">Real Estate</span>
+                    </div>
+                </a>
                 
                 <div class="hidden md:flex bg-stone-100 rounded-full p-1 border border-stone-200">
                     <button onclick="setAudience('buyer')" class="role-btn active px-4 py-1.5 rounded-full text-sm font-medium text-stone-600">For Buyers</button>
@@ -158,7 +169,7 @@
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Offer Sent: Custom Lot in Phoenix</span>
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
-                <!-- Duplicated for Marquee effect -->
+                <!-- Duplicated content for seamless loop -->
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-green-400">●</span> New Match: 4bd in Austin ($550k)</span>
                 <span class="mx-6 text-xs font-mono text-stone-600">|</span>
                 <span class="mx-6 text-xs font-mono tracking-wide"><span class="text-blue-400">●</span> Builder Pitch Accepted: Denver ($720k)</span>
@@ -245,7 +256,7 @@
                         <div class="phone-notch"></div>
                         <div id="phone-notifications" class="absolute top-10 left-0 right-0 px-4 z-50 pointer-events-none space-y-2"></div>
                         <div class="h-16 bg-white border-b border-stone-100 flex items-center justify-between px-6 pt-6 relative z-10">
-                            <span class="font-bold text-lg">Newer</span>
+                            <span class="font-bold text-lg tracking-tighter">Newer</span>
                             <div class="flex gap-1"><div class="w-2 h-2 rounded-full bg-stone-300"></div><div class="w-2 h-2 rounded-full bg-stone-300"></div></div>
                         </div>
                         <div id="buyer-screen-container" class="flex-1 p-6 overflow-y-auto bg-stone-50 relative">
@@ -553,9 +564,14 @@
     <!-- Footer -->
     <footer class="bg-stone-900 py-12 text-stone-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <div class="w-6 h-6 bg-white rounded flex items-center justify-center text-stone-900 text-xs font-bold">N</div>
-                <span class="text-lg font-bold text-white">Newer</span>
+            <!-- FOOTER LOGO -->
+            <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-md">
+                    <svg viewBox="0 0 24 24" class="w-4 h-4 fill-stone-900" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 18V6H6.8L17.2 18H20V6H17.2V18L6.8 6H4V18Z" />
+                    </svg>
+                </div>
+                <span class="text-lg font-black tracking-tighter text-white">Newer<span class="text-blue-500">.</span></span>
             </div>
             <div class="text-sm">
                 &copy; 2025 Newer LLC. All rights reserved.
