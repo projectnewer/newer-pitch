@@ -87,11 +87,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .ai-border {
-             border: 1px solid transparent;
-             background-image: linear-gradient(white, white), linear-gradient(to right, #4f46e5, #9333ea);
-             background-origin: border-box;
-             background-clip: content-box, border-box;
+        .ai-btn {
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+        }
+        .ai-btn:hover {
+            background: linear-gradient(to right, #4338ca, #6d28d9);
         }
     </style>
 </head>
@@ -381,7 +383,7 @@
                             </div>
                         </div>
 
-                        <!-- INTEL VIEW -->
+                        <!-- INTEL VIEW (Builder AI Feature) -->
                         <div id="dashboard-intel-view" class="absolute inset-0 top-[88px] bottom-0 bg-stone-900 rounded-lg border border-stone-700 overflow-y-auto overflow-x-hidden hidden p-6 transition-opacity duration-300">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
                                 <div>
@@ -392,8 +394,11 @@
                                         <div><div class="flex justify-between text-xs text-stone-400 mb-1"><span>Pool Ready</span><span class="text-red-400">15% <i class="fas fa-arrow-down"></i></span></div><div class="h-2 bg-stone-700 rounded-full"><div class="h-full bg-teal-500 rounded-full" style="width: 15%"></div></div></div>
                                     </div>
                                     <div class="mt-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-                                        <div class="text-blue-400 text-xs font-bold uppercase mb-1"><i class="fas fa-lightbulb mr-1"></i> Strategic Insight</div>
-                                        <p class="text-stone-300 text-xs leading-relaxed">Demand for <strong class="text-white">Home Offices</strong> has increased 12% in this zip code over the last 30 days.</p>
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="text-blue-400 text-xs font-bold uppercase"><i class="fas fa-lightbulb mr-1"></i> Strategic Insight</div>
+                                            <button onclick="generateMarketIntel()" id="btn-ai-intel" class="text-[10px] text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-500 transition-colors">✨ Analyze Trends</button>
+                                        </div>
+                                        <p id="ai-intel-text" class="text-stone-300 text-xs leading-relaxed">Click 'Analyze Trends' to generate a market report based on live demand data.</p>
                                     </div>
                                 </div>
                                 <div class="bg-stone-800 rounded-xl border border-stone-700 p-2 flex flex-col justify-center min-h-[200px]">
@@ -473,7 +478,31 @@
     
     <section id="moat" class="py-20 bg-stone-50" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 gap-16 items-center"><div><div class="inline-block px-3 py-1 bg-stone-200 text-stone-600 text-xs font-bold uppercase rounded mb-4">The Trust Layer</div><h2 class="text-3xl font-bold text-stone-900 mb-6">Why Builders Pay for "Unlocks"</h2><p class="text-lg text-stone-600 mb-6">The biggest pain point for builders is "Tire Kickers"—people who tour homes but can't afford them.</p><p class="text-lg text-stone-600 mb-8">Newer.com solves this with the <strong>Verification Moat</strong>. We integrate with banking APIs (Plaid) and lenders to verify financial capacity <em>before</em> the builder sees the profile.</p><div class="space-y-4"><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-check"></i></div><div><h4 class="font-bold text-stone-900">Verified Funds</h4><p class="text-sm text-stone-500">Cash on hand or Pre-approval letter validated.</p></div></div><div class="flex items-center gap-4 p-4 bg-white rounded-lg border border-stone-200"><div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-secret"></i></div><div><h4 class="font-bold text-stone-900">Buyer Anonymity</h4><p class="text-sm text-stone-500">Builders bid on the <em>budget</em>, not the person. No bias.</p></div></div></div></div><div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-lg"><h3 class="text-sm font-bold text-stone-400 uppercase mb-4 text-center">Conversion Funnel Comparison</h3><div class="space-y-6"><div><div class="flex justify-between text-sm mb-1"><span class="text-stone-500">Industry Avg (Zillow/MLS)</span><span class="font-bold text-stone-700">1-2% Conversion</span></div><div class="h-4 bg-stone-200 rounded-full overflow-hidden"><div class="h-full bg-stone-400 w-[2%]"></div></div></div><div><div class="flex justify-between text-sm mb-1"><span class="text-blue-600 font-bold">Newer.com Verified</span><span class="font-bold text-blue-700">15-20% Conversion</span></div><div class="h-4 bg-blue-100 rounded-full overflow-hidden"><div class="h-full bg-blue-600 w-[20%]"></div></div></div></div><div class="mt-8 pt-8 border-t border-stone-200 text-center"><p class="text-stone-500 text-sm italic">"I'd rather pay $50 for one verified lead than $500 for a billboard." <br><span class="text-stone-800 font-bold not-italic mt-2 block">- VP Sales, National Builder</span></p></div></div></div></div></section>
     
-    <section id="revenue" class="py-24 bg-stone-900 text-white" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 id="revenue-title" class="text-3xl font-bold">Unicorn Unit Economics</h2><p id="revenue-desc" class="mt-4 text-stone-400 max-w-2xl mx-auto">Three revenue streams create a scalable, recurring income model.</p></div><div class="grid lg:grid-cols-3 gap-8"><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-rss"></i></div><h3 class="text-xl font-bold mb-2">1. SaaS Subscription</h3><p class="text-stone-400 text-sm mb-4">Builders pay for access to the "Demand Feed" and market analytics.</p><div class="text-2xl font-mono font-bold text-white">$2k - $10k<span class="text-sm text-stone-500 font-normal">/mo</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-lock-open"></i></div><h3 class="text-xl font-bold mb-2">2. Unlock Fees</h3><p class="text-stone-400 text-sm mb-4">Micro-transactions. Builders pay to unlock the contact info of a matched buyer.</p><div class="text-2xl font-mono font-bold text-white">$50 - $200<span class="text-sm text-stone-500 font-normal">/lead</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-percentage"></i></div><h3 class="text-xl font-bold mb-2">3. Success Fees</h3><p class="text-stone-400 text-sm mb-4">Small take rate on the final transaction value upon closing.</p><div class="text-2xl font-mono font-bold text-white">0.5%<span class="text-sm text-stone-500 font-normal"> of Sale Price</span></div></div></div><div class="mt-16 bg-stone-800 p-6 rounded-2xl border border-stone-700" data-audience="investor"><h4 class="text-lg font-bold mb-6 text-center">Projected Revenue Mix (Year 1 - Year 5)</h4><div class="flex justify-center gap-2 mb-6"><button onclick="updateRevenue('conservative')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Conservative</button><button onclick="updateRevenue('base')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white border border-blue-600 transition-colors">Base Case</button><button onclick="updateRevenue('aggressive')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Aggressive</button></div><div class="chart-container"><canvas id="revenueChart"></canvas></div><p class="text-center text-xs text-stone-500 mt-4">*Based on Market Penetration in top 50 Metro Areas.</p></div></div></section>
+    <!-- Investor AI Feature in Revenue Section -->
+    <section id="revenue" class="py-24 bg-stone-900 text-white" data-audience="builder,investor">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16"><h2 id="revenue-title" class="text-3xl font-bold">Unicorn Unit Economics</h2><p id="revenue-desc" class="mt-4 text-stone-400 max-w-2xl mx-auto">Three revenue streams create a scalable, recurring income model.</p></div>
+            <div class="grid lg:grid-cols-3 gap-8"><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-rss"></i></div><h3 class="text-xl font-bold mb-2">1. SaaS Subscription</h3><p class="text-stone-400 text-sm mb-4">Builders pay for access to the "Demand Feed" and market analytics.</p><div class="text-2xl font-mono font-bold text-white">$2k - $10k<span class="text-sm text-stone-500 font-normal">/mo</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-lock-open"></i></div><h3 class="text-xl font-bold mb-2">2. Unlock Fees</h3><p class="text-stone-400 text-sm mb-4">Micro-transactions. Builders pay to unlock the contact info of a matched buyer.</p><div class="text-2xl font-mono font-bold text-white">$50 - $200<span class="text-sm text-stone-500 font-normal">/lead</span></div></div><div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 hover:border-blue-500 transition-colors"><div class="h-12 w-12 bg-stone-700 rounded-xl flex items-center justify-center mb-6 text-blue-400 text-xl"><i class="fas fa-percentage"></i></div><h3 class="text-xl font-bold mb-2">3. Success Fees</h3><p class="text-stone-400 text-sm mb-4">Small take rate on the final transaction value upon closing.</p><div class="text-2xl font-mono font-bold text-white">0.5%<span class="text-sm text-stone-500 font-normal"> of Sale Price</span></div></div></div>
+            <div class="mt-16 bg-stone-800 p-6 rounded-2xl border border-stone-700" data-audience="investor">
+                <h4 class="text-lg font-bold mb-6 text-center">Projected Revenue Mix (Year 1 - Year 5)</h4>
+                <div class="flex justify-center gap-2 mb-6"><button onclick="updateRevenue('conservative')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Conservative</button><button onclick="updateRevenue('base')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white border border-blue-600 transition-colors">Base Case</button><button onclick="updateRevenue('aggressive')" class="scenario-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-600 hover:bg-stone-700 text-stone-300 transition-colors">Aggressive</button></div>
+                <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+                
+                <!-- NEW: Investor AI Feature -->
+                <div class="mt-8 border-t border-stone-700 pt-6">
+                     <div class="flex justify-between items-center mb-4">
+                        <h5 class="text-sm font-bold text-purple-400">INVESTMENT THESIS GENERATOR</h5>
+                        <button onclick="generateInvestmentMemo()" id="btn-ai-memo" class="ai-btn px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-lg hover:shadow-purple-500/20 flex items-center gap-2">
+                             <span>✨</span> Draft Deal Memo
+                        </button>
+                     </div>
+                     <div id="ai-memo-container" class="hidden bg-stone-900/50 rounded-xl p-4 border border-purple-500/30">
+                        <p id="ai-memo-text" class="text-sm text-stone-300 font-mono leading-relaxed"></p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <section id="cta-builder" class="py-20 bg-blue-600" data-audience="builder,investor"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h2 class="text-3xl font-bold text-white mb-6">For Builders: The Infinite ROI Engine</h2><div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-10 text-white"><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">0</div><div class="text-sm opacity-80">Marketing Spend</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">20x</div><div class="text-sm opacity-80">Higher Conversion</div></div><div class="p-4 border border-blue-400 rounded-xl bg-blue-700/30"><div class="text-3xl font-bold mb-1">100%</div><div class="text-sm opacity-80">Verified Intent</div></div></div><button onclick="openWaitlistModal()" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-stone-100 hover:scale-105 transition-all">Request Builder Access</button></div></section>
     
@@ -524,6 +553,7 @@
                                 <h3 class="text-lg font-semibold leading-6 text-stone-900" id="modal-title">Join the Reverse Market</h3>
                                 <div class="mt-2">
                                     <p class="text-sm text-stone-500 mb-4">Be the first to know when we launch in your city. Builders are waiting.</p>
+                                    <!-- Added "Target Zip Code" field for improved data collection -->
                                     <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
                                         <div class="mb-3">
                                             <label for="email" class="block text-sm font-medium text-stone-700 mb-1">Email Address</label>
@@ -715,6 +745,7 @@
             const formData = new FormData(e.target);
             const destinationEmail = "your-email@example.com"; 
             const subject = "Join Waitlist - Newer.com";
+            // Fix: Use %0D%0A for robust line breaks in mailto links
             const body = `Role: ${formData.get('role')}%0D%0AZip: ${formData.get('zip')}%0D%0AEmail: ${formData.get('email')}`;
             
             window.location.href = `mailto:${destinationEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
@@ -776,45 +807,57 @@
             buyer: {
                 badge: '<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span> The Reverse Market',
                 title: 'Don\'t Search for a Home.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Let the Home Find You.</span>',
-                desc: 'Flipping the real estate script from a <strong>Search Engine</strong> to a <strong>Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
+                desc: 'Flipping the real estate script from a <strong>Search Engine</strong> to an <strong>AI-Powered Matching Engine</strong>.<br><span class="font-semibold text-stone-700">Buyers post demand. Builders compete to fulfill it.</span>',
                 ctaText: 'Start Your Dream Profile',
                 conceptTitle: 'The End of the Chase',
                 conceptDesc: 'The traditional market forces you to hunt for leftovers.<br><span class="font-semibold text-stone-700">Newer.com sends your criteria to builders, who pitch <em>you</em> with options.</span>',
                 demoTitle: 'Your Personal Market',
                 testimonialTitle: 'Success Stories',
                 testimonialDesc: 'See how families are skipping the stress and getting offers directly from builders.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li>',
-                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Builders see "Live Demand" and build exactly what is requested.</p></div></li>',
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Builder Blindness:</span><p class="text-sm">Developers build "spec homes" hoping buyers will like them.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Buyer Fatigue:</span><p class="text-sm">Buyers spend hours doom-scrolling MLS listings.</p></div></li>',
+                newList: `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Builders see "Live Demand" and build exactly what is requested.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">The "Reverse" Auction:</span><p class="text-sm">Verified buyers create a "Dream Profile."</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-magic text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Profile Perfection:</span><p class="text-sm">Generative AI crafts your "Market Bio" to attract more offers.</p></div></li>
+                `,
                 demoDesc: 'Interact with the <strong>Buyer App</strong> (Phase A) to broadcast your needs. Watch the market respond.',
                 revenueTitle: 'Pricing', revenueDesc: 'Simple, transparent pricing.'
             },
             builder: {
                 badge: '<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span> High-Intent Leads',
                 title: 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Build What\'s Sold.</span>',
-                desc: 'Access a live feed of <strong>Verified Buyers</strong> actively looking for your inventory.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation.</span>',
+                desc: 'Access a live feed of <strong>Verified Buyers</strong> prioritized by AI.<br><span class="font-semibold text-stone-700">No marketing spend. No speculation. Just data.</span>',
                 ctaText: 'Claim Your Territory',
                 conceptTitle: 'Solving "Speculation Risk"',
                 conceptDesc: 'The traditional market forces everyone to guess.<br><span class="font-semibold text-stone-700">Newer.com creates a market based on verified requests (Certainty).</span>',
                 demoTitle: 'Demand Command Center',
                 testimonialTitle: 'Builder Wins',
                 testimonialDesc: 'Real results from developers who stopped building blind and started building sold.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li>',
-                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li>',
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Guessing Games:</span><p class="text-sm">Building spec homes and hoping they sell.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">High CAC:</span><p class="text-sm">Paying $500+ per lead for tire-kickers.</p></div></li>',
+                newList: `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Verified Demand:</span><p class="text-sm">See exactly what buyers want before you break ground.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Direct Sales:</span><p class="text-sm">Pitch directly to buyers with funding proof.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-robot text-blue-500"></i></div><div><span class="font-bold text-stone-900">AI Sales Copilot:</span><p class="text-sm">Instant pitch drafting and market intel analysis.</p></div></li>
+                `,
                 demoDesc: 'Watch the <strong>Builder Terminal</strong> (Phase B) populate instantly as real demand flows in from the App.',
                 revenueTitle: 'Transparent Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
             investor: {
                 badge: '<span class="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span> Unicorn Potential',
                 title: 'The Efficiency Engine<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">For Real Estate.</span>',
-                desc: 'Solving the liquidity crisis in new construction by inverting the supply chain.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
+                desc: 'Solving the liquidity crisis via an AI-driven reverse marketplace.<br><span class="font-semibold text-stone-700">Zero CAC for builders. Zero friction for buyers.</span>',
                 ctaText: 'Analyze Unit Economics',
                 conceptTitle: 'Market Inefficiency',
                 conceptDesc: 'The traditional housing supply chain is blind and capital intensive.<br><span class="font-semibold text-stone-700">Newer.com replaces speculation with a high-velocity Matching Engine.</span>',
                 demoTitle: 'The Transaction Engine',
                 testimonialTitle: 'Market Validation',
                 testimonialDesc: 'Data-driven validation of the high-velocity matching engine and liquidity model.',
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li>',
-                newList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Matching supply to demand instantly.</p></div></li>',
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Inventory Drag:</span><p class="text-sm">Capital tied up in finished inventory.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-times text-red-400"></i></div><div><span class="font-bold text-stone-800">Opaque Data:</span><p class="text-sm">No real-time signal on consumer preference.</p></div></li>',
+                newList: `
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Just-in-Time:</span><p class="text-sm">Matching supply to demand instantly.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-check text-blue-500"></i></div><div><span class="font-bold text-stone-900">Data Monetization:</span><p class="text-sm">Aggregating demand signals for developers.</p></div></li>
+                    <li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i class="fas fa-brain text-blue-500"></i></div><div><span class="font-bold text-stone-900">Generative Insights:</span><p class="text-sm">Automated deal memos and predictive demand modeling.</p></div></li>
+                `,
                 demoDesc: 'Observe the ecosystem mechanics: How <strong>User Input</strong> converts to <strong>Monetizable Data</strong> for builders.',
                 revenueTitle: 'Unicorn Unit Economics', revenueDesc: 'Three revenue streams create a scalable, recurring income model with high LTV.'
             }
@@ -1067,6 +1110,47 @@
             textarea.value = result;
             
             btn.innerHTML = '<span>✨</span> Smart Draft';
+            btn.disabled = false;
+        }
+        
+        // 3. Generate Market Intel (Builder Side)
+        async function generateMarketIntel() {
+            const btn = document.getElementById('btn-ai-intel');
+            const textField = document.getElementById('ai-intel-text');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Analyzing...';
+            btn.disabled = true;
+            
+            const prompt = "Analyze the current market trends for a home builder based on this data: Top features are Home Office (42%), 3-Car Garage (28%), Pool Ready (15%). Average budget trend is increasing steadily over 90 days. Write a 1-sentence strategic insight for the builder on what they should build next.";
+            
+            const result = await callGemini(prompt);
+            
+            textField.innerText = result;
+            textField.classList.add('text-white', 'font-semibold');
+            textField.classList.remove('text-stone-300');
+            
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+        
+        // 4. Generate Investment Memo (Investor Side)
+        async function generateInvestmentMemo() {
+            const btn = document.getElementById('btn-ai-memo');
+            const container = document.getElementById('ai-memo-container');
+            const textArea = document.getElementById('ai-memo-text');
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            btn.disabled = true;
+            
+            const prompt = "Write a 2-sentence investment thesis for a 'Reverse Real Estate Marketplace' called Newer.com. Key metrics: Zero CAC for builders, verified buyer intent, SaaS + Transaction fees. Tone: VC-style, bullish, focusing on liquidity.";
+            
+            const result = await callGemini(prompt);
+            
+            container.classList.remove('hidden');
+            textArea.innerText = result;
+            
+            btn.innerHTML = '<span>✨</span> Draft Deal Memo';
             btn.disabled = false;
         }
 
