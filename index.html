@@ -727,7 +727,7 @@
                 revenueTitle: 'Pricing', revenueDesc: 'Simple, transparent pricing.'
             },
             builder: {
-                badge: '<span class="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse"></span> Guaranteed Absorption',
+                badge: '<span class="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse"></span> Increased Absorption',
                 title: 'Stop Building Blind.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-500">Start Building Sold.</span>',
                 desc: 'Access a live order book of <strong>verified demand</strong>. Secure "Presold Inventory" before you break ground and eliminate the risk of rising interest rates.',
                 ctaText: 'View Live Demand Map',
@@ -743,8 +743,8 @@
             },
             investor: {
                 badge: '<span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span> Market Efficiency',
-                title: 'The Bloomberg Terminal for<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Residential Demand.</span>',
-                desc: 'We don\'t just sell homes; we index housing demand in real-time, creating the world\'s first predictive construction data layer.',
+                title: 'Solving for Liquidity<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">in New Construction.</span>',
+                desc: 'By matching supply and demand <strong>before</strong> groundbreak, we create negative working capital cycles for builders and massively increase IRR.',
                 ctaText: 'Request Data Sample',
                 conceptTitle: 'The Capital Efficiency Shift',
                 conceptDesc: 'Speculative building kills returns via inventory carry costs.<br><span class="font-semibold text-stone-700">Newer enables "Just-in-Time" housing production by removing inventory risk.</span>',
@@ -1091,6 +1091,47 @@
             }
         }
 
+        function acceptPitch() {
+            // Trigger Confetti
+            if(typeof confetti === 'function') {
+                const phone = document.querySelector('.phone-frame');
+                const rect = phone.getBoundingClientRect();
+                
+                // Calculate center of phone relative to viewport
+                const x = (rect.left + rect.width / 2) / window.innerWidth;
+                const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { x: x, y: y },
+                    zIndex: 9999,
+                    colors: ['#3b82f6', '#10b981', '#fbbf24']
+                });
+            }
+
+            // Create Success Overlay inside Phone
+            const container = document.getElementById('buyer-screen-container');
+            const overlay = document.createElement('div');
+            overlay.id = 'success-overlay';
+            overlay.className = 'absolute inset-0 bg-white/95 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-center animate-[fadeIn_0.5s_ease-out]';
+            overlay.innerHTML = `
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 animate-[pulse_2s_infinite]">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-lg shadow-green-500/30">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-black text-stone-900 mb-2 tracking-tight">It's a Match!</h3>
+                <p class="text-sm text-stone-500 mb-8 leading-relaxed">
+                    Congratulations! You've accepted the pitch for <strong>The "Hilltop" Plan</strong>.
+                    <br><br>
+                    <span class="block text-xs bg-stone-100 p-2 rounded text-stone-400 font-mono">Builder has been notified.</span>
+                </p>
+                <button onclick="resetDemo()" class="w-full py-3.5 bg-stone-900 text-white rounded-xl font-bold text-sm shadow-xl hover:bg-stone-800 hover:scale-[1.02] transition-all">Start New Demo</button>
+            `;
+            container.appendChild(overlay);
+        }
+
         function addBuyerPitchToPhone() {
             const container = document.getElementById('buyer-pitches-container');
             if(!container) return;
@@ -1116,7 +1157,7 @@
                             "Based on your budget of $${appState.budget}k, we can offer Lot 42 with the ${appState.style || 'Modern'} elevation..."
                         </p>
                         <div class="flex gap-2 pl-2">
-                            <button class="flex-1 py-1.5 bg-stone-900 text-white text-[10px] font-bold rounded-lg hover:bg-stone-800 transition-colors">Accept Pitch</button>
+                            <button onclick="acceptPitch()" class="flex-1 py-1.5 bg-stone-900 text-white text-[10px] font-bold rounded-lg hover:bg-stone-800 transition-colors">Accept Pitch</button>
                             <button class="px-3 py-1.5 bg-stone-100 text-stone-500 text-[10px] font-bold rounded-lg hover:bg-stone-200 transition-colors">Decline</button>
                         </div>
                     </div>
@@ -1131,6 +1172,10 @@
             document.getElementById('step-1').classList.remove('hidden');
             document.getElementById('user-card-overlay').classList.add('translate-y-full');
             
+            // Remove success overlay if exists
+            const overlay = document.getElementById('success-overlay');
+            if(overlay) overlay.remove();
+
             // Reset UI bits
             document.querySelectorAll('.style-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50'));
             document.querySelectorAll('.amenity-btn').forEach(btn => btn.classList.remove('border-blue-500', 'text-blue-600', 'bg-blue-50'));
