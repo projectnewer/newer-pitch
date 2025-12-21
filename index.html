@@ -447,9 +447,8 @@
                                     <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wide">Gold Tier Access</span>
                                 </div>
 
-                                <!-- Updated per Recommendation 4 -->
                                 <button onclick="verifyUser(event)" class="w-full py-3.5 bg-white border-2 border-slate-100 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:border-brand-gold hover:text-amber-700 hover:bg-amber-50 transition-all group mb-3 text-slate-600">
-                                    <i class="fas fa-university text-slate-300 group-hover:text-brand-gold" aria-hidden="true"></i> Verify Proof of Funds (Secure via Plaid)
+                                    <i class="fas fa-university text-slate-300 group-hover:text-brand-gold" aria-hidden="true"></i> Verify Proof of Funds
                                 </button>
                                 <button onclick="verifyUser(event)" class="w-full py-3.5 bg-white border-2 border-slate-100 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:border-brand-gold hover:text-amber-700 hover:bg-amber-50 transition-all group text-slate-600">
                                     <i class="fas fa-file-upload text-slate-300 group-hover:text-brand-gold" aria-hidden="true"></i> Upload Pre-Approval
@@ -1735,31 +1734,30 @@
             const mapView = document.getElementById('dashboard-map-view');
             const intelView = document.getElementById('dashboard-intel-view');
 
+            // Reset all buttons first to remove lingering active classes
+            [listBtn, mapBtn, intelBtn].forEach(btn => {
+                btn.classList.remove('bg-brand-blue', 'bg-slate-600', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            // Hide all views initially
+            listView.classList.add('hidden');
+            mapView.classList.add('hidden');
+            intelView.classList.add('hidden');
+
             if(view === 'list') {
                 listView.classList.remove('hidden');
-                intelView.classList.add('hidden');
-                mapView.classList.add('hidden');
-                
-                listBtn.classList.add('bg-slate-600', 'text-white'); listBtn.classList.remove('text-slate-400');
-                intelBtn.classList.remove('bg-slate-600', 'text-white'); intelBtn.classList.add('text-slate-400');
-                mapBtn.classList.remove('bg-slate-600', 'text-white'); mapBtn.classList.add('text-slate-400');
+                listBtn.classList.remove('text-slate-400');
+                listBtn.classList.add('bg-brand-blue', 'text-white');
             } else if (view === 'intel') {
-                listView.classList.add('hidden');
-                mapView.classList.add('hidden');
                 intelView.classList.remove('hidden');
-                
-                intelBtn.classList.add('bg-slate-600', 'text-white'); intelBtn.classList.remove('text-slate-400');
-                listBtn.classList.remove('bg-slate-600', 'text-white'); listBtn.classList.add('text-slate-400');
-                mapBtn.classList.remove('bg-slate-600', 'text-white'); mapBtn.classList.add('text-slate-400');
+                intelBtn.classList.remove('text-slate-400');
+                intelBtn.classList.add('bg-slate-600', 'text-white');
                 initChart();
             } else {
-                listView.classList.add('hidden');
-                intelView.classList.add('hidden');
                 mapView.classList.remove('hidden');
-                
-                mapBtn.classList.add('bg-slate-600', 'text-white'); mapBtn.classList.remove('text-slate-400');
-                listBtn.classList.remove('bg-slate-600', 'text-white'); listBtn.classList.add('text-slate-400');
-                intelBtn.classList.remove('bg-slate-600', 'text-white'); intelBtn.classList.add('text-slate-400');
+                mapBtn.classList.remove('text-slate-400');
+                mapBtn.classList.add('bg-slate-600', 'text-white');
                 requestAnimationFrame(() => drawMap()); 
             }
         }
