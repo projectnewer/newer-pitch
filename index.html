@@ -253,8 +253,8 @@
                     <button onclick="setAudience('investor')" role="tab" aria-selected="false" id="tab-investor" class="role-btn px-6 py-2 rounded-sm text-sm font-semibold transition-all">Partners</button>
                 </div>
 
-                <button onclick="openWaitlistModal()" class="bg-brand-dark text-brand-gold border border-brand-dark px-6 py-2.5 rounded-md text-sm font-bold hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all active:translate-y-0.5 shadow-sharp">
-                    Get Early Access
+                <button onclick="openWaitlistModal()" class="bg-brand-dark text-white border border-brand-dark px-6 py-2.5 rounded-md text-sm font-bold hover:bg-brand-blue hover:border-brand-blue transition-all active:translate-y-0.5 shadow-sharp">
+                    Get Priority Access
                 </button>
             </div>
             <!-- Mobile Role Switcher (Compact) -->
@@ -306,10 +306,10 @@
                     <span class="text-brand-blue">Make Builders Bid For You.</span>
                 </h1>
                 <p id="hero-desc" class="mt-4 max-w-xl text-lg md:text-xl text-slate-600 min-h-[3em] leading-relaxed font-normal bg-white/50 backdrop-blur-sm p-3 border border-brand-border rounded-md transition-all duration-300">
-                    Newer connects verified buyers directly with top home builders. Simply post your 'Buy Box' profile, verify your budget, and receive custom proposals for off-market homes.
+                    Newer connects verified buyers directly with top home builders. Simply create your Match Profile, verify your budget, and receive custom proposals for off-market homes.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                    <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-brand-blue text-white rounded-md font-bold shadow-sharp hover:translate-y-[2px] hover:shadow-none transition-all duration-200 text-center border-2 border-brand-blue">Build My Buy Box</a>
+                    <a href="#demo" id="hero-cta-btn" class="px-8 py-4 bg-brand-blue text-white rounded-md font-bold shadow-sharp hover:translate-y-[2px] hover:shadow-none transition-all duration-200 text-center border-2 border-brand-blue">Start My Profile</a>
                     <a href="#concept" class="px-8 py-4 bg-white text-brand-dark border-2 border-brand-dark rounded-md font-bold shadow-sharp hover:translate-y-[2px] hover:shadow-none transition-all duration-200 text-center">How It Works</a>
                 </div>
             </div>
@@ -342,130 +342,146 @@
             <div class="grid md:grid-cols-2 gap-12 items-stretch">
                 <div class="p-10 rounded-lg bg-brand-light border border-brand-border relative group hover:border-brand-dark transition-all duration-300 h-full flex flex-col shadow-sm">
                     <div class="absolute -top-3 left-8 bg-slate-200 text-slate-600 px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wide border border-slate-300">The Old Way</div>
-                    <h3 class="text-2xl font-brand font-bold text-brand-dark mb-4 flex items-center gap-3"><i data-lucide="search" class="text-brand-muted w-6 h-6"></i> Active Shopper</h3>
+                    <h3 class="text-2xl font-brand font-bold text-brand-dark mb-4 flex items-center gap-3"><i data-lucide="search" class="text-brand-muted w-6 h-6"></i> The Chase</h3>
                     <ul id="concept-old-list" class="space-y-4 text-slate-600 text-sm flex-grow"></ul>
                 </div>
                 <div class="p-10 rounded-lg bg-white border border-brand-blue shadow-sharp relative group hover:shadow-sharp-lg transition-all duration-300 h-full flex flex-col">
                     <div class="absolute -top-3 left-8 bg-brand-blue text-white px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wide border border-brand-blue">The Newer Way</div>
-                    <h3 class="text-2xl font-brand font-bold text-brand-dark mb-4 flex items-center gap-3"><i data-lucide="crown" class="text-brand-blue w-6 h-6"></i> VIP Client</h3>
+                    <h3 class="text-2xl font-brand font-bold text-brand-dark mb-4 flex items-center gap-3"><i data-lucide="crown" class="text-brand-blue w-6 h-6"></i> The Gold Standard</h3>
                     <ul id="concept-new-list" class="space-y-4 text-slate-700 text-sm flex-grow"></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW Journey Section -->
-    <section id="journey" class="py-16 bg-white border-t border-brand-border" data-audience="buyer,builder,investor">
+    <!-- NEW JOURNEY SECTION (Steps) -->
+    <section id="journey" class="py-20 bg-brand-light border-y border-brand-border" data-audience="buyer,builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-brand font-bold text-brand-dark">The Newer Way&trade;</h2>
-                <p class="mt-4 text-slate-500">Real Estate. Reversed.</p>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-brand font-bold text-brand-dark mb-2">The Newer Way™</h2>
+                <p class="text-xl text-brand-blue font-medium font-brand">Real Estate. Reversed.</p>
             </div>
 
             <!-- Buyer Journey -->
-            <div class="grid md:grid-cols-4 gap-8 relative" data-audience="buyer">
-                <!-- Connecting Line (Desktop) -->
-                <div class="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-brand-blue/20 via-brand-blue/50 to-brand-blue/20 -z-10"></div>
-                
-                <!-- Step 1 -->
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-blue transition-all z-10">
-                        <i data-lucide="sliders" class="w-10 h-10 text-brand-blue"></i>
+            <div data-audience="buyer" class="hidden animate-[fadeIn_0.5s_ease-out]">
+                <div class="grid md:grid-cols-4 gap-8 relative">
+                    <!-- Connecting Line (Desktop) -->
+                    <div class="hidden md:block absolute top-12 left-[12%] right-[12%] h-0.5 bg-slate-200 -z-10"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center text-brand-blue mb-6 shadow-sharp-blue group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="file-edit" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">1. Profile</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Set your terms. Define budget, style, and must-haves in your private <strong>Match Profile</strong>.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">1. Define</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Set your "Buy Box". Choose your budget, style, and non-negotiables.</p>
-                </div>
-                <!-- Step 2 -->
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-blue transition-all z-10">
-                        <i data-lucide="check-circle" class="w-10 h-10 text-brand-blue"></i>
+                    <!-- Step 2 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center text-brand-blue mb-6 shadow-sharp-blue group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="badge-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">2. Verify</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Prove intent. Upload proof of funds to unlock <strong>Gold Standard</strong> status.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">2. Verify</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Upload proof of funds to get Gold Status. Builders only pitch real buyers.</p>
-                </div>
-                <!-- Step 3 -->
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-blue transition-all z-10">
-                        <i data-lucide="inbox" class="w-10 h-10 text-brand-blue"></i>
+                    <!-- Step 3 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center text-brand-blue mb-6 shadow-sharp-blue group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="inbox" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">3. Receive</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Let them compete. Review custom pitches and <strong>off-market offers</strong> sent directly to you.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">3. Receive</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Sit back as top builders review your profile and send custom pitches.</p>
-                </div>
-                <!-- Step 4 -->
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-brand-blue border-2 border-brand-blue rounded-full flex items-center justify-center mb-6 shadow-lg shadow-blue-200 group-hover:scale-105 transition-all z-10">
-                        <i data-lucide="home" class="w-10 h-10 text-white"></i>
+                    <!-- Step 4 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-blue rounded-full flex items-center justify-center text-brand-blue mb-6 shadow-sharp-blue group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="key" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">4. Close</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Sign the deal. No bidding wars. Just winning your dream home.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">4. Win</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Select the best offer, secure incentives, and move into your new home.</p>
                 </div>
             </div>
 
             <!-- Builder Journey -->
-            <div class="grid md:grid-cols-4 gap-8 relative hidden" data-audience="builder">
-                <div class="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-brand-gold/20 via-brand-gold/50 to-brand-gold/20 -z-10"></div>
-                
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-gold rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-gold transition-all z-10">
-                        <i data-lucide="map" class="w-10 h-10 text-brand-gold"></i>
+            <div data-audience="builder" class="hidden animate-[fadeIn_0.5s_ease-out]">
+                <div class="grid md:grid-cols-4 gap-8 relative">
+                    <!-- Connecting Line (Desktop) -->
+                    <div class="hidden md:block absolute top-12 left-[12%] right-[12%] h-0.5 bg-slate-200 -z-10"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-brand-dark border-2 border-brand-success rounded-full flex items-center justify-center text-brand-success mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="bar-chart-2" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">1. Analyze</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">View the live <strong>Heatmap</strong>. See exactly where the demand is before you dig.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">1. Identify</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">View live heatmap of active, verified demand in your zip code.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-gold rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-gold transition-all z-10">
-                        <i data-lucide="filter" class="w-10 h-10 text-brand-gold"></i>
+                    <!-- Step 2 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-brand-dark border-2 border-brand-success rounded-full flex items-center justify-center text-brand-success mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">2. Match</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Identify verified buyers. Filter the <strong>Order Book</strong> for budget and location fit.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">2. Target</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Filter buyer profiles by budget and preferences to find perfect matches.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-brand-gold rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-sharp-gold transition-all z-10">
-                        <i data-lucide="send" class="w-10 h-10 text-brand-gold"></i>
+                    <!-- Step 3 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-brand-dark border-2 border-brand-success rounded-full flex items-center justify-center text-brand-success mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="send" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">3. Pitch</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Send the offer. Direct, private proposals to <strong>high-intent</strong> leads.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">3. Pitch</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Send private offers for off-market or spec inventory directly to the buyer.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-brand-gold border-2 border-brand-gold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-orange-100 group-hover:scale-105 transition-all z-10">
-                        <i data-lucide="dollar-sign" class="w-10 h-10 text-brand-dark"></i>
+                    <!-- Step 4 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-brand-dark border-2 border-brand-success rounded-full flex items-center justify-center text-brand-success mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="check-circle" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">4. Turn</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Contract signed. Capital returned. <strong>Zero marketing spend</strong>.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">4. Sell</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Close deals in days. Reduce Days on Market (DOM) to zero.</p>
                 </div>
             </div>
 
             <!-- Investor Journey -->
-            <div class="grid md:grid-cols-4 gap-8 relative hidden" data-audience="investor">
-                <div class="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-purple-500/20 via-purple-500/50 to-purple-500/20 -z-10"></div>
-                
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-500 rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-lg transition-all z-10">
-                        <i data-lucide="bar-chart-2" class="w-10 h-10 text-purple-600"></i>
+            <div data-audience="investor" class="hidden animate-[fadeIn_0.5s_ease-out]">
+                <div class="grid md:grid-cols-4 gap-8 relative">
+                    <!-- Connecting Line (Desktop) -->
+                    <div class="hidden md:block absolute top-12 left-[12%] right-[12%] h-0.5 bg-slate-200 -z-10"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-600 rounded-full flex items-center justify-center text-purple-600 mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="database" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">1. Data</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">See the gap. Analyze real-time <strong>Demand vs Supply</strong> metrics.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">1. Analyze</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Access raw, real-time demand data and market liquidity heatmaps.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-500 rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-lg transition-all z-10">
-                        <i data-lucide="briefcase" class="w-10 h-10 text-purple-600"></i>
+                    <!-- Step 2 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-600 rounded-full flex items-center justify-center text-purple-600 mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="landmark" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">2. Deploy</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Fund the sure thing. Capitalize builders with <strong>pre-verified demand</strong>.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">2. Fund</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Deploy capital into pre-sold or high-demand development projects.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-500 rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:shadow-lg transition-all z-10">
-                        <i data-lucide="activity" class="w-10 h-10 text-purple-600"></i>
+                    <!-- Step 3 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-600 rounded-full flex items-center justify-center text-purple-600 mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="activity" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">3. Cycle</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Watch velocity. Faster inventory turnover means <strong>reduced carry costs</strong>.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">3. Track</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Monitor absorption rates and velocity in real-time via the dashboard.</p>
-                </div>
-                <div class="text-center relative group">
-                    <div class="w-24 h-24 mx-auto bg-purple-600 border-2 border-purple-600 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-purple-200 group-hover:scale-105 transition-all z-10">
-                        <i data-lucide="trending-up" class="w-10 h-10 text-white"></i>
+                    <!-- Step 4 -->
+                    <div class="relative text-center group">
+                        <div class="w-24 h-24 mx-auto bg-white border-2 border-purple-600 rounded-full flex items-center justify-center text-purple-600 mb-6 shadow-sharp group-hover:-translate-y-1 transition-transform duration-300 z-10">
+                            <i data-lucide="trending-up" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark mb-2 font-brand">4. Yield</h3>
+                        <p class="text-sm text-slate-500 px-2 leading-relaxed">Higher IRR. Lower risk. The power of <strong>De-Risked Yield</strong>.</p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-2">4. Scale</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Reinvest capital faster with 3x higher turnover velocity.</p>
                 </div>
             </div>
         </div>
@@ -476,7 +492,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mb-12">
                 <h2 id="demo-title" class="text-3xl md:text-4xl font-brand font-bold text-brand-dark transition-all duration-300">Your Personal Market</h2>
-                <p id="demo-desc" class="mt-4 text-slate-600 max-w-3xl text-lg transition-all duration-300">Interact with the <strong>Buyer App</strong> to broadcast your needs. Watch the market respond.</p>
+                <p id="demo-desc" class="mt-4 text-slate-600 max-w-3xl text-lg transition-all duration-300">Define your vision. Watch the market respond.</p>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-10 xl:gap-16 lg:h-[800px]">
@@ -484,7 +500,7 @@
                 <div class="lg:col-span-4 flex flex-col items-center lg:items-end">
                     <div class="mb-4 text-center lg:text-right w-full">
                         <span class="text-xs font-bold uppercase text-brand-blue tracking-wider">Step 1 & 2: Define & Verify</span>
-                        <h3 class="text-xl font-bold text-brand-dark font-brand">The "Buy Box"</h3>
+                        <h3 class="text-xl font-bold text-brand-dark font-brand">Match Profile</h3>
                         <p class="text-sm text-slate-500">Builders only pitch verified profiles.</p>
                     </div>
                     
@@ -581,7 +597,7 @@
                             <!-- Step 3: VIP Access -->
                             <div id="step-3" class="step-content hidden fade-in">
                                 <h3 class="text-xl font-brand font-bold mb-1 text-brand-dark">Unlock VIP Access</h3>
-                                <p class="text-xs text-slate-500 mb-4">Builders compete for verified Gold Status buyers.</p>
+                                <p class="text-xs text-slate-500 mb-4">Builders compete for verified Gold Standard buyers.</p>
                                 
                                 <div class="flex items-center justify-center gap-2 mb-6 bg-blue-50 py-2 px-4 rounded-sm w-fit mx-auto border border-brand-blue shadow-sm shine-gold">
                                     <i data-lucide="crown" class="text-brand-blue w-3 h-3"></i>
@@ -610,12 +626,12 @@
                                     <div id="ai-bio-container" class="hidden p-3 bg-white border border-brand-border rounded-lg text-left mb-3 shadow-sm">
                                         <div class="flex items-center gap-2 mb-2">
                                             <span class="text-base">✨</span>
-                                            <span class="text-[10px] font-bold uppercase text-brand-blue tracking-wider">AI Generated Bio</span>
+                                            <span class="text-[10px] font-bold uppercase text-brand-blue tracking-wider">Professional Builder Brief</span>
                                         </div>
                                         <p id="ai-bio-text" class="text-xs text-slate-700 italic leading-relaxed"></p>
                                     </div>
                                     <button onclick="generateBuyerBio()" id="btn-generate-bio" class="w-full py-2.5 bg-white border border-brand-border text-brand-blue font-bold rounded-sm text-xs hover:bg-blue-50 hover:border-brand-blue transition-colors flex items-center justify-center gap-2 shadow-sm">
-                                        <span>✨</span> Enhance Profile with AI
+                                        <span>✨</span> Generate Professional Brief
                                     </button>
                                 </div>
 
@@ -784,75 +800,9 @@
             </div>
         </div>
     </section>
-
-    <!-- NEW Pricing Section for Buyers -->
-    <section id="pricing-buyer" class="py-20 md:py-28 bg-white border-b border-brand-border scroll-mt-24" data-audience="buyer">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-brand font-bold text-brand-dark">Simple, Transparent Pricing</h2>
-                <p class="mt-4 text-slate-500 max-w-2xl mx-auto text-lg">You are the prize. We don't charge you to get pitched.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="p-8 rounded-lg bg-brand-light border border-brand-border relative hover:shadow-sharp transition-all group">
-                    <div class="absolute -top-4 left-8 bg-slate-200 text-slate-600 px-3 py-1 rounded-sm text-xs font-bold uppercase">Standard</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand text-brand-dark">Create Profile</h3>
-                    <div class="text-4xl font-mono font-bold text-brand-dark mb-4">$0<span class="text-lg text-slate-500 font-normal">/forever</span></div>
-                    <p class="text-slate-600 text-sm leading-relaxed">Build your "Buy Box", browse styles, and set your budget preferences.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="p-8 rounded-lg bg-white border-2 border-brand-blue relative shadow-sharp-blue transition-all group">
-                    <div class="absolute -top-4 left-8 bg-brand-blue text-white px-3 py-1 rounded-sm text-xs font-bold uppercase">Most Popular</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand text-brand-dark">Get Verified</h3>
-                    <div class="text-4xl font-mono font-bold text-brand-blue mb-4">$0<span class="text-lg text-slate-500 font-normal">/forever</span></div>
-                    <p class="text-slate-600 text-sm leading-relaxed">Upload proof of funds to unlock Gold Status and receive builder pitches.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="p-8 rounded-lg bg-brand-light border border-brand-border relative hover:shadow-sharp transition-all group">
-                    <div class="absolute -top-4 left-8 bg-green-100 text-green-700 px-3 py-1 rounded-sm text-xs font-bold uppercase border border-green-200">Bonus</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand text-brand-dark">Representation</h3>
-                    <div class="text-4xl font-mono font-bold text-brand-success mb-4">$0<span class="text-lg text-slate-500 font-normal">/fees</span></div>
-                    <p class="text-slate-600 text-sm leading-relaxed">Builders cover all agent commissions. You pay nothing for representation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW Pricing Section for Builders -->
-    <section id="pricing-builder" class="py-20 md:py-28 bg-brand-dark text-white scroll-mt-24" data-audience="builder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-brand font-bold text-white">Pay for Performance, Not Ads</h2>
-                <p class="mt-4 text-slate-400 max-w-2xl mx-auto text-lg">Zero upfront costs. Eliminate marketing waste.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="p-8 rounded-lg bg-slate-800 border border-slate-700 relative hover:border-brand-gold transition-all group">
-                    <div class="absolute -top-4 left-8 bg-slate-600 text-slate-200 px-3 py-1 rounded-sm text-xs font-bold uppercase group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">Access</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand">Platform Fee</h3>
-                    <div class="text-4xl font-mono font-bold text-white mb-4">$0<span class="text-lg text-slate-500 font-normal">/mo</span></div>
-                    <p class="text-slate-400 text-sm leading-relaxed">List unlimited inventory and view live demand heatmaps for free.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="p-8 rounded-lg bg-slate-800 border-2 border-brand-gold relative shadow-sharp-gold transition-all group">
-                    <div class="absolute -top-4 left-8 bg-brand-gold text-brand-dark px-3 py-1 rounded-sm text-xs font-bold uppercase">High Intent</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand">Match Fee</h3>
-                    <div class="text-4xl font-mono font-bold text-brand-gold mb-4">$150<span class="text-lg text-slate-500 font-normal">/lead</span></div>
-                    <p class="text-slate-400 text-sm leading-relaxed">Unlock full contact details for a verified, Gold-Tier buyer who matches your criteria.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="p-8 rounded-lg bg-slate-800 border border-slate-700 relative hover:border-brand-success transition-all group">
-                    <div class="absolute -top-4 left-8 bg-green-900 text-green-200 px-3 py-1 rounded-sm text-xs font-bold uppercase group-hover:bg-brand-success group-hover:text-brand-dark transition-colors">Closing</div>
-                    <h3 class="text-2xl font-bold mb-2 font-brand">Success Fee</h3>
-                    <div class="text-4xl font-mono font-bold text-brand-success mb-4">0.5%<span class="text-lg text-slate-500 font-normal">/deal</span></div>
-                    <p class="text-slate-400 text-sm leading-relaxed">Transaction fee collected automatically at closing. No deal, no fee.</p>
-                </div>
-            </div>
-        </div>
-    </section>
     
-    <!-- Revenue / Economics Section (Restored & Optimized per Rec 3) -->
-    <section id="revenue" class="py-20 md:py-28 bg-brand-dark text-white scroll-mt-24" data-audience="investor">
+    <!-- Revenue / Economics Section (Restored for All Personas) -->
+    <section id="revenue" class="py-20 md:py-28 bg-brand-dark text-white scroll-mt-24" data-audience="buyer,builder,investor">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 id="revenue-title" class="text-3xl md:text-4xl font-brand font-bold text-white">Partnership Pricing</h2>
@@ -871,7 +821,7 @@
                     <div class="absolute -top-4 left-8 bg-green-900 text-green-200 px-3 py-1 rounded-sm text-xs font-bold uppercase group-hover:bg-brand-success group-hover:text-brand-dark transition-colors">Pay For Performance</div>
                     <h3 class="text-2xl font-bold mb-2 font-brand">Pay Per Match</h3>
                     <div class="text-4xl font-mono font-bold text-white mb-4">$150<span class="text-lg text-slate-500 font-normal">/match</span></div>
-                    <p class="text-slate-400 text-sm leading-relaxed">Only pay when you match with a verified, Gold-Tier buyer. Zero risk marketing spend.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Only pay when you match with a verified, Gold Standard buyer. Zero risk marketing spend.</p>
                 </div>
                 <!-- Stream 3 -->
                 <div class="p-8 rounded-lg bg-slate-800 border border-slate-700 relative hover:border-purple-500 transition-all group">
@@ -925,7 +875,7 @@
                     <div class="text-sm opacity-80">Direct Builder Access</div>
                 </div>
             </div>
-            <button onclick="openWaitlistModal()" class="bg-white text-brand-blue px-8 py-4 rounded-md font-bold shadow-lg hover:translate-y-[2px] hover:shadow-md transition-all border-2 border-white">Build My Buy Box</button>
+            <button onclick="document.getElementById('demo').scrollIntoView({behavior: 'smooth'})" class="bg-white text-brand-blue px-8 py-4 rounded-md font-bold shadow-lg hover:translate-y-[2px] hover:shadow-md transition-all border-2 border-white">Start My Profile</button>
         </div>
     </section>
 
@@ -986,12 +936,12 @@
                 <div>
                     <h3 class="text-xl font-bold text-brand-dark mb-3">For Home Builders</h3>
                     <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                        Eliminate speculation risk with our <strong>verified buyer demand feed</strong>. Newer provides a live order book of pre-approved clients in your zip code, reducing marketing costs to zero and ensuring faster inventory turnover.
+                        Eliminate speculation risk with our <strong>verified buyer demand feed</strong>. Newer provides a live order book of pre-approved clients in your zip code, shifting marketing costs to success fees and ensuring faster turnover.
                     </p>
                     <ul class="text-sm text-slate-500 space-y-2">
                         <li>
                             <svg viewBox="0 0 24 24" fill="none" class="inline w-4 h-4 text-brand-gold mr-2" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg>
-                            Zero marketing spend
+                            De-risked customer acquisition
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24" fill="none" class="inline w-4 h-4 text-brand-gold mr-2" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg>
@@ -1035,11 +985,20 @@
                 <!-- UPDATED FAQs for SEO Gaps -->
                 <div class="bg-white rounded-lg border border-brand-border overflow-hidden shadow-sm" data-audience="buyer">
                     <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)" aria-expanded="false">
+                        <span class="font-bold text-brand-dark">What warranties come with Newer homes?</span>
+                        <i data-lucide="chevron-down" class="text-slate-400 faq-icon w-5 h-5"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-brand-light">
+                        <p class="py-4 text-slate-600 text-sm">All builders on Newer must provide a minimum <strong>1-2-10 Year Warranty</strong> (1 year workmanship, 2 years systems, 10 years structural). We verify builder insurance and track quality ratings to protect you from "lemon" homes.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg border border-brand-border overflow-hidden shadow-sm" data-audience="buyer">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)" aria-expanded="false">
                         <span class="font-bold text-brand-dark">Can I request interest rate buy-downs in my bid?</span>
                         <i data-lucide="chevron-down" class="text-slate-400 faq-icon w-5 h-5"></i>
                     </button>
                     <div class="faq-answer px-6 bg-brand-light">
-                        <p class="py-4 text-slate-600 text-sm">Yes. In your "Buy Box" profile, you can specify financing needs. Many builders on Newer offer <strong>in-house lending incentives</strong>, including permanent rate buy-downs (e.g., 2-1 buydowns) and closing cost credits to lower your monthly payment.</p>
+                        <p class="py-4 text-slate-600 text-sm">Yes. In your "Match Profile", you can specify financing needs. Many builders on Newer offer <strong>in-house lending incentives</strong>, including permanent rate buy-downs (e.g., 2-1 buydowns) and closing cost credits to lower your monthly payment.</p>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg border border-brand-border overflow-hidden shadow-sm" data-audience="buyer">
@@ -1215,7 +1174,7 @@
                                     <path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" />
                                 </svg>
                             </div>
-                            <h3 id="modal-title" class="text-xl font-brand font-bold text-brand-dark">Get Early Access</h3>
+                            <h3 id="modal-title" class="text-xl font-brand font-bold text-brand-dark">Get Priority Access</h3>
                         </div>
                         <p class="text-sm text-slate-500 mb-6">Join 4,200+ buyers and builders for the Newer launch in your city. Check your email for VIP confirmation.</p>
                         <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
@@ -1280,19 +1239,19 @@
                 // Updated Hook from Strategy: Mechanism Hook
                 title: 'Don\'t Chase Listings.<br><span class="text-brand-blue">Make Builders Bid For You.</span>',
                 // Updated Sub-headline/Bridge from Strategy
-                desc: 'Newer connects verified buyers directly with top home builders. Simply post your "Buy Box" profile, verify your budget, and receive custom proposals for inventory and off-market homes that match your exact criteria.',
-                ctaText: 'Build My Buy Box',
+                desc: 'Newer connects verified buyers directly with top home builders. Simply create your Match Profile, verify your budget, and receive custom proposals for off-market homes that match your exact criteria.',
+                ctaText: 'Start My Profile',
                 conceptTitle: 'The Power Shift',
-                conceptDesc: 'We flipped the real estate model to put you in control.<br><span class="font-semibold text-brand-dark">Stop begging for viewings. Become the VIP Client.</span>',
+                conceptDesc: 'We flipped the real estate model to put you in control.<br><span class="font-semibold text-brand-dark">Stop begging for viewings. Become the Client.</span>',
                 demoTitle: 'Your Personal Market',
                 testimonialTitle: 'Success Stories',
                 testimonialDesc: 'See how families are skipping the stress and getting offers directly from builders.',
                 // Updated "Old Way" List from Strategy
-                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Active Shopper:</span><p class="text-sm">Refreshing listing apps every 15 minutes.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Pain:</span><p class="text-sm">Driving to open houses only to find it\'s sold.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Result:</span><p class="text-sm">Competing against 20 other buyers in a bidding war.</p></div></li>',
+                oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Chase:</span><p class="text-sm">Refreshing listing apps every 15 minutes.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Pain:</span><p class="text-sm">Driving to open houses only to find it\'s sold.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Result:</span><p class="text-sm">Competing against 20 other buyers in a bidding war.</p></div></li>',
                 // Updated "New Way" List from Strategy
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The VIP Client:</span><p class="text-sm">Define your dream specs and budget once.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Benefit:</span><p class="text-sm">Top builders review your profile and pitch <em>you</em>.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Result:</span><p class="text-sm">Direct offers, incentives, and zero competition.</p></div></li>`,
-                demoDesc: 'Interact with the <strong>Buyer App</strong> to broadcast your needs. Watch the market respond.',
-                revenueTitle: 'Partnership Pricing', revenueDesc: 'Remove the barrier to entry. Build liquidity first.'
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Gold Standard:</span><p class="text-sm">Define your dream specs and budget once.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Benefit:</span><p class="text-sm">Top builders review your profile and pitch <em>you</em>.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Result:</span><p class="text-sm">Direct offers, incentives, and zero competition.</p></div></li>`,
+                demoDesc: 'Define your vision. Watch the market respond.',
+                revenueTitle: 'Transparent Pricing', revenueDesc: 'Our platform is 100% free for buyers. Builders pay to pitch you.'
             },
             builder: {
                 heroImage: 'url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80")',
@@ -1308,7 +1267,7 @@
                 testimonialDesc: 'See how regional developers are clearing inventory 3x faster than the market average.',
                 // Updated Lists: Focus on Carry Costs
                 oldList: '<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The "Spec" Gamble:</span><p class="text-sm">Building millions in vertical inventory and praying interest rates don\'t spike.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><i data-lucide="x" class="w-5 h-5 text-red-400"></i></div><div><span class="font-bold text-slate-800">The Cost:</span><p class="text-sm">6% Realtor fees + 12 months of hard money carry costs.</p></div></li>',
-                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Order Book:</span><p class="text-sm">See exactly what buyers want before you pour the slab.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Profit:</span><p class="text-sm">Zero marketing spend. Reduced carry. Higher IRR.</p></div></li>`,
+                newList: `<li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Order Book:</span><p class="text-sm">See exactly what buyers want before you pour the slab.</p></div></li><li class="flex items-start gap-3"><div class="mt-1 min-w-[20px]"><svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg"><path d="M5 15 L12 7 L19 15" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></div><div><span class="font-bold text-brand-dark">The Profit:</span><p class="text-sm">De-risked customer acquisition. Reduced carry. Higher IRR.</p></div></li>`,
                 demoDesc: 'Watch the <strong>Builder Terminal</strong> populate instantly as real demand flows in from the App.',
                 revenueTitle: 'Partnership Pricing', revenueDesc: 'No hidden fees. A partnership model designed to align our success with yours.'
             },
@@ -1359,7 +1318,7 @@
                 name: 'Sarah & Mark T.',
                 sub: 'Austin, TX',
                 // Updated Outcome Testimonial
-                quote: '"We spent 6 months losing bids. On Newer, we built a profile on Tuesday and had three builder offers by Friday. We signed a contract for a home that wasn\'t even listed yet."',
+                quote: '"We spent 6 months losing bids. On Newer, we built a Match Profile on Tuesday and had three builder offers by Friday. We signed a contract for a home that wasn\'t even listed yet."',
                 textClass: 'text-slate-600'
             },
             {
@@ -1371,7 +1330,7 @@
                 iconBg: 'bg-white text-slate-400 border border-slate-200',
                 name: 'Jason L.',
                 sub: 'Denver, CO',
-                quote: '"I thought I was priced out. A builder saw my \'Verify\' badge and offered me a pre-construction deal on a townhome if I could close quickly."',
+                quote: '"I thought I was priced out. A builder saw my \'Verified\' badge and offered me a pre-construction deal on a townhome if I could close quickly."',
                 textClass: 'text-slate-600'
             },
             {
@@ -1464,7 +1423,7 @@
                 const randomBio = mockBios[Math.floor(Math.random() * mockBios.length)];
                 container.classList.remove('hidden');
                 text.innerText = `"${randomBio}"`;
-                btn.innerHTML = '<span>✨</span> Regenerate Bio'; btn.disabled = false;
+                btn.innerHTML = '<span>✨</span> Regenerate Brief'; btn.disabled = false;
             }, 1200);
         }
 
