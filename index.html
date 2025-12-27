@@ -8,11 +8,11 @@
     <!-- Brand Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><path d='M20 80 V35 L50 20 L50 55 L20 80 Z' fill='%230D9488' stroke='%230D9488' stroke-width='4' stroke-linejoin='round' /><path d='M80 20 V65 L50 80 L50 45 L80 20 Z' fill='%230D9488' stroke='%230D9488' stroke-width='4' stroke-linejoin='round' /></svg>">
     
-    <!-- SEO Meta (Optimized for "New Homes") -->
+    <!-- SEO Meta -->
     <meta name="description" content="Newer is the New Construction Marketplace. Stop chasing listings. Create a free profile and make top builders bid on your new home project. Access off-market and spec homes.">
     <meta name="keywords" content="New Homes, New Construction, Custom Builders, Off-Market Real Estate, Home Builder Bids, Spec Homes, Quick Move-In Homes">
     
-    <!-- Structured Data (JSON-LD) for AEO -->
+    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -65,6 +65,7 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'stamp': 'stamp-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both',
                         'fade-in': 'fade-in 0.5s ease-out forwards',
+                        'typing': 'typing 1.5s infinite ease-in-out',
                     },
                     keyframes: {
                         float: {
@@ -82,6 +83,10 @@
                         'fade-in': {
                             '0%': { opacity: '0', transform: 'translateY(10px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        typing: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-3px)' }
                         }
                     }
                 }
@@ -180,18 +185,13 @@
         }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #E7E5E4; border-radius: 2px; }
 
-        .faq-answer { transition: max-height 0.4s ease, opacity 0.4s ease; max-height: 0; overflow: hidden; opacity: 0; }
-        .faq-answer.open { max-height: 500px; opacity: 1; }
-        
-        .theme-transition { transition: all 0.5s ease; }
-
-        /* Stamp Effect - Refined Dimensions */
+        /* Stamp Effect */
         .stamp-container {
             border: 3px solid; 
             padding: 4px 12px;
             text-transform: uppercase;
             font-weight: 800;
-            font-size: 0.9rem; /* Reduced from 2rem to fit */
+            font-size: 0.9rem;
             letter-spacing: 0.05em;
             transform: rotate(-10deg);
             display: inline-block;
@@ -211,6 +211,49 @@
         .dark .receipt-edge {
             background-image: radial-gradient(circle at 10px 0, transparent 6px, #1F2937 7px);
         }
+
+        /* Chat Engine Styles */
+        .chat-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            animation: fade-in 0.3s ease-out forwards;
+        }
+        .chat-bubble.ai {
+            background-color: #FAFAF9; /* Concrete */
+            color: #0F172A; /* Charcoal */
+            border-bottom-left-radius: 4px;
+            border: 1px solid #E7E5E4;
+        }
+        .dark .chat-bubble.ai {
+            background-color: #1F2937;
+            color: #F3F4F6;
+            border-color: #374151;
+        }
+        .chat-bubble.user {
+            background-color: #0D9488; /* Teal Default */
+            color: white;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+        }
+        .dark .chat-bubble.user {
+            background-color: #D97706; /* Gold/Bronze for Builder */
+            color: white;
+        }
+        .typing-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #9CA3AF;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
     </style>
 </head>
 <body class="bg-brand-concrete text-brand-charcoal dark:bg-brand-charcoal dark:text-gray-100 font-sans antialiased pb-32 lg:pb-0 transition-colors duration-500 relative">
@@ -331,7 +374,7 @@
         </div>
     </section>
 
-    <!-- Concept Section (Moved UP for Narrative Flow) -->
+    <!-- Concept Section -->
     <section id="concept" class="py-24 bg-brand-concrete/50 dark:bg-gray-900/50 transition-colors scroll-mt-28">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal-on-scroll">
@@ -375,7 +418,7 @@
         </div>
     </section>
 
-    <!-- 1-2-3 How it Works (The Journey - Moved Down) -->
+    <!-- 1-2-3 How it Works (The Journey) -->
     <section id="how-it-works" class="py-20 bg-brand-concrete/30 dark:bg-gray-900/30 transition-colors overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-on-scroll relative">
             <h2 id="journey-title" class="text-3xl font-extrabold text-brand-charcoal dark:text-white mb-16">The Journey to Your New Construction Home</h2>
@@ -827,7 +870,7 @@
         </div>
     </section>
 
-    <!-- CTA BUYER -->
+    <!-- CTA BUYER (Bottom) -->
     <section id="cta-buyer" class="py-20 bg-brand-teal text-white transition-colors scroll-mt-28" data-audience="buyer">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-extrabold mb-6">Stop Searching. Start Receiving.</h2>
@@ -840,7 +883,7 @@
         </div>
     </section>
 
-    <!-- CTA BUILDER -->
+    <!-- CTA BUILDER (Bottom) -->
     <section id="cta-builder" class="py-20 bg-gray-900 text-white hidden transition-colors scroll-mt-28" data-audience="builder">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-extrabold mb-6">Eliminate Spec Risk.</h2>
@@ -850,11 +893,38 @@
         </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- The Newer Way (AI FAQ) -->
     <section id="faq" class="py-24 bg-brand-concrete dark:bg-gray-900 border-t border-brand-border dark:border-gray-800 transition-colors scroll-mt-28">
         <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-3xl font-extrabold text-brand-charcoal dark:text-white text-center mb-12">FAQ</h2>
-            <div id="faq-container" class="space-y-4"></div>
+            <h2 class="text-3xl font-extrabold text-brand-charcoal dark:text-white text-center mb-8">The Newer Way</h2>
+            <p class="text-center text-gray-500 dark:text-gray-400 mb-12" id="faq-subtext">Ask us anything about buying or building.</p>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-3xl border border-brand-border dark:border-gray-700 shadow-xl overflow-hidden flex flex-col h-[500px]">
+                <!-- Chat History -->
+                <div id="chat-history" class="flex-1 p-6 overflow-y-auto space-y-4 scrollbar-hide">
+                    <div class="chat-bubble ai">
+                        Hi there! I'm your Newer Assistant. Ask me anything about the marketplace, verified leads, or how to get started.
+                    </div>
+                </div>
+
+                <!-- Suggested Chips -->
+                <div class="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-brand-border dark:border-gray-700 overflow-x-auto whitespace-nowrap scrollbar-hide" id="chat-chips">
+                    <!-- JS Injected -->
+                </div>
+
+                <!-- Input Area -->
+                <div class="p-4 bg-white dark:bg-gray-800 border-t border-brand-border dark:border-gray-700">
+                    <form onsubmit="handleChatSubmit(event)" class="relative">
+                        <input type="text" id="chat-input" placeholder="Type your question..." class="w-full bg-brand-concrete dark:bg-gray-700 dark:text-white rounded-full pl-6 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-brand-teal dark:focus:ring-brand-gold transition-all">
+                        <button type="submit" class="absolute right-2 top-2 p-1.5 bg-brand-charcoal text-white rounded-full hover:bg-brand-teal dark:hover:bg-brand-gold transition-colors">
+                            <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                    <div class="text-[10px] text-gray-400 text-center mt-2 flex items-center justify-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Live AI Agent
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -952,6 +1022,107 @@
         let appState = { style: '', budget: 500, bedrooms: 3, amenities: [], credits: 500, persona: '' };
         let currentAudience = 'buyer'; 
         let intelChartInstance = null;
+
+        // --- Chat Engine Logic ---
+        const chatKnowledgeBase = {
+            buyer: {
+                intro: "Hi! I'm your Newer Assistant. Ask me how to get builders to bid on your project.",
+                prompts: ["How does this work?", "Is it free?", "What builders are here?", "Can I get financing?"],
+                answers: {
+                    "work": "It's simple: 1. Create a profile (your 'Buy Box'). 2. Verify your funds. 3. Sit back as builders pitch you directly with off-market deals and incentives.",
+                    "free": "Yes! Newer is 100% free for buyers. Builders pay us because we save them marketing costs.",
+                    "builder": "We work with top national builders like Lennar, Pulte, and Toll Brothers, as well as vetted local custom home builders.",
+                    "financ": "Absolutely. You can request rate buy-downs or closing cost credits directly in your profile.",
+                    "default": "Great question! Newer flips the script: instead of you chasing listings, builders compete for your business. Create a free profile to see who bids!"
+                }
+            },
+            builder: {
+                intro: "Welcome to the Demand Command Center. Ask me about lead quality, absorption, or integration.",
+                prompts: ["How are leads verified?", "What is the cost?", "Does it integrate with CRM?", "What is 'Spec Risk'?"],
+                answers: {
+                    "verif": "We use Plaid to verify liquid funds or mortgage pre-approvals in real-time. You never waste time on unqualified leads.",
+                    "cost": "There is $0 platform fee to list. You pay a small match fee to unlock contact info, and a success fee only upon closing.",
+                    "crm": "Yes. We push verified leads directly to Salesforce, HubSpot, and BuildTrend via our robust API.",
+                    "spec": "Spec risk is building without a buyer. Newer eliminates this by giving you a live order book of ready buyers before you break ground.",
+                    "default": "Newer helps you build pre-sold. Access our live map of verified demand to eliminate speculation and reduce carry costs."
+                }
+            }
+        };
+
+        function initChat(role) {
+            const kb = chatKnowledgeBase[role];
+            const history = document.getElementById('chat-history');
+            const chips = document.getElementById('chat-chips');
+            
+            // Reset
+            history.innerHTML = `<div class="chat-bubble ai">
+                        ${kb.intro}
+                    </div>`;
+            
+            // Set Chips
+            chips.innerHTML = '';
+            kb.prompts.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = `inline-block px-4 py-2 rounded-full text-xs font-bold mr-2 transition-all ${role === 'builder' ? 'bg-gray-800 text-brand-gold border border-brand-gold hover:bg-brand-gold hover:text-brand-charcoal' : 'bg-white text-brand-teal border border-brand-teal hover:bg-brand-teal hover:text-white'}`;
+                btn.innerText = p;
+                btn.onclick = () => handleChatSubmit(null, p);
+                chips.appendChild(btn);
+            });
+        }
+
+        function handleChatSubmit(e, textOverride) {
+            if(e) e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const txt = textOverride || input.value;
+            if(!txt) return;
+            
+            const history = document.getElementById('chat-history');
+            
+            // Add User Msg
+            const userBubble = document.createElement('div');
+            userBubble.className = `chat-bubble user mb-4`;
+            userBubble.innerText = txt;
+            history.appendChild(userBubble);
+            
+            if(!textOverride) input.value = '';
+            history.scrollTop = history.scrollHeight;
+
+            // Simulate Thinking
+            const typingBubble = document.createElement('div');
+            typingBubble.className = "chat-bubble ai mb-4";
+            typingBubble.innerHTML = `<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>`;
+            history.appendChild(typingBubble);
+            history.scrollTop = history.scrollHeight;
+
+            setTimeout(() => {
+                typingBubble.remove();
+                const aiBubble = document.createElement('div');
+                aiBubble.className = "chat-bubble ai mb-4";
+                
+                // Logic
+                const kb = chatKnowledgeBase[currentAudience];
+                let response = kb.answers.default;
+                const lower = txt.toLowerCase();
+                
+                if(lower.includes('work') || lower.includes('how')) response = kb.answers.work || kb.answers.verif;
+                if(lower.includes('free') || lower.includes('cost') || lower.includes('price')) response = kb.answers.free || kb.answers.cost;
+                if(lower.includes('builder') || lower.includes('crm')) response = kb.answers.builder || kb.answers.crm;
+                if(lower.includes('financ') || lower.includes('spec')) response = kb.answers.financ || kb.answers.spec;
+                
+                aiBubble.innerText = response;
+                history.appendChild(aiBubble);
+                history.scrollTop = history.scrollHeight;
+            }, 1000);
+        }
+
+        // Helper function for safe class manipulation
+        function toggleClass(id, className, action) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (action === 'add') el.classList.add(className);
+                else if (action === 'remove') el.classList.remove(className);
+            }
+        }
         
         // --- Map Data ---
         const heatMapPoints = Array.from({length: 40}, () => ({ x: Math.random(), y: Math.random(), r: 20 + Math.random() * 40 }));
@@ -1129,16 +1300,11 @@
             }
         ];
         
-        const faqData = [
-            { role: 'buyer', q: "Is it complicated?", a: "No. Setting up your profile takes less than 5 minutes. You define your style, budget, and must-haves, then sit back." },
-            { role: 'buyer', q: "Is it expensive?", a: "Newer is 100% FREE for buyers. Builders pay us because we save them marketing costs." },
-            { role: 'buyer', q: "Is it safe?", a: "We use bank-level 256-bit encryption (via Plaid) to verify funds. We never see your login details, and your privacy is guaranteed." },
-            { role: 'buyer', q: "Can I request rate buy-downs?", a: "Yes. In your 'Buy Box,' specify financing needs. Builders often offer 2-1 buydowns or closing cost credits to win your business." },
-            
-            { role: 'builder', q: "How are leads verified?", a: "We integrate directly with Plaid to verify proof of funds or mortgage pre-approval letters in real-time. You only see buyers who can actually close." },
-            { role: 'builder', q: "Does this integrate with my CRM?", a: "Yes. We offer seamless API integration with Salesforce, HubSpot, and BuildTrend to push verified leads directly into your sales pipeline." },
-            { role: 'builder', q: "What is the cost?", a: "There is $0 Platform Fee to list inventory. You pay a small match fee to unlock contact info, and a 0.5% success fee only at closing." },
-            { role: 'builder', q: "Does it work for custom builds?", a: "Yes. Filter demand by specific lot requirements (e.g., '3-Car Garage', 'Pool Ready') to find buyers looking for exactly what you build." }
+        // --- ADDED MISSING DEFINITION ---
+        const notifications = [
+            { text: "New Match: $450k Budget", icon: "check" },
+            { text: "Builder Bid: $15k Incentive", icon: "tag" },
+            { text: "Pre-Approval Verified", icon: "shield" }
         ];
 
         function setAudience(role) {
@@ -1148,30 +1314,24 @@
 
             // 1. Text & Image Updates
             const cfg = contentConfig[role] || contentConfig['buyer'];
-            document.getElementById('hero-title').innerHTML = cfg.title;
-            document.getElementById('hero-desc').innerText = cfg.desc;
             
-            // Update Concept Section with new dynamic fields
-            document.getElementById('concept-title').innerText = cfg.conceptTitle;
-            document.getElementById('concept-desc').innerHTML = cfg.conceptDesc;
-            document.getElementById('aeo-def-text').innerHTML = cfg.aeoDef; // New AEO Logic
-            document.getElementById('concept-label-old').innerText = cfg.legacyLabel;
-            document.getElementById('concept-header-old').innerHTML = cfg.legacyHeader;
-            document.getElementById('concept-old-list').innerHTML = cfg.legacyList;
-            document.getElementById('concept-new-list').innerHTML = cfg.list;
+            // Helper for safe text updates
+            const setText = (id, text) => { const el = document.getElementById(id); if(el) el.innerHTML = text; };
             
-            // Update Demo Section Titles
-            const demoTitle = document.getElementById('demo-title');
-            const demoDesc = document.getElementById('demo-desc');
-            if(demoTitle) demoTitle.innerText = cfg.demoTitle;
-            if(demoDesc) demoDesc.innerText = cfg.demoDesc;
-
-            document.getElementById('testimonial-title').innerText = cfg.testimonialTitle;
-            document.getElementById('testimonial-desc').innerText = cfg.testimonialDesc;
-            
-            // Update Journey Heading - NEW v2.3
-            const journeyTitle = document.getElementById('journey-title');
-            if (journeyTitle) journeyTitle.innerText = cfg.journeyTitle;
+            setText('hero-title', cfg.title);
+            setText('hero-desc', cfg.desc);
+            setText('concept-title', cfg.conceptTitle);
+            setText('concept-desc', cfg.conceptDesc);
+            setText('aeo-def-text', cfg.aeoDef);
+            setText('concept-label-old', cfg.legacyLabel);
+            setText('concept-header-old', cfg.legacyHeader);
+            setText('concept-old-list', cfg.legacyList);
+            setText('concept-new-list', cfg.list);
+            setText('demo-title', cfg.demoTitle);
+            setText('demo-desc', cfg.demoDesc);
+            setText('testimonial-title', cfg.testimonialTitle);
+            setText('testimonial-desc', cfg.testimonialDesc);
+            setText('journey-title', cfg.journeyTitle); 
 
             // Update Steps Logic V1.9 (Icons)
             const step1Title = document.getElementById('step-1-title');
@@ -1221,27 +1381,27 @@
             // New CTA Logic from V2.4
             const ctaBtn = document.getElementById('hero-cta-main');
             const stickyCta = document.getElementById('mobile-sticky-cta');
-            const navCta = document.getElementById('nav-cta-btn'); // NEW v2.7
+            const navCta = document.getElementById('nav-cta-btn'); 
 
             if(role === 'buyer') {
-                pill.style.transform = 'translateX(0)';
-                btnBuyer.classList.remove('text-gray-500'); btnBuyer.classList.add('text-brand-charcoal');
-                btnBuilder.classList.add('text-gray-500'); btnBuilder.classList.remove('text-white');
+                if(pill) pill.style.transform = 'translateX(0)';
+                if(btnBuyer) { btnBuyer.classList.remove('text-gray-500'); btnBuyer.classList.add('text-brand-charcoal'); }
+                if(btnBuilder) { btnBuilder.classList.add('text-gray-500'); btnBuilder.classList.remove('text-white'); }
                 
                 // Set CTA Text for Buyer
-                if(ctaBtn) ctaBtn.innerText = 'Start Receiving Bids'; // Updated V2.6
-                if(stickyCta) stickyCta.innerText = 'Start Receiving Bids'; // Updated V2.6
-                if(navCta) navCta.innerText = 'Start Receiving Bids'; // NEW v2.7
+                if(ctaBtn) ctaBtn.innerText = 'Start Receiving Bids'; 
+                if(stickyCta) stickyCta.innerText = 'Start Receiving Bids'; 
+                if(navCta) navCta.innerText = 'Start Receiving Bids'; 
 
             } else {
-                pill.style.transform = 'translateX(100%)';
-                btnBuyer.classList.add('text-gray-500'); btnBuyer.classList.remove('text-brand-charcoal');
-                btnBuilder.classList.remove('text-gray-500'); btnBuilder.classList.add('text-white');
+                if(pill) pill.style.transform = 'translateX(100%)';
+                if(btnBuyer) { btnBuyer.classList.add('text-gray-500'); btnBuyer.classList.remove('text-brand-charcoal'); }
+                if(btnBuilder) { btnBuilder.classList.remove('text-gray-500'); btnBuilder.classList.add('text-white'); }
                 
                 // Set CTA Text for Builder
-                if(ctaBtn) ctaBtn.innerText = 'Search Buyer Demand'; // Updated V2.6
-                if(stickyCta) stickyCta.innerText = 'Search Buyer Demand'; // Updated V2.6
-                if(navCta) navCta.innerText = 'Search Buyer Demand'; // NEW v2.7
+                if(ctaBtn) ctaBtn.innerText = 'Search Buyer Demand'; 
+                if(stickyCta) stickyCta.innerText = 'Search Buyer Demand'; 
+                if(navCta) navCta.innerText = 'Search Buyer Demand'; 
             }
 
             // 3. Mobile Floating Nav
@@ -1261,33 +1421,39 @@
                 }
             });
 
-            // 4. Section Visibility & Visuals
+            // 4. Section Visibility & Visuals - USING SAFE HELPERS
             const badgeDot = document.getElementById('hero-badge-dot');
-            const ctaBtnEl = document.getElementById('hero-cta-main'); // Renamed to avoid confusion with local ctaBtn
+            const ctaBtnEl = document.getElementById('hero-cta-main');
             const conceptBadge = document.getElementById('concept-badge-new');
             const conceptIcon = document.getElementById('concept-icon-new');
             const conceptHighlight = document.getElementById('concept-highlight');
-            const stickyCtaEl = document.getElementById('mobile-sticky-cta'); // Renamed to avoid confusion
+            const stickyCtaEl = document.getElementById('mobile-sticky-cta');
 
+            // Safe removal of classes
             ['bg-brand-teal', 'bg-brand-gold', 'text-brand-teal', 'text-brand-gold'].forEach(c => {
-                badgeDot.classList.remove(c); ctaBtnEl.classList.remove(c); 
-                conceptBadge.classList.remove(c); conceptIcon.classList.remove(c); 
+                if(badgeDot) badgeDot.classList.remove(c);
+                if(ctaBtnEl) ctaBtnEl.classList.remove(c); 
+                if(conceptBadge) conceptBadge.classList.remove(c); 
+                if(conceptIcon) conceptIcon.classList.remove(c); 
                 if(conceptHighlight) conceptHighlight.classList.remove(c);
             });
 
             if(role === 'builder') {
-                badgeDot.classList.add('bg-brand-gold');
-                ctaBtnEl.classList.add('bg-brand-gold');
-                ctaBtnEl.classList.add('text-brand-charcoal'); ctaBtnEl.classList.remove('text-white');
+                if(badgeDot) badgeDot.classList.add('bg-brand-gold');
+                if(ctaBtnEl) {
+                    ctaBtnEl.classList.add('bg-brand-gold');
+                    ctaBtnEl.classList.add('text-brand-charcoal'); 
+                    ctaBtnEl.classList.remove('text-white');
+                }
                 
-                conceptBadge.classList.add('text-brand-gold');
-                conceptIcon.classList.add('bg-brand-gold');
+                if(conceptBadge) conceptBadge.classList.add('text-brand-gold');
+                if(conceptIcon) conceptIcon.classList.add('bg-brand-gold');
                 if(conceptHighlight) conceptHighlight.classList.add('text-brand-gold');
                 
-                document.getElementById('pricing-buyer').classList.add('hidden');
-                document.getElementById('pricing-builder').classList.remove('hidden');
-                document.getElementById('cta-buyer').classList.add('hidden');
-                document.getElementById('cta-builder').classList.remove('hidden');
+                toggleClass('pricing-buyer', 'hidden', 'add');
+                toggleClass('pricing-builder', 'hidden', 'remove');
+                toggleClass('cta-buyer', 'hidden', 'add');
+                toggleClass('cta-builder', 'hidden', 'remove'); 
 
                 if(stickyCtaEl) {
                     stickyCtaEl.classList.remove('bg-brand-teal', 'text-white');
@@ -1295,18 +1461,21 @@
                 }
 
             } else {
-                badgeDot.classList.add('bg-brand-teal');
-                ctaBtnEl.classList.add('bg-brand-teal');
-                ctaBtnEl.classList.add('text-white'); ctaBtnEl.classList.remove('text-brand-charcoal');
+                if(badgeDot) badgeDot.classList.add('bg-brand-teal');
+                if(ctaBtnEl) {
+                    ctaBtnEl.classList.add('bg-brand-teal');
+                    ctaBtnEl.classList.add('text-white'); 
+                    ctaBtnEl.classList.remove('text-brand-charcoal');
+                }
 
-                conceptBadge.classList.add('text-brand-teal');
-                conceptIcon.classList.add('bg-brand-teal');
+                if(conceptBadge) conceptBadge.classList.add('text-brand-teal');
+                if(conceptIcon) conceptIcon.classList.add('bg-brand-teal');
                 if(conceptHighlight) conceptHighlight.classList.add('text-brand-teal');
-
-                document.getElementById('pricing-buyer').classList.remove('hidden');
-                document.getElementById('pricing-builder').classList.add('hidden');
-                document.getElementById('cta-buyer').classList.remove('hidden');
-                document.getElementById('cta-builder').classList.add('hidden');
+                
+                toggleClass('pricing-buyer', 'hidden', 'remove');
+                toggleClass('pricing-builder', 'hidden', 'add');
+                toggleClass('cta-buyer', 'hidden', 'remove'); 
+                toggleClass('cta-builder', 'hidden', 'add');
 
                 if(stickyCtaEl) {
                     stickyCtaEl.classList.remove('bg-brand-gold', 'text-brand-charcoal');
@@ -1315,7 +1484,8 @@
             }
             
             renderTestimonials(role);
-            renderFaq(role);
+            // Re-initialize chat on persona switch
+            initChat(role);
             
             const activeHex = colorMap[role];
             ['nav-logo-path-1', 'nav-logo-path-2', 'footer-logo-path-1', 'footer-logo-path-2'].forEach(id => {
@@ -1327,6 +1497,8 @@
             setTimeout(drawMap, 100);
         }
 
+        // ... [Rest of js functions like renderTestimonials, drawMap, etc.]
+
         function renderTestimonials(role) {
             const tGrid = document.getElementById('testimonials-grid');
             if(!tGrid) return;
@@ -1336,12 +1508,11 @@
             
             filtered.forEach((t, i) => {
                 const div = document.createElement('div');
-                // Ticket / Receipt Visual
                 div.className = "receipt-card bg-white dark:bg-gray-800 p-0 rounded-sm shadow-sm transform transition-all hover:-translate-y-1 relative font-mono text-sm";
                 
                 const borderColor = role === 'builder' ? 'border-brand-gold' : 'border-brand-teal';
                 const textColor = role === 'builder' ? 'text-brand-gold' : 'text-brand-teal';
-                const stampColor = role === 'builder' ? '#D97706' : '#0D9488'; // UPDATED TO NEW COLORS
+                const stampColor = role === 'builder' ? '#D97706' : '#0D9488'; 
 
                 div.innerHTML = `
                     <div class="p-6 border-b border-dashed border-gray-300 dark:border-gray-600 relative overflow-hidden">
@@ -1362,8 +1533,6 @@
                                 <span class="font-bold text-brand-charcoal dark:text-gray-200">${t.builder}</span>
                             </div>
                         </div>
-
-                        <!-- STAMP ANIMATION CONTAINER -->
                         <div class="stamp-container absolute bottom-4 right-4 opacity-0 transform rotate-[-10deg]" style="border-color: ${stampColor}; color: ${stampColor}">
                             ${t.status}
                         </div>
@@ -1372,29 +1541,20 @@
                 `;
                 tGrid.appendChild(div);
             });
+            
+            // Re-trigger scroll animations for new content
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        const stamps = entry.target.querySelectorAll('.stamp-container');
+                        stamps.forEach((s, i) => setTimeout(() => s.classList.add('animate-stamp'), i * 200 + 300));
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(tGrid);
         }
         
-        function renderFaq(role) {
-             const fContainer = document.getElementById('faq-container');
-            if(!fContainer) return;
-            fContainer.innerHTML = '';
-            
-            const filtered = faqData.filter(f => f.role === role);
-            
-            filtered.forEach(item => {
-                const div = document.createElement('div');
-                div.className = "bg-white dark:bg-gray-800 rounded-2xl border border-brand-border dark:border-gray-700 overflow-hidden shadow-sm";
-                div.innerHTML = `
-                    <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-brand-charcoal dark:text-white" onclick="toggleFaq(this)">
-                        ${item.q} <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 bg-gray-50 dark:bg-gray-900"><p class="py-4 text-sm text-gray-600 dark:text-gray-400">${item.a}</p></div>
-                `;
-                fContainer.appendChild(div);
-            });
-        }
-
-        // --- Demo & Dashboard Logic (V1.7) ---
         function selectStyle(s) {
             appState.style = s;
             document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('ring-2', 'ring-brand-teal'));
@@ -1490,7 +1650,7 @@
             if(overlay) overlay.classList.remove('translate-y-full');
             const origin = getOrigin('builder-dashboard-container');
             // POP 1: Builder receives verified lead
-            confetti({ particleCount: 30, spread: 60, origin: origin, colors: ['#0D9488', '#D97706'] }); // UPDATED
+            confetti({ particleCount: 30, spread: 60, origin: origin, colors: ['#0D9488', '#D97706'] }); 
         }
 
         function unlockLead() {
@@ -1556,8 +1716,7 @@
              lucide.createIcons();
              
              const phoneOrigin = getOrigin('phone-container');
-             // POP 2: Buyer accepts pitch
-             confetti({ particleCount: 100, spread: 70, origin: phoneOrigin, colors: ['#0D9488', '#10B981'] }); // UPDATED
+             confetti({ particleCount: 100, spread: 70, origin: phoneOrigin, colors: ['#0D9488', '#10B981'] }); 
              
              triggerBuilderSale();
         }
@@ -1580,7 +1739,6 @@
             
             wrapper.appendChild(saleAlert);
             body.appendChild(wrapper);
-            // No confetti here
         }
 
         function resetDemo() {
@@ -1593,15 +1751,13 @@
             location.reload(); 
         }
 
-        // ROI Calculator Logic
         function updateROI(homes) {
-            const savingsPerHome = 14350; // $17k - $2650
+            const savingsPerHome = 14350; 
             const total = homes * savingsPerHome;
             document.getElementById('roi-homes').innerText = `${homes} Homes`;
             document.getElementById('roi-savings').innerText = `$${total.toLocaleString()}`;
         }
 
-        // --- Feed & Map ---
         function addFeedItem() {
             const container = document.getElementById('dashboard-list-view');
             if (!container) return;
@@ -1654,8 +1810,8 @@
                 const x = p.x * c.width;
                 const y = p.y * c.height;
                 const grad = ctx.createRadialGradient(x, y, 0, x, y, p.r);
-                grad.addColorStop(0, 'rgba(217, 119, 6, 0.2)'); // UPDATED
-                grad.addColorStop(1, 'rgba(217, 119, 6, 0)'); // UPDATED
+                grad.addColorStop(0, 'rgba(217, 119, 6, 0.2)'); 
+                grad.addColorStop(1, 'rgba(217, 119, 6, 0)'); 
                 ctx.fillStyle = grad;
                 ctx.beginPath();
                 ctx.arc(x, y, p.r, 0, Math.PI*2);
@@ -1670,52 +1826,11 @@
             const ctx = c.getContext('2d');
             intelChartInstance = new Chart(ctx, {
                 type: 'line',
-                data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Avg Buyer Budget', data: [420, 435, 430, 450, 465, 485], borderColor: '#D97706', tension: 0.4, borderWidth: 2, pointRadius: 0 }] }, // UPDATED
+                data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Avg Buyer Budget', data: [420, 435, 430, 450, 465, 485], borderColor: '#D97706', tension: 0.4, borderWidth: 2, pointRadius: 0 }] }, 
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { ticks: { color: '#6b7280' }, grid: { display: false } } } }
             });
         }
         
-        function toggleFaq(btn) {
-            const ans = btn.nextElementSibling;
-            const icon = btn.querySelector('svg') || btn.querySelector('i');
-            if (!icon) return; 
-            
-            if(ans.classList.contains('open')) { 
-                ans.classList.remove('open'); 
-                icon.style.transform = 'rotate(0deg)'; 
-            } else { 
-                ans.classList.add('open'); 
-                icon.style.transform = 'rotate(180deg)'; 
-            }
-        }
-
-        const notifications = [
-            { text: "New Match: $450k Budget", icon: "check" },
-            { text: "Builder Bid: $15k Incentive", icon: "tag" },
-            { text: "Pre-Approval Verified", icon: "shield" }
-        ];
-        
-        function spawnNotification(custom) {
-            const container = document.getElementById('hero-floating-notifications');
-            if(!container) return;
-            const notif = custom || notifications[Math.floor(Math.random() * notifications.length)];
-            const el = document.createElement('div');
-            el.className = "floating-bubble bg-white/90 dark:bg-gray-900/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-white/20 text-xs font-bold flex items-center gap-2 text-brand-charcoal dark:text-white";
-            el.innerHTML = `<i data-lucide="${notif.icon}" class="w-3 h-3 text-brand-teal"></i> ${notif.text}`;
-            container.appendChild(el);
-            lucide.createIcons();
-            setTimeout(() => { el.remove(); }, 4000);
-        }
-        
-        function validateEmail(input) {
-            const icon = document.getElementById('email-check');
-            if(input.value.includes('@') && input.value.includes('.')) {
-                icon.classList.remove('opacity-0');
-            } else {
-                icon.classList.add('opacity-0');
-            }
-        }
-
         function openWaitlistModal(role) { 
             const target = role || currentAudience;
             updateModalContext(target);
@@ -1746,6 +1861,24 @@
 
         function closeWaitlistModal() { document.getElementById('waitlist-modal').classList.add('hidden'); }
 
+        // --- ADDED MISSING FUNCTION ---
+        function spawnNotification(custom) {
+            const container = document.getElementById('hero-floating-notifications');
+            if(!container) return;
+            const notif = custom || notifications[Math.floor(Math.random() * notifications.length)];
+            const el = document.createElement('div');
+            el.className = "floating-bubble bg-white/90 dark:bg-gray-900/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-white/20 text-xs font-bold flex items-center gap-2 text-brand-charcoal dark:text-white";
+            
+            // Check if custom is object or text (handles both string and object input)
+            const iconName = notif.icon || 'check';
+            const textContent = notif.text || (typeof custom === 'string' ? custom : 'Notification');
+            
+            el.innerHTML = `<i data-lucide="${iconName}" class="w-3 h-3 text-brand-teal"></i> ${textContent}`;
+            container.appendChild(el);
+            lucide.createIcons();
+            setTimeout(() => { el.remove(); }, 4000);
+        }
+
         document.addEventListener('DOMContentLoaded', () => { 
             lucide.createIcons(); 
             setAudience('buyer'); 
@@ -1757,5 +1890,3 @@
     </script>
 </body>
 </html>
-
-
